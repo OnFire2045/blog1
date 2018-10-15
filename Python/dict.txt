@@ -1,0 +1,83 @@
+# 辞書の書き方
+fruits = {"Apple": "Red",
+          "Banana": "Yellow"}
+fruits
+
+facts = dict()
+
+# バリューを追加
+fact["code"] = "fun"
+# キーで参照
+facts["code"]
+# バリューを追加
+facts["Bill"] = "Gates"
+# キーで参照
+facts["Bill"]
+
+# バリューを追加
+facts["founded"] = 1776
+# キーで参照
+facts["founded"]
+# True
+bill = {"Bill Gates": "charitable"}
+"Bill Gates" in bill
+# True
+bill = {"Bill Gates" : "charritable"}
+"Bill Doors" not in bill
+# キーを辞書から削除
+books = {"Dracula": "Stoker",
+        "1984": "Orwell",
+        "The Trial": "Kafka"}
+
+del books ["The Trial"]
+
+books
+
+# dict Sample
+songs = {"1": "fun",
+         "2": "blue",
+         "3": "me",
+         "4": "floor",
+         "5": "live"
+         }
+n = input("数字を入力してください")
+if n in songs:
+    song = songs[n]
+    print(song)
+else:
+    print("見つかりません。")
+
+# contener in contener
+
+lists = []
+
+rap = ['カニエ・ウェスト','ジェイ・Z','エミネム','ナズ']
+rock = ['ボブ・ディラン','ザ・ビートルズ','レッド・ツェッペリン']
+djs = ['ゼッズ・デッド','ティエスト']
+
+lists.append(rap)
+lists.append(rock)
+lists.append(djs)
+
+print(lists)
+
+rap = lists[0]
+print(rap)
+# list = []  or list() , tuple = ()  or tuple() ,  dict ={} or dict()
+
+rap = lists[0]
+rap.append("ケンドリック・ラマー")
+print(rap)
+print(lists)
+# リストの要素にタプルやタプルの要素にリスト。リストやタプルの要素に辞書を持たせる事もできる。
+# タプルの要素にリストなどのなミュータブル要素を持たせる場合、イミュータブルではなくなる。
+
+location = []
+
+la = (34.0522, 188.2437)
+chicago = (41.8781,87.6298)
+
+locations.append(la)
+locations.append(chicago)
+
+print(locations)
