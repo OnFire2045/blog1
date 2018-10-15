@@ -1,0 +1,27 @@
+import UIKit
+
+class ViewController: UIViewController {
+    @IBOutlet weak var textfield: UITextField! //解答欄
+    @IBOutlet weak var label: UILabel! //問題です
+    
+    override func viewDidLoad() { //起動時
+        super.viewDidLoad()
+    label.text = ""
+    }
+
+    @IBAction func buttonTrapped(_ sender: Any) { //ボタン
+        let answer: String = "b"
+        let inputText: String = textfield.text!
+        if(inputText == answer){
+            label.text = "正解です"//正解ならLabelsに正解を表示
+        }else{
+            label.text = "不正解です" //不正解ならLabelsに不正解を表示
+        }
+        
+    }
+}
+
+// Label 問題です　
+// Label Q.この中でコンパイルが必要ない言語はどれ？
+// a.Java b.Python c.Ruby
+// Labels 
