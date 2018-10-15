@@ -12,12 +12,12 @@ public class Sample1 {
 	int number2 = random.nextInt(11); //1~10のランダムな乱数をnumber2へ代入
 
 	//当たりの数字を3つ作る場合の処理
-	//int number3 = random.nextInt(11);
-	//int number4 = random.nextInt(11);
+	//int number3 = random.nextInt(6);
+	//int number4 = random.nextInt(8);
 	//while(number2 == number 3 || number3 == number4 || number2 == number4){
-	//number2 = random.nextInt(11);
-	//number3 = random.nextInt(11);
-	//number4 = random.nextInt(11); 
+	//number2 = random.nextInt(10);
+	//number3 = random.nextInt(6);
+	//number4 = random.nextInt(8); 
 	// }
 
 		try {
