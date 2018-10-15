@@ -1,37 +1,25 @@
-@media(max-width: 100px){
+@media all and (max-width: 1000px){
 .lesson {
-width: 50%;
-margin-bottom: 50px;
-}
-
-.lesson-icon p {
-	left: 25px;
+	width: 40%;
+	margin-bottom: 50px;
 }
 
 .top-wrapper h1 {
-font-size: 32px;
+	font-size: 32px;
 }
 
 .heading h2 {
-font-size: 20px;
+	font-size: 20px;
 }
 
-@media(max-width: 670px) {
+@media all and (max-width: 670px) {
 .lesson{
-
 	width:100%;
 }
 
-.lesson-icon p {
-	left: 25px;
-}
-
 footer{
- 
 text-align: center; 
-
 }
-
 
 .btn {
 width: 100%;
