@@ -1,0 +1,40 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class Sample01 {
+	public static void main(String[] args){
+		System.out.println("数あてゲーム\n");
+	
+		GuessNumGame guessNumGame = new GuessNumGame();
+		
+		guessNumGame.guessNum();
+		//GuessNumGameクラスのguessNumメソッドを呼び出し	}
+  }
+}
+
+class GuessNumGame {
+	private Random random = new Random();
+	private Scanner scanner = new Scanner(System.in);
+	
+	private int rightnum;
+	private int guessnum;
+	private boolean numgame;//booleanは初期値がfalse;
+	
+	public void guessNum(){
+		rightnum = random.nextInt(9)+1;//1から９をランダム生成
+			while(numgame == false) {
+				System.out.print("1～９の好きな数字を入力してください: ");
+				guessnum = scanner.nextInt();
+					if(guessnum == rightnum){
+						System.out.println(guessnum + "は正解の値に等しい");
+						numgame = true;
+					} 
+					else if(guessnum < rightnum) {
+						System.out.println(guessnum + "は正解の値より小さい");
+					}
+					else if(guessnum > rightnum) {
+						System.out.println(guessnum + "は正解の値より大きい");
+					}
+    	}
+		}
+}

@@ -1,0 +1,46 @@
+import java.util.Random;
+public class Sample05 {
+    public static void main(String[] args) {
+	System.out.println("「継承」\n");
+	GoldenGorem goldengorem = new GoldenGorem();
+	goldengorem.setName("ゴールデンゴーレム");
+	goldengorem.setHP(50);
+	goldengorem.fight();
+    }
+}
+
+class Gorem{ //Superクラス
+    protected String name;//gorem
+    protected int hp; //55
+    protected int damage = 10;
+    public Gorem() {
+    System.out.println("Goremが生まれた");
+    }
+    public void setName(String name) {
+    this.name = name;
+    System.out.println("[" + name + "]" + "が出現しました");
+    }
+    public void setHP(int hp) {
+    this.hp = hp;
+    System.out.println("HPは" + hp + "のようだ");
+    }
+}
+    
+class GoldenGorem extends Gorem {//subクラス
+    public GoldenGorem() { //コンストラクタ
+        System.out.println("GoldenGoremが生まれた");
+    }
+    public void fight() {
+    while(hp > 0) {
+    	Random random = new Random();
+    	int damage = random.nextInt(21);
+    	System.out.println(name +"に" + damage + "のダメージ");
+   	hp -= damage;
+	System.out.println(name +"のHPは "+ hp + "です");
+    }
+    if(hp <= 0) {
+    	System.out.println(name + "を倒しました");
+   } else {
+    }
+}
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>template</title>
+<link href="../../_common/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+<div class="header-contents">
+<h1>当たりました！</h1>
+<h2>住所と名前を入力！</h2>
+</div><!-- /.header-contents -->
+</header>
+<div class="main-wrapper">
+<section>
+ <form action='#' id="form">
+ 	<input type="text" name="word">
+ 	<input type="submit" value="PUSH!">
+ </form>
+ 	<p id="output"></p>
+</section>
+</div><!-- /.main-wrapper -->
+<footer>※ジョークサイトです</footer>
+<script>
+document.getElementById('form').onsubmit = function() {
+	var search = document.getElementById('form').word.value;
+	document.getElementById('output').textContent = '『' + search + '』の登録中...';
+	console.log(search +'様。一億円受け取りの準備ができております! ↓↓↓');
+	console.log('http://itiokuenget.com');
+	return false;
+};
+</script>
+</body>
+</html>

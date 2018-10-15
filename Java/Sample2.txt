@@ -1,0 +1,87 @@
+import java.util.Random;
+
+public class Sample01 {
+	public static void Sample01(String[] args) {
+		System.out.println("じゃんけんゲーム\n");
+		
+		JankenGame jankengame = new JankenGame();
+		Computer computer1 = new Computer();
+		Computer computer2 = new Computer();
+		computer1.setName("HP_1");
+		computer2.setName("HP_2");
+		jankengame.jankenGame(computer1,computer2);
+		//インスタンスを送る
+	}
+}
+
+class JankenGame {
+	private String name1;
+	private String name2;
+	private String hand1;
+	private String hand2;
+	
+		public void jankenGame(Computer computer1,Computer computer2) {
+			name1 = computer1.getName();
+			name2 = computer2.getName();
+
+			hand1 = computer1.makeHand();
+			hand2 = computer2.makeHand();
+			//ゲッターとセッター
+			System.out.println(name1 + ":は" + hand1 +"を出しました");
+			System.out.println(name2 + ":は" + hand2 +"を出しました");
+			
+			if(hand1.equals("グー") && hand2.equals("チョキ")){
+				System.out.println(name1 +"の勝ちです");
+			}
+			else if(hand1.equals("チョキ") && hand2.equals("パー")){
+				System.out.println(name1 + "の勝ちです");
+			}
+			else if(hand1.equals("パー") && hand2.equals("グー")){
+				System.out.println(name1 + "の勝ちです");
+			}			
+			else if(hand1.equals("グー") && hand2.equals("グー")) {
+				System.out.println("あいこです");
+			}
+			else if(hand1.equals("チョキ") && hand2.equals("チョキ")) {
+				System.out.println("あいこです");
+			}
+			else if(hand1.equals("パー") && hand2.equals("パー")){
+				System.out.println("あいこです");
+			}
+			else {
+				System.out.println(name2 + "の勝ちです");
+			//文字列の比較			}
+		}
+}
+class Computer {
+	  private String name;
+	  private String hand;
+  	private int inthand;
+	  private Random random = new Random();
+	
+	  public String makeHand() {
+   	inthand = random.nextInt(3);
+	  	if(inthand == 0) {
+			hand = "グー";
+		  } 
+		  else if(inthand == 1){
+		  	hand = "チョキ";
+		  }
+			else if(inthand == 0){
+				hand = "パー";
+			}
+				return hand;
+		  }
+		  public String setName(String name) {
+		  	this.name = name;
+		  }
+		  public String setHand(String hand) {
+		  	this.hand = hand;
+		  }
+		  public String getName() {
+		  	return name;
+	  	}
+		  public String getHand() {
+	  		return hand;
+	  	}
+}

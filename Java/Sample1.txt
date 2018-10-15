@@ -1,0 +1,41 @@
+import java.util.Random;
+import java.util.Scanner;
+public class Sample1 {
+	public static void main(String[] args){
+	int star = 3;
+	Random random = new Random();
+	Scanner scanner = new Scanner(System.in);
+	System.out.println("数を当てて大きな門を突破せよ！");
+	System.out.println("現在の星の数は" + star + "です");
+	System.out.println("1から10の数字を入力して突破せよ！");
+	System.out.println("当たりの数字は３つだ。好きな数字を選べ！");
+	int number2 = random.nextInt(11); //1~10のランダムな乱数をnumber2へ代入
+
+	//当たりの数字を3つ作る場合の処理
+	//int number3 = random.nextInt(6);
+	//int number4 = random.nextInt(8);
+	//while(number2 == number 3 || number3 == number4 ){
+	//number2 = random.nextInt(10);
+	//number3 = random.nextInt(6);
+	//number4 = random.nextInt(8); 
+	// }
+
+		try {
+			int number = scanner.nextInt(); //scannerにより整数を取得
+	
+				if(number == number2) {
+	  				System.out.println("当たりだ。おめでとう。星を10個プレゼントだ！");
+					star = star + 10;
+				} else {
+					System.out.println("ハズレだ。残念だったな。星をひとつ没収だ！");
+					star = star - 1;
+				}
+		}
+		catch(NumberFormatException nfe) { //例外処理
+			System.out.println(nfe);	
+		}
+		finally{
+			System.out.println("現在の星の数は" + star + "です");
+		}
+	}	
+}

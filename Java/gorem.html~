@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>template</title>
+<link href="../../_common/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+<div class="header-contents">
+<h1>勇者</h1>
+<h2>ゴーレム倒すやつ</h2>
+</div><!-- /.header-contents -->
+</header>
+<div class="main-wrapper">
+<section>
+<p id="choice">ゴーレム現れました！</p>
+</section>
+</div><!-- /.main-wrapper -->
+<footer>JavaScript Samples</footer>
+<script>
+var encount = 0;
+var enemy = 100;
+var brave = 100;
+var exp = 0;
+var getexp = 0;
+var attack;
+var count = 0;
+
+window.alert('ゴーレムがあらわれた！');
+while(enemy > 0 && brave > 0) {
+	attack = Math.floor(Math.random() * 50)+1;
+	attack2 = Math.floor(Math.random() * 40)+1;
+	console.log('勇者の攻撃!' + 'ゴーレムに' + attack + 'のダメージ！');
+	enemy = enemy -= attack;
+		console.log('ゴーレム' +' HP' + enemy);
+	console.log('ゴーレムの攻撃!\n' + '勇者に' + attack2 + 'のダメージ');
+	brave = brave -= attack2;
+	console.log('勇者' +' HP' + brave);
+	count++;
+}
+if(brave >= 0){
+	window.alert(count + '回' + 'でモンスターを倒した！');
+	getexp = Math.floor(Math.random() * 40)+1;
+	console.log('勇者は経験値' + getexp + 'を手に入れた');
+	exp = exp += getexp;
+	}else{
+	window.alert('勇者よ。死んでしまうとは情けない！');
+	console.log('勇者は所持金が' + '半分' + 'になった');
+}
+</script>
+
+</script>
+</body>
+</html>

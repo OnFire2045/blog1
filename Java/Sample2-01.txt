@@ -1,0 +1,76 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		System.out.println("じゃんけんゲーム");
+                Game game = new Game();
+		Computer computer1 = new Computer();
+		Computer computer2 = new Computer();
+	        
+		computer1.setName("HP_1");
+		computer2.setName("HP_2");
+		
+		game.jankenGame(computer1, computer2);
+		
+	}
+}
+
+class Game {
+	private String hand[] = {"グー","チョキ","パー"};
+	Game(){
+	    System.out.println("じゃんけんゲームの準備中......");
+	}
+		public void jankenGame(Computer computer1, Computer computer2) {
+			String name1 = computer.getName();
+			
+			
+			String hand1 = computer1.makeHand();
+			String hand2 = computer2.makeHand();
+			
+			System.out.println("HP_1"+ "は" + hand1 +"を出しました");
+			System.out.println("HP_2" + "は" + hand2 + "を出しました");
+			
+			if(hand1.equals(hand2)){
+			    System.out.println("引き分けです");	
+			}
+			else if(hand1.equasl("グー") && hand2.equals("チョキ") || 
+					){
+			    System.out.println("HP_1の" + "勝ちです");
+			}
+			else if(hands1 == 1 && hands2 == 2){
+			    System.out.println("HP_1の" + "勝ちです");
+			}
+			else if(hands1 == 2 && hands2 == 0){
+			    System.out.println("HP_1の" + "勝ちです");
+		
+			}
+			else if(hands1 == 0 && hands2 == 1){
+			    System.out.println("HP_2の" + "勝ちです");
+			}
+		}
+}
+class Computer {
+	private String name;//HP_1, HP_2
+	private String hand;//"グー","チョキ","パー"
+	
+	private String hand[] = {"グー","チョキ","パー"};
+	private Random random = new Random();
+
+	public Computer(){
+	    System.out.println("じゃんけんの手を作成中......");
+	}
+
+  public String makeHand() {
+	    int inthand = random.nextInt(3);//0, 1, 2
+	    hand = hands[inthand];
+	    return hand;
+	}
+	
+	public String getName() {
+	    return name;
+	}
+	public String getHand() {
+	    return hand;
+	}
+}

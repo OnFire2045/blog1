@@ -1,0 +1,91 @@
+import java.util.Random;
+import java.util.Scanner;
+public class Sample1 {
+	public static void main(String[] args){ 
+		Game game = new Game();
+		Person person = new Person();
+		Computer computer = new Computer();
+		game.starter();
+		person.setName();
+		person.hand();
+		person.hand2();
+		person.judge();
+	}
+}
+
+class Game {//super クラス
+	Scanner scanner = new Scanner(System.in);
+	int playerHand = 0;
+	int computerHand = 0;
+	public Game(){
+		System.out.println("ゲームの準備中......"); //コンストラクタ
+	}
+	public void starter(){
+		System.out.println("じゃんけんゲームを開始します");//method call-1
+	}
+	public void judge(){
+		if ( playerHand == computerHand) {
+			System.out.println("引き分け");
+		} else if(playerHand == 0 && computerHand == 1) {
+			System.out.println("勝ち");
+		} else if(playerHand == 1 && computerHand == 2) {
+			System.out.println("勝ち");
+		} else if(playerHand == 2 && computerHand == 0) {
+			System.out.println("勝ち");
+		} else { 
+			System.out.println("負け");
+		}
+	}
+}
+class Person {
+	private String playerName; //プレイヤー名
+	private int playerHand; //プレイヤーの手
+	Random random = new Random();
+	int computerHand = random.nextInt(3);
+	Scanner scanner = new Scanner(System.in);
+	String hands[] ={"グー" , "チョキ" , "パー"}; // "配列宣言" +"値";
+
+	public void setName() { //method call-2
+		System.out.print("名前を入力してください: ");
+		playerName = scanner.next();
+		System.out.println("こんにちは" + playerName  + "さん");
+	}
+
+	public void hand() { // method call-3
+		System.out.print("何を出しますか？(0:グー , 1:チョキ, 2:パー): ");
+		playerHand = scanner.nextInt(); // "出した手を判断(0から3)"
+		System.out.println(playerName + "は" + hands[playerHand] + "を出しました");
+	}
+
+	public int getPlayerHand(){
+		return playerHand;
+	}
+
+	public void hand2(){ // mehod call-4
+		System.out.println("コンピューターは" + hands[computerHand] + "を出しました");
+	}
+		public void judge(){
+		if ( playerHand == computerHand) {
+			System.out.println("引き分け");
+		} else if(playerHand == 0 && computerHand == 1) {
+			System.out.println("勝ち");
+		} else if(playerHand == 1 && computerHand == 2) {
+			System.out.println("勝ち");
+		} else if(playerHand == 2 && computerHand == 0) {
+			System.out.println("勝ち");
+		} else { 
+			System.out.println("負け");
+		}
+	}
+}
+class Computer { 
+	Random random = new Random();
+	protected int computerHand; //"コンピューターの手"
+	String hands[] ={"グー" , "チョキ" , "パー"}; // "配列宣言" +"値";
+	public void Computer() { //"コンストラクタ"
+		computerHand = random.nextInt(3);
+	}
+	public void hand(){ // mehod call-4
+		System.out.println("コンピューターは" + hands[computerHand] + "を出しました");
+	}
+}
