@@ -1,0 +1,87 @@
+h1 {
+	color: #000080;
+	font-family: serif;
+}
+
+p {
+	color: #0000ff;
+	font-family: Lucida Grande;
+}
+
+a {
+	color: #003333;
+	font-family: Lucida Grande;
+
+}
+
+.selected {
+	font-size: 25px;
+	border-bottom: 2px solid #dee7ec;
+	color: #808080;
+	padding-bottom: 3px;
+	margin-bottom: 3px;
+}
+
+.header {
+	background-color: #99FFFF;
+	height: 80px;
+}
+
+.main {
+	padding: 120 80px;
+	background-color: #FFFAF0;
+}
+
+.footer {
+	height: 120px;
+	padding: 5px;
+	color: #fff;
+	background-color: #336666;
+}
+.header li{
+	list-style: none;
+	float: left;
+	padding: 33px 20px;
+}
+
+.header-logo{
+	font-size: 36px;
+	float: left;
+	padding: 20px 40px;
+}
+
+.footer li {
+	list-style: none;
+}
+
+.container h1 {
+	font-size: 40px;
+}
+
+.container h3 {
+	font-size: 20px;
+}
+.container span {
+	color: #0000FF;
+}
+.contents {
+	margin-top: 50px;
+	height: 200px;
+}
+.contents-item {
+	float: left;
+	margin-right: 0px;
+}
+.footer-logo {
+	float: left;
+	font-size: 25px;
+}
+.footer-list {
+	float: right;
+}
+.footer-list li {
+	padding-bottom: 10px;
+}
+.contact {
+	float: left;
+}
