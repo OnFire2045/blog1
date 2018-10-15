@@ -5,13 +5,13 @@ public class Sample1 {
 	int star = 3;
 	Random random = new Random();
 	Scanner scanner = new Scanner(System.in);
-	System.out.println("”‚ğ“–‚Ä‚Ä‘å‚«‚È–å‚ğ“Ë”j‚¹‚æI");
-	System.out.println("Œ»İ‚Ì¯‚Ì”‚Í" + star + "‚Å‚·");
-	System.out.println("1‚©‚ç10‚Ì”š‚ğ“ü—Í‚µ‚Ä“Ë”j‚¹‚æI");
-	System.out.println("“–‚½‚è‚Ì”š‚Í‚R‚Â‚¾BD‚«‚È”š‚ğ‘I‚×I");
-	int number2 = random.nextInt(11); //1~10‚Ìƒ‰ƒ“ƒ_ƒ€‚È—”‚ğnumber2‚Ö‘ã“ü
+	System.out.println("æ•°ã‚’å½“ã¦ã¦å¤§ããªé–€ã‚’çªç ´ã›ã‚ˆï¼");
+	System.out.println("ç¾åœ¨ã®æ˜Ÿã®æ•°ã¯" + star + "ã§ã™");
+	System.out.println("1ã‹ã‚‰10ã®æ•°å­—ã‚’å…¥åŠ›ã—ã¦çªç ´ã›ã‚ˆï¼");
+	System.out.println("å½“ãŸã‚Šã®æ•°å­—ã¯ï¼“ã¤ã ã€‚å¥½ããªæ•°å­—ã‚’é¸ã¹ï¼");
+	int number2 = random.nextInt(11); //1~10ã®ãƒ©ãƒ³ãƒ€ãƒ ãªä¹±æ•°ã‚’number2ã¸ä»£å…¥
 
-	//“–‚½‚è‚Ì”š‚ğ3‚Âì‚éê‡‚Ìˆ—
+	//å½“ãŸã‚Šã®æ•°å­—ã‚’3ã¤ä½œã‚‹å ´åˆã®å‡¦ç†
 	//int number3 = random.nextInt(6);
 	//int number4 = random.nextInt(8);
 	//while(number2 == number 3 || number3 == number4 ){
@@ -21,21 +21,21 @@ public class Sample1 {
 	// }
 
 		try {
-			int number = scanner.nextInt(); //scanner‚É‚æ‚è®”‚ğæ“¾
+			int number = scanner.nextInt(); //scannerã«ã‚ˆã‚Šæ•´æ•°ã‚’å–å¾—
 	
 				if(number == number2) {
-	  				System.out.println("“–‚½‚è‚¾B‚¨‚ß‚Å‚Æ‚¤B¯‚ğ10ŒÂƒvƒŒƒ[ƒ“ƒg‚¾I");
+	  				System.out.println("å½“ãŸã‚Šã ã€‚ãŠã‚ã§ã¨ã†ã€‚æ˜Ÿã‚’10å€‹ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆã ï¼");
 					star = star + 10;
 				} else {
-					System.out.println("ƒnƒYƒŒ‚¾Bc”O‚¾‚Á‚½‚ÈB¯‚ğ‚Ğ‚Æ‚Â–vû‚¾I");
+					System.out.println("ãƒã‚ºãƒ¬ã ã€‚æ®‹å¿µã ã£ãŸãªã€‚æ˜Ÿã‚’ã²ã¨ã¤æ²¡åã ï¼");
 					star = star - 1;
 				}
 		}
-		catch(NumberFormatException nfe) { //—áŠOˆ—
+		catch(NumberFormatException nfe) { //ä¾‹å¤–å‡¦ç†
 			System.out.println(nfe);	
 		}
 		finally{
-			System.out.println("Œ»İ‚Ì¯‚Ì”‚Í" + star + "‚Å‚·");
+			System.out.println("ç¾åœ¨ã®æ˜Ÿã®æ•°ã¯" + star + "ã§ã™");
 		}
 	}	
 }

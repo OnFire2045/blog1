@@ -1,45 +1,45 @@
 import java.util.Random;
 public class Sample05 {
     public static void main(String[] args) {
-	System.out.println("uŒp³v\n");
+	System.out.println("ã€Œç¶™æ‰¿ã€\n");
 	GoldenGorem goldengorem = new GoldenGorem();
-	goldengorem.setName("ƒS[ƒ‹ƒfƒ“ƒS[ƒŒƒ€");
+	goldengorem.setName("ã‚´ãƒ¼ãƒ«ãƒ‡ãƒ³ã‚´ãƒ¼ãƒ¬ãƒ ");
 	goldengorem.setHP(50);
 	goldengorem.fight();
     }
 }
 
-class Gorem{ //SuperƒNƒ‰ƒX
+class Gorem{ //Superã‚¯ãƒ©ã‚¹
     protected String name;//gorem
     protected int hp; //55
     protected int damage = 10;
     public Gorem() {
-    System.out.println("Gorem‚ª¶‚Ü‚ê‚½");
+    System.out.println("GoremãŒç”Ÿã¾ã‚ŒãŸ");
     }
     public void setName(String name) {
     this.name = name;
-    System.out.println("[" + name + "]" + "‚ªoŒ»‚µ‚Ü‚µ‚½");
+    System.out.println("[" + name + "]" + "ãŒå‡ºç¾ã—ã¾ã—ãŸ");
     }
     public void setHP(int hp) {
     this.hp = hp;
-    System.out.println("HP‚Í" + hp + "‚Ì‚æ‚¤‚¾");
+    System.out.println("HPã¯" + hp + "ã®ã‚ˆã†ã ");
     }
 }
     
-class GoldenGorem extends Gorem {//subƒNƒ‰ƒX
-    public GoldenGorem() { //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-        System.out.println("GoldenGorem‚ª¶‚Ü‚ê‚½");
+class GoldenGorem extends Gorem {//subã‚¯ãƒ©ã‚¹
+    public GoldenGorem() { //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+        System.out.println("GoldenGoremãŒç”Ÿã¾ã‚ŒãŸ");
     }
     public void fight() {
     while(hp > 0) {
     	Random random = new Random();
     	int damage = random.nextInt(21);
-    	System.out.println(name +"‚É" + damage + "‚Ìƒ_ƒ[ƒW");
+    	System.out.println(name +"ã«" + damage + "ã®ãƒ€ãƒ¡ãƒ¼ã‚¸");
    	hp -= damage;
-	System.out.println(name +"‚ÌHP‚Í "+ hp + "‚Å‚·");
+	System.out.println(name +"ã®HPã¯ "+ hp + "ã§ã™");
     }
     if(hp <= 0) {
-    	System.out.println(name + "‚ğ“|‚µ‚Ü‚µ‚½");
+    	System.out.println(name + "ã‚’å€’ã—ã¾ã—ãŸ");
    } else {
     }
 }

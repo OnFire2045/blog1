@@ -3,12 +3,12 @@ import java.util.Scanner;
 
 public class Sample01 {
 	public static void main(String[] args){
-		System.out.println("”‚ ‚ÄƒQ[ƒ€\n");
+		System.out.println("æ•°ã‚ã¦ã‚²ãƒ¼ãƒ \n");
 	
 		GuessNumGame guessNumGame = new GuessNumGame();
 		
 		guessNumGame.guessNum();
-		//GuessNumGameƒNƒ‰ƒX‚ÌguessNumƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µ	}
+		//GuessNumGameã‚¯ãƒ©ã‚¹ã®guessNumãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã—	}
   }
 }
 
@@ -18,22 +18,22 @@ class GuessNumGame {
 	
 	private int rightnum;
 	private int guessnum;
-	private boolean numgame;//boolean‚Í‰Šú’l‚ªfalse;
+	private boolean numgame;//booleanã¯åˆæœŸå€¤ãŒfalse;
 	
 	public void guessNum(){
-		rightnum = random.nextInt(9)+1;//1‚©‚ç‚X‚ğƒ‰ƒ“ƒ_ƒ€¶¬
+		rightnum = random.nextInt(9)+1;//1ã‹ã‚‰ï¼™ã‚’ãƒ©ãƒ³ãƒ€ãƒ ç”Ÿæˆ
 			while(numgame == false) {
-				System.out.print("1`‚X‚ÌD‚«‚È”š‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢: ");
+				System.out.print("1ã€œï¼™ã®å¥½ããªæ•°å­—ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„: ");
 				guessnum = scanner.nextInt();
 					if(guessnum == rightnum){
-						System.out.println(guessnum + "‚Í³‰ğ‚Ì’l‚É“™‚µ‚¢");
+						System.out.println(guessnum + "ã¯æ­£è§£ã®å€¤ã«ç­‰ã—ã„");
 						numgame = true;
 					} 
 					else if(guessnum < rightnum) {
-						System.out.println(guessnum + "‚Í³‰ğ‚Ì’l‚æ‚è¬‚³‚¢");
+						System.out.println(guessnum + "ã¯æ­£è§£ã®å€¤ã‚ˆã‚Šå°ã•ã„");
 					}
 					else if(guessnum > rightnum) {
-						System.out.println(guessnum + "‚Í³‰ğ‚Ì’l‚æ‚è‘å‚«‚¢");
+						System.out.println(guessnum + "ã¯æ­£è§£ã®å€¤ã‚ˆã‚Šå¤§ãã„");
 					}
     	}
 		}

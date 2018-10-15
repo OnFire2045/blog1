@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Sample01 {
 	public static void Sample01(String[] args) {
-		System.out.println("‚¶‚á‚ñ‚¯‚ñƒQ[ƒ€\n");
+		System.out.println("ã˜ã‚ƒã‚“ã‘ã‚“ã‚²ãƒ¼ãƒ \n");
 		
 		JankenGame jankengame = new JankenGame();
 		Computer computer1 = new Computer();
@@ -10,7 +10,7 @@ public class Sample01 {
 		computer1.setName("HP_1");
 		computer2.setName("HP_2");
 		jankengame.jankenGame(computer1,computer2);
-		//ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‘—‚é
+		//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’é€ã‚‹
 	}
 }
 
@@ -26,31 +26,31 @@ class JankenGame {
 
 			hand1 = computer1.makeHand();
 			hand2 = computer2.makeHand();
-			//ƒQƒbƒ^[‚ÆƒZƒbƒ^[
-			System.out.println(name1 + ":‚Í" + hand1 +"‚ğo‚µ‚Ü‚µ‚½");
-			System.out.println(name2 + ":‚Í" + hand2 +"‚ğo‚µ‚Ü‚µ‚½");
+			//ã‚²ãƒƒã‚¿ãƒ¼ã¨ã‚»ãƒƒã‚¿ãƒ¼
+			System.out.println(name1 + ":ã¯" + hand1 +"ã‚’å‡ºã—ã¾ã—ãŸ");
+			System.out.println(name2 + ":ã¯" + hand2 +"ã‚’å‡ºã—ã¾ã—ãŸ");
 			
-			if(hand1.equals("ƒO[") && hand2.equals("ƒ`ƒ‡ƒL")){
-				System.out.println(name1 +"‚ÌŸ‚¿‚Å‚·");
+			if(hand1.equals("ã‚°ãƒ¼") && hand2.equals("ãƒãƒ§ã‚­")){
+				System.out.println(name1 +"ã®å‹ã¡ã§ã™");
 			}
-			else if(hand1.equals("ƒ`ƒ‡ƒL") && hand2.equals("ƒp[")){
-				System.out.println(name1 + "‚ÌŸ‚¿‚Å‚·");
+			else if(hand1.equals("ãƒãƒ§ã‚­") && hand2.equals("ãƒ‘ãƒ¼")){
+				System.out.println(name1 + "ã®å‹ã¡ã§ã™");
 			}
-			else if(hand1.equals("ƒp[") && hand2.equals("ƒO[")){
-				System.out.println(name1 + "‚ÌŸ‚¿‚Å‚·");
+			else if(hand1.equals("ãƒ‘ãƒ¼") && hand2.equals("ã‚°ãƒ¼")){
+				System.out.println(name1 + "ã®å‹ã¡ã§ã™");
 			}			
-			else if(hand1.equals("ƒO[") && hand2.equals("ƒO[")) {
-				System.out.println("‚ ‚¢‚±‚Å‚·");
+			else if(hand1.equals("ã‚°ãƒ¼") && hand2.equals("ã‚°ãƒ¼")) {
+				System.out.println("ã‚ã„ã“ã§ã™");
 			}
-			else if(hand1.equals("ƒ`ƒ‡ƒL") && hand2.equals("ƒ`ƒ‡ƒL")) {
-				System.out.println("‚ ‚¢‚±‚Å‚·");
+			else if(hand1.equals("ãƒãƒ§ã‚­") && hand2.equals("ãƒãƒ§ã‚­")) {
+				System.out.println("ã‚ã„ã“ã§ã™");
 			}
-			else if(hand1.equals("ƒp[") && hand2.equals("ƒp[")){
-				System.out.println("‚ ‚¢‚±‚Å‚·");
+			else if(hand1.equals("ãƒ‘ãƒ¼") && hand2.equals("ãƒ‘ãƒ¼")){
+				System.out.println("ã‚ã„ã“ã§ã™");
 			}
 			else {
-				System.out.println(name2 + "‚ÌŸ‚¿‚Å‚·");
-			//•¶š—ñ‚Ì”äŠr			}
+				System.out.println(name2 + "ã®å‹ã¡ã§ã™");
+			//æ–‡å­—åˆ—ã®æ¯”è¼ƒ			}
 		}
 }
 class Computer {
@@ -62,13 +62,13 @@ class Computer {
 	  public String makeHand() {
    	inthand = random.nextInt(3);
 	  	if(inthand == 0) {
-			hand = "ƒO[";
+			hand = "ã‚°ãƒ¼";
 		  } 
 		  else if(inthand == 1){
-		  	hand = "ƒ`ƒ‡ƒL";
+		  	hand = "ãƒãƒ§ã‚­";
 		  }
 			else if(inthand == 0){
-				hand = "ƒp[";
+				hand = "ãƒ‘ãƒ¼";
 			}
 				return hand;
 		  }
