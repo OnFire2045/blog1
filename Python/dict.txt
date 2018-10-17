@@ -81,3 +81,233 @@ locations.append(la)
 locations.append(chicago)
 
 print(locations)
+
+
+"""
+line one
+line two
+line three
+"""
+
+# MOJI RETU SOUSA
+ 
+author = "kafka"
+print(author[0])
+print(author[1])
+print(author[2])
+print(author[3])
+print(author[4])
+
+print(author[-1])
+
+print(author[-2])
+print(author[-3])
+
+ff = "F.Fitzgerald"
+ff = "F.Scott Fitzgerald"
+print(ff)
+
+# MOJI RETU NO TASHIZAN
+
+print("cat" + "in" + "hat")
+
+print("cat" + "in" + "the" + "hat")
+
+# MOJI RETU NO KAKEZAN
+
+print("sawyer" * 3)
+
+# KOMOJI OOMOJI HENKAN
+
+print("We hold those truths...".upper())
+
+# OOMOJI KOMOJI HENKAN
+
+print("SO IT GOES.".lower())
+
+# capitalize
+
+print("four socre and...".capitalize())
+
+name = "wiliam forkner"
+
+print("Hello,{}".format(name))
+
+author = "wiliam forkner"
+year_born = "1897"
+
+print("{} is {} year birthday".format(author , year_born))
+
+"""
+what = input("what:")
+when = input("when:")
+where = input("where:")
+do = input("do:")
+
+r = "{} is {} is {} is {}".format(what,when,where,do)
+print(r)
+"""
+
+# MOJI RETU BUNKATU
+
+print("Mizutamari o tobikoeta. 3m over!".split("."))
+
+# MOJI RETU KETUGOU
+
+first_three = "abc"
+result = "+".join(first_three)
+print(result)
+
+words = ["The","Fox","jumped","over","the","fence","."]
+
+one = " ".join(words)
+print(one)
+
+# KUUHAKU JYOKYO
+
+s = "  The  "
+s = s.strip()
+print(s)
+
+# TIKAN
+
+equ = "All animals are equal"
+equ = equ.replace("a","@")
+print(equ)
+
+# MOJI WO SAGASU
+
+print("animals".index("m"))
+
+# Try Catch
+try:
+    "animals".index("z")
+except:
+    print("Not found.")
+
+# Hougan
+
+print("Cat" in "Cat in the hat.")
+print("Bat" in "Cat in the hat.")
+print("Potter" not in "Harry")
+
+# escape character
+
+print("She said that is \"so\"")
+print("She said that is \'sodane\'")
+
+print("line1\nline2\nline3")
+
+# slice
+
+fict = ["tolstoi","kamyu","o-will","hakusuri-","o-sutxin"]
+
+print(fict[0:3])
+
+ivan = "There was one light instead of death."
+print(ivan[0:6])
+print(ivan[6:16])
+
+ivan = "there was one light instead of death."
+print(ivan[:6])
+
+ivan = "there was one light instead of death."
+print(ivan[6:])
+
+ivan = "there was one light instead of death."
+print(ivan[:])
+
+
+name = "KMY"
+print(name[0])
+print(name[1])
+print(name[2])
+
+write1 = input("text:")
+write2 = input("send:")
+r = "{} and {}".format(write1,write2)
+print(r)
+
+print("aldous Huxley was born in 1894".capitalize())
+
+print("where? what? when?".split(" "))
+
+words = ["The","fox","jumped","over","the","fence","."]
+one = " ".join(words)
+print(one)
+
+chara = "A screaming comes across the sky."
+chara = chara.replace("s","$")
+print(chara)
+
+print("Hemingway".index("m"))
+
+print("My name is \"Jan\"")
+
+print("three" + "three" +"three")
+print("three" * 3)
+
+clock = "It was a sunny and cold day in April, and all the clocks were striking 13 o'clock"
+print(clock[0:36])
+
+# roop
+name = "Ted"
+for character in name:
+    print(character)
+
+# roop list
+
+shows = ["GOT", "Narcos","Vice"]
+for show in shows:
+    print(show)
+
+# roop tuple
+
+coms = ("A. Development", "Friends","Always Sunny")
+for show in coms:
+    print(show)
+
+# roop dict
+
+people = {"G. Bluth II":"A. Developmemt",
+    "Barney":"HIMYM",
+        "Dennis":"Always Sunny"
+        }
+
+for character in people:
+    print(character)
+
+# for roop list update
+tv = ["GOT" , "Narcos" , "Vice"]
+i = 0
+for show in tv:
+    new = tv[i]
+    new = new.upper()
+    tv[i] = new
+    i += 1
+
+print(tv)
+
+# auto index roop(enumerate)
+tv = ["GOT" , "Narcos" , "Vice"]
+for i, new in enumerate(tv):
+    new = tv[i]
+    new = new.upper()
+    tv[i] = new
+
+print(tv)
+
+# enumerate
+
+tv = [ "GOT" , "Narcos" , "Vice"]
+coms = ["Arrested Development","friends" , "Always Sunny"]
+all_shows = []
+
+for show in tv:
+    show = show.upper()
+    all_shows.append(show)
+    for show in coms:
+        show = show.upper()
+        all_shows.append(show)
+
+print(all_shows)
