@@ -436,3 +436,41 @@ for i in list1:
         list3.append(i * j)
 
 print(list3)
+
+
+# math module
+
+import math
+
+print(math.pow(2,3))
+
+# random module
+
+import random
+
+print(random.randint(0,100))
+
+# statistics module
+
+import statistics
+
+# mean
+
+nums = [1,5,33,12,46,33,2]
+
+print(statistics.mean(nums))
+
+# median
+
+print(statistics.median(nums))
+
+# mode
+
+print(statistics.mode(nums))
+
+# keyword module
+
+import keyword
+
+print(keyword.iskeyword("for"))
+print(keyword.iskeyword("football"))
