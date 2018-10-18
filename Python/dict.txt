@@ -392,3 +392,47 @@ print(added)
 while input('y or n?') != 'n':
     for i in range(1,6):
         print(i)
+
+# challenge
+
+# 1 List
+shows = ["Walking Dead","Entourage","The Sopranos","The Vampire Diaries"]
+for show in shows:
+    print(show)
+
+# 2 Range
+for i in range(25,51):
+    print(i)
+
+# 3 List2
+for index, show in enumerate(shows):
+    print(index)
+    print(show)
+
+#4 infinity roop
+numbers = [11,32,33,15,1]
+
+while True:
+    answer = input("Guess a number or type q to quit.")
+    if answer == "q":
+        break
+    try:
+        answer = int(answer)
+    except ValueError:
+        print("please type a number or q to quit.")
+    if answer in numbers:
+        print("You guessed correctly!")
+    else:
+        print("You guessed incorrectly!")
+
+
+#5 List Kakezan
+list1 = [8,19,148,4]
+list2 = [9,1,33,83]
+list3 = []
+
+for i in list1:
+    for j in list2:
+        list3.append(i * j)
+
+print(list3)
