@@ -311,3 +311,84 @@ for show in tv:
         all_shows.append(show)
 
 print(all_shows)
+
+# range
+
+for i in range(1,11):
+    print(i)
+
+# While roop
+
+x = 10
+while x > 0:
+    print('{}'.format(x))
+    x -= 1
+print("Happy New Year!")
+
+# infinity roop
+# While True:
+# print("Hello,World
+
+for i in range(0, 100):
+    print(i)
+    break
+
+# break
+qs = ["What is your name?",
+      "What is your fav. color?",
+      "What is your quest?"]
+n = 0
+
+while True:
+    print("Type q to quit")
+    a = input(qs[n])
+    if a == "q":
+        break
+    n = (n + 1) % 3
+
+# continue
+for i in range(1 , 6):
+    if i == 3:
+        continue
+    print(i)
+
+# continue2
+
+i = 1
+while i <= 5:
+    if i == 3:
+        i += 1
+        continue
+    print(i)
+    i += 1
+
+# roop
+
+for i in range(1, 3):
+    print(i)
+    for letter in ["a","b","c"]:
+        print(letter)
+
+# roop in roop abc
+
+for i in range(1 , 3):
+    print(i)
+    for letter in ["a" , "b" , "c"]:
+        print(letter)
+
+# roop the roop
+
+list1 = [1,2,3,4]
+list2 = [5,6,7,8]
+added= []
+for i in list1:
+    for j in list2:
+        added.append(i + j)
+
+print(added)
+
+# while roop in for roop
+
+while input('y or n?') != 'n':
+    for i in range(1,6):
+        print(i)
