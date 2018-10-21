@@ -17,7 +17,7 @@ def hangman(word): # wordは正解の引数
     print("Welcome to Hangman!")
     while wrong < len(stages) - 1: # ループ開始
         print("\n")
-        msg = "1文字を予想してくれ(小文字)"
+        msg = "1文字を予想してくれ(半角英数):"
         char = input(msg) # 予想した文字を入力
         if char in rletters: # 予想した文字があるかどうか
             cind = rletters.index(char) # indexメソッド。文字の位置を確認

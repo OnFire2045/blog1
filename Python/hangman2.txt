@@ -1,0 +1,40 @@
+# Hangman Second code
+import random
+
+def hangman():
+    word_list = ["Python" , "Java" , "computer" , "hacker" , "gameover"] # 正解list
+    random_number = random.randint(0,4) # 0から4の乱数をrandom_numberに代入
+    word = word_list[random_number] # 代入した変数を正解のlistのindexに代入
+    wrong_guesses = 0 # 間違えた数を記録する変数
+    stages = ["",
+            "________      ", 
+            "|      |      ",
+            "|      0      ",
+            "|     /|\     ",
+            "|     / \     ",
+            "|"]
+    remaining_letters = list(word) # wordの要素を1文字ずつ要素に分解したlist
+    letter_board = ["__"] * len(word) # 文字列のlist
+    win = False # 勝利条件の変数
+    print('Welcome to Hangman')
+    while wrong_guesses < len(stages) - 1: # ループ開始
+        print('\n')
+        guess = input("1文字を入力してくれ(半角英数)") # 予想文字を入力
+        if guess in remaining_letters: # 予想した文字が含まれるかどうか
+            character_index = remaining_letters.index(guess) # 文字の位置確認
+            letter_board[character_index] = guess #boardの文字書き換え
+            remaining_letters[character_index] = '$' #indexメソッドの処理上、書き換え
+        else:
+            wrong_guesses += 1 # 間違えた数の増加
+        print((' '.join(letter_board))) # スコアボードの出力
+        print('\n'.join(stages[0: wrong_guesses + 1])) # ハングマンの絵の出力
+        if '__' not in letter_board:
+            print('あなたの勝ちです!')
+            print(' '.join(letter_board)) # スコアボード出力
+            win = True
+            break
+    if not win:
+        print('\n'.join(stages[0: wrong_guesses])) # ハングマンの絵の出力
+        print('あなたの負け! 正解は{}'.format(word))
+
+hangman()
