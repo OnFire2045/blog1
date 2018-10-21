@@ -8,7 +8,7 @@ public class Sample1 {
 	System.out.println("数を当てて大きな門を突破せよ！");
 	System.out.println("現在の星の数は" + star + "です");
 	System.out.println("1から10の数字を入力して突破せよ！");
-	System.out.println("当たりの数字は３つだ。好きな数字を選べ！");
+	System.out.println("当たりの数字は1つだ。好きな数字を選べ！");
 	int number2 = random.nextInt(11); //1~10のランダムな乱数をnumber2へ代入
 
 	//当たりの数字を3つ作る場合の処理
