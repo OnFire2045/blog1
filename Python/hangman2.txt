@@ -2,7 +2,7 @@
 import random
 
 def hangman():
-    word_list = ["Python" , "Java" , "computer" , "hacker" , "gameover"] # 正解list
+    word_list = ["python" , "java" , "computer" , "hacker" , "gameover"] # 正解list
     random_number = random.randint(0,4) # 0から4の乱数をrandom_numberに代入
     word = word_list[random_number] # 代入した変数を正解のlistのindexに代入
     wrong_guesses = 0 # 間違えた数を記録する変数
