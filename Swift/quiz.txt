@@ -22,6 +22,6 @@ class ViewController: UIViewController {
 }
 
 // Label 問題です　
-// Label Q.この中でコンパイルが必要ない言語はどれ？
-// a.Java b.Python c.Ruby
+// Label Q.この中でコンパイル言語はどれ？
+// a.Python b.Java c.Ruby
 // Labels 
