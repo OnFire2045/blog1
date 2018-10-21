@@ -1,0 +1,41 @@
+# Hangman First code
+
+def hangman(word): # wordは正解の引数
+    wrong = 0 # 間違えた数を記録する変数
+    stages = ["",
+              "________         ",
+              "|                ",
+              "|        |       ",
+              "|        O       ",
+              "|       /|\      ",
+              "|       / \      ",
+              "|                "
+              ] # stages[0]からstages[7]までの文字列を格納した配列
+    rletters = list(word) # wordの要素を1文字ずつ要素に分解したlist
+    board = ["_"] * len(word) # 文字列のリスト
+    win = False # 勝利条件の変数
+    print("Welcome to Hangman!")
+    while wrong < len(stages) - 1: # ループ開始
+        print("\n")
+        msg = "1文字を予想してくれ(小文字)"
+        char = input(msg) # 予想した文字を入力
+        if char in rletters: # 予想した文字があるかどうか
+            cind = rletters.index(char) # indexメソッド。文字の位置を確認
+            board[cind] = char # boardの文字を書き換え
+            rletters[cind] = '$' # indexメソッドの処理上、書き換え
+        else:
+            wrong += 1
+        print(" ".join(board)) # スコアボードの出力
+        e = wrong + 1 # ハングマンの絵の出力のための変数
+        print("\n".join(stages[0:e])) #ハングマンの絵の出力
+        if "_" not in board: #　勝利条件
+            print("あなたの勝ち")
+            print(" ".join(board)) # 正解を表示
+            win = True
+            break
+    if not win: # 敗北
+        print("\n".join(stages[0:wrong+1]))
+        print("あなたの負け! 正解は {}.".format(word)) #　正解を表示
+
+
+hangman("apple")
