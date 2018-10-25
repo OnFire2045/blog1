@@ -1,0 +1,177 @@
+<!--JSPの知識-->
+
+<!-- スクリプトレット Html上でJavaの記述を行う事ができる-->
+<% %>
+
+<!-- 式 記述の短縮 例: <%= count %> -->
+<%= %>
+
+<!-- 宣言 -->
+<% %>
+
+<!-- アクションタグ -->
+<!-- 現在のJSPから指定されたページへ移動 -->
+<!-- コンテナ内で画面移動する動作を指す。 -->
+ <jsp:forward>
+
+<!-- 他ページの処理結果を取り込む。動的インクルード -->
+<jsp:include>
+
+<!-- <jsp:forward>や<jsp:include>で定義したURLをリクエスト
+する際につけるパラメータを定義 -->
+<jsp:param>
+
+<!-- JavaBeansのインスタンスを取得 -->
+<jsp:useBean>
+
+<!-- JavaBeansから値を取得する -->
+<jsp:getProperty>
+
+<!-- JavaBeansに値を設定する -->
+<jsp:setProperty>
+
+<!-- 指定した名前の属性値を設定して -->
+カスタムタグ/タグファイルに送る
+<jsp:attribute>
+
+
+<jsp:body>
+
+<!-- タグライブラリ、タグファイルのボディ部を定義 -->
+<jsp:doBody>
+
+<!-- タグライブラリ、タグファイルのボディ部を実行 -->
+
+<!-- forwardタグの例文-->
+<jsp:forward page ="移動先ページ" />
+
+<!-- フォワードはURLが変わらない。a.jsp => a+b.jsp -->
+<!-- リダイレクトはURLが変わる。 a.jsb => b.jsp -->
+
+
+<!-- includeタグの例文 -->
+<!-- 指定された処理結果をJSPに取り込む。指定は自由 -->
+<!-- 例文 -->
+	<%-- パラメーターを含めたインクルード --%>
+	<jsp:include page="インクルードするページ">
+		<jsp:param name="パラメータ1" value="値1" />
+		<jsp:param name="パラメータ2" value="値2" />
+	</jsp:include>
+	
+	<%-- パラメータを含まないインクルード --%>
+	<jsp:include page="インクルードするページ" />
+	
+	<!-- JSPコメントのやり方 -->
+
+	<%-- ここはJSPでのコメントのやり方--%>
+	
+	<%
+	<!-- 行コメントに関してはスクリプトレット内のみ -->
+	/*
+	複数行にまたいだコメントに関しても同様
+	 */
+	%>
+	
+	<!--JSPコメントの特性 value = ABCDE -->
+	<!--スクリプトレット内容の出力 -->
+	<%
+		out.print(value);
+		%>
+		-->
+	<!-- 処理の結果
+		スクリプトレット内容の出力
+		ABCDE -->	
+	
+	<!-- JSPディレクティブ 属性指定 書式: <%@ page %> -->
+	<!-- タグライブラリの設定 書式: <%@ taglib %> -->
+	<!-- 外部ファイルの内容を取り込む 書式: <%@ include %> -->
+	<!-- EL式の書き方 $から始まり中カッコで囲う -->
+		${ 出力する式やオブジェクト }
+		
+	<!--8が出力されるEL式を使った計算の例 -->
+		${ 3 + 5 }
+		
+	<!--EL式でオブジェクトを出力する例 value = ABC -->
+	  ${ value }
+
+	<!--階層を持つオブジェクトをEL式で表示する-->
+		
+	<!-- page ContextはJSPで扱える暗黙オブジェクト -->
+	<!-- JSP内で一時的に値を格納する時に格納する時に使う -->
+	
+	<!-- Mapはキーとなるオブジェクトに紐づけた値を一対とする -->
+	<%
+	 	Map<String,Object> map = new HashMap<String,Object>();
+		map.put("name" , "ユーザー名");
+		map.put("userid", "ID90001");
+		map.put("mail","mail@maildomain.co.jp");
+	%>
+	
+	<!-- userinfoにmapを格納する  -->
+	pageContext.setAttribute("userinfo" , map);
+	<%-- ELで表示 userinfoをスコープから自動的に取得--%>
+	${userinfo.name } ,
+	${userinfo.userid } ,
+	${userinfo.mail }
+	
+	<-- 階層をたどって参照する場合は.で区切りmapのキー名を指定 -->
+	${ userinfo.name}
+	$userinfo["name"] }
+  <!-- ↑どちらも機能は同じ-->
+  
+  <!-- Bootstrapのtableレイアウト一覧 -->
+  <!-- table-boardered 表に罫線を追加する
+  table-hover マウスでホバーしている行の背景色を変更する
+  table-condensed 行の幅を縮めて表を小さくする
+  active 行全体をマウスホバーしているときの背景色にする
+  success 行全体の背景色を薄い緑色にする
+  info 行全体の背景色を薄い水色にする
+  waring 行全体の背景色を薄い黄色にする
+  danger 行全体の背景色を薄いピンク色にする
+	-->
+	
+	<!-- JSPでパラメータを受け取る方法 -->
+	String value = request.getParameter("パラメータ名")
+	<!-- JSPで同名で複数のパラメータを受け取る -->
+	String[] values = request.getParameterValues("パラメータ名");
+	
+	<!--param1を受け取る -->
+	String param1 = request.getParameter("param1");
+
+	<!--param2を受け取る -->
+	String[] param2 = request.getParameterValues("param2");
+	%>
+	param1 : <%= param1 %><br />
+	param2 :
+	<% for ( String value:param2) { %>
+	<%= value %>,
+	<% } %>
+	<!-- requestは暗黙オブジェクトと呼ばれます -->
+	<!-- http:<!--localhost:8080/03_JSP/parameter.jsp?param1=300&param2=ABC&param2=CDE -->
+	<!-- 実行結果:param1 : 300 , param2 :ABC,CDE -->
+	
+	
+	<!-- 次のフォームからメールアカウントを入力して下さい -->
+<form action="./form_post.jsp" method="post">
+<input type="text" name="mailAddress" >
+<input type="submit" value="送信する" />
+</form>
+<br />
+受け取った値:<%= request.getParameter("mailAddress") %>
+</body>
+</html>
+
+<!-- メールアドレスを受け取って表示する
+受け取った値:の部分でrequest.getParameterでパラメータを取得
+-->
+
+<!-- リクエストヘッダーとその要素 -->
+accept 
+<!-- クライアントが受け取ることのできるメディアタイプ 
+プラウザが直接参照可能なコンテンツ判定に使用-->
+accept-language
+<!-- コンテンツを表示する言語、多言語対応したい場合-->
+user-agent
+<!-- リクエストしたプラウザ情報とOSの情報。versionも含む-->
+host
+<!-- リクエストされたリソースのURL情報。header情報で唯一必須-->
