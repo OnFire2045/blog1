@@ -1,0 +1,59 @@
+ 前提・実現したいこと
+TECHNICAL MASTER　はじめてのJSP&サーブレット　第二版 tomcat8対応
+P84 現在の時刻を表示し午前か午後かを判定する。
+が動作せず、原因が分からないため質問させていただきます。
+
+ 発生している問題・エラーメッセージ
+
+line4 インポートされたjava.timeが見つかりません
+line15 LocalDateTimeが見つかりません。
+
+ 該当のソースコード
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.36/css/bootstrap.min.css">
+<title>Headers.</title>
+</head>
+<body>
+	<table class="table table-bordered">
+		<tr>
+			<th>ヘッダー名</th>
+			<th>値</th>
+		</tr>
+<%
+	// HTTPヘッダーの集合をEnumerationで取得
+	Enumeration<String> headers = request.getHeaderNames();
+
+	// Enumerationの要素の数だけ繰り返す
+	while(headers.hasMoreElements()) {
+
+	// Enumerationから取得した次の要素(=HTTPヘッダー名)を取得
+		String name = (String)headers.nextElement();
+
+
+		// 指定されたHTTPヘッダーの値を取得
+		String value = request.getHeader(name);
+%>
+<tr>
+	<td><%=name%></td>
+	<td><%=value%></td>
+</tr>
+<%
+	}
+%>
+	</table>
+</body>
+</html>
+ 試したこと
+何度も書き直したが動かないため質問させていただきました。
+
+ 環境　Version: Photon Release (4.8.0)
+ Windows 10 Home 64 bit(10.0,ビルド 17134
+ 発生している問題・エラーメッセージ
+ここにより詳細な情報を記載してください。
+
+Pleiades All in One
