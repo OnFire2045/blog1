@@ -1,0 +1,135 @@
+// 苦しんで覚えるC言語 3章 画面への表示
+
+# include<stdio.h>
+// 
+int main(void)
+{
+    printf("Hello\nworld\n"); // 文字出力:Hello,world
+    printf("Windows\tMicrosoft\n");
+    
+    printf("OS X\tapple\n"); // 行頭揃え:|t(エスケープシーケンス)
+    printf("The pen is mighter\nthan the sword\n");
+    
+    printf("Time is money\n"); // 改行:\n(エスケープシーケンス)
+    
+    printf("C language\n");
+    printf("\\n is NewLine Symbol "); // 文字に付属する特殊な意味を無効://n(エスケープ)
+    printf("\\t is Tab Symbol\n"); // 文字に付属する特殊な意味を無効:\\t(エスケープ)
+
+    printf("Intel \t:Core i7\n");
+    printf("AMD \t:Phenom Ⅱ\n"); // 改行と行頭揃え
+ 
+     
+     // ""で囲まれた文字列を文字列リテラルという
+     // C言語は全角文字も表示できる。基本は半角
+     // ~ P.72 4章 数値の表示と計算
+ 
+    printf("%d",100); // %d指定子。数値を数字に変換する
+    printf("円\n");
+    printf("%d円\n",100); //%d 指定子は文字列に自由に埋め込むことができる
+    printf("%d+",100);
+    printf("%d=",200);
+    printf("%d\n",300);
+    printf("%d+%d=%d\n",100,200,300); // %d指定子を復数使う
+    printf("%d\n",100+200); // 計算と結果の表示
+ 
+
+    // 数字の計算
+    // %d指定子は整数値を数字に変換する
+    printf("%d\n",10 + 3);
+    printf("%d\n",10 - 3);
+    printf("%d\n",10 * 3);
+    printf("%d\n",10 / 3);
+    printf("%d\n",10 % 3);
+    printf("%d\n",(1 + 100) * 100 / 2 );
+    
+    
+    // %f指定子は実数値を数字に変換する
+    printf("%f\n",10.0 + 3.0);
+    printf("%f\n",10.0 - 3.0);
+    printf("%f\n",10.0 * 3.0);
+    printf("%f\n",10.0 / 3.0);
+    
+    
+    // 0xを付けると16進数　0を付けると8進数
+    printf("%d\n", 0x5D);
+    printf("%d\n", 023);
+    printf("%d\n", 0x5D + 023 * 3);
+ 
+    // 式と商を表示
+    printf("%d / %d = %d...%d\n",40,13,40 / 13,40 % 13);
+    
+    // ~p.94 5章 数値の記憶と計算
+    
+/*   変数とは数値を記憶するメモリに名前をつけて管理する方法。
+     メモリとは横一列に並べられたロッカーのような構造
+     番号が隅からつけられており、宣言(名前をつける)する
+*/
+    
+    // 変数宣言 宣言は関数の先頭でしか行えない(C++は可能)
+    int value;
+    int value1;
+    int left;
+    int right;
+    double left1,right1;
+    int a = 10000, b = 500 , c = 3;
+    double pi = 3.14159;
+    int x,y;
+    x = 10;
+    y = x * 10 + 20;
+    left1 = 10;
+    right1 = 3;
+    int juice,milk,money,payment,change;
+    double tax;
+    value = 10; // 代入
+    value1 = 10+30;
+    left = 10;
+    right = 3;
+    value += 30; // +=演算子 value = value + 30の意
+    
+    juice = 198;
+    milk = 138;
+    money = 1000;
+    tax = 1.05;
+    // doubleで四則演算
+    printf("%f\n", left1 + right1);
+    printf("%f\n", left1 - right1);
+    printf("%f\n", left1 * right1);
+    printf("%f\n", left1 / right1);
+    printf("%d\n",value); // 表示
+    printf("%d\n",value1);
+    printf("%d\n", left + right);
+    printf("%d\n", left - right);
+    printf("%d\n", left * right);
+    printf("%d\n", left / right);
+    printf("%d\n", left % right); //　変数で四則演算
+    value++; // インクリメント 1増やす
+    printf("%d\n",value);
+    value--; // デクリメント 1減らす
+    printf("%d\n",value);
+    printf("%f\n",1.03 * 9); // 整数実数混合計算
+    printf("%d\n",(int)(1.05 * 360)); // キャスト変換
+    // 整数の桁揃え %桁数d
+    printf("Aは%5dです。\n",a);
+    printf("Bは%5dです。\n",b);
+    printf("Cは%5dです。\n",c);
+    // 空白を0で埋める整数の桁揃え %0桁数d
+    printf("Aは%05dです。\n",a);
+    printf("Bは%05dです。\n",b);
+    printf("Cは%05dです。\n",c);
+    // 実数の桁揃え　%全体桁数.少数点桁数
+    printf("%6.2f\n",pi);
+    printf("123456\n");
+    // 整数の桁揃え %桁数d
+    printf("%5d\n",y);
+    // 商品購入計算
+    payment = (int)((juice + milk * 2) * tax);
+    change = money - payment;
+    printf("%d円\n",change);
+    return 0;
+}
+// ~ p.118
+// 実数 = 浮動少数
+// 整数の割り算は切り捨てられる（割られる値より大きくなるため）
+
+
