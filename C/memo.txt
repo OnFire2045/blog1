@@ -133,3 +133,53 @@ int main(void)
 // 整数の割り算は切り捨てられる（割られる値より大きくなるため）
 
 
+// p120 ~ 6章 入力用の関数
+// 入力された文字を代入するscanf関数:scanf("入力変換指定子",&変数名);
+
+#include <stdio.h>
+
+int main(void)
+{
+    int min,max,sum;
+    int price;
+    int num1,num2;
+    int data;
+    double data2;
+    printf("Enter number:");
+    scanf("%d",&data); // 入力部分
+    printf("%d\n",data); // 入力数字の表示
+    printf("Enter number:");
+    scanf("%lf",&data2); // %lf指定子で実数を表示
+    printf("%f\n",data2);
+
+    printf("Enter number num1 num2:");
+    scanf("%d%d",&num1,&num2); //2つ数値を入力
+    printf("%d,%d\n",num1,num2);
+ 
+    printf("Enter two number num1,num2:");
+    scanf("%d,%d",&num1,&num2); // ,で区切って入力指定
+    printf("%d,%d\n",num1,num2);
+ 
+    // 入力部分
+    printf("最小値と最大値を,で区切って入力してください:");
+    scanf("%d,%d",&min,&max);
+    // 計算部分(シグマ)
+    sum = (min + max) * (max - min + 1) / 2;
+    // 表示部分
+    printf("%d~%dの合計は%dです。\n",min,max,sum);
+
+ 
+    // 定価を入力すると、1割引、3割引、5割引、8割引の値段を、一覧表示するプログラムを作成せよ
+    printf("定価を入力してください:");
+    scanf("%d",&price);
+    printf("1割引:%d\n",(int)(price * 0.9));
+    printf("3割引:%d\n",(int)(price * 0.7));
+    printf("5割引:%d\n",(int)(price * 0.5));
+    printf("8割引:%d\n",(int)(price * 0.2));
+    
+    return 0;
+}
+
+// ~p132 7章 比較と判断
+
+
