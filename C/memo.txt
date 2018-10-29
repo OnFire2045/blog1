@@ -180,6 +180,105 @@ int main(void)
     return 0;
 }
 
-// ~p132 7章 比較と判断
 
+// ~p132 7章 比較と判断
+// if(条件式)文; 条件判断 Cは0を偽。それ以外を真とする
+
+#include<stdio.h>
+
+int main(void)
+{
+    int suuti = 10; // 宣言と同時に代入。初期化と呼ぶ
+    int suuti1;
+    int suuti2;
+    int suuti3;
+    int suuti4;
+    if(suuti) printf("%d\n",suuti); // ifの中の数値が0以外の真偽値
+    
+    printf("Enter number:");
+    scanf("%d",&suuti1);
+    if(suuti1 - 10)printf("入力値は10ではありません\n");
+    if(suuti1 == 10)printf("入力値は10です\n");
+
+    // 等値演算子 == 2つの値は等しい != 2つの値は等しくない
+    printf("Enter number:");
+    scanf("%d",&suuti2);
+    if(suuti2 == 10)printf("入力値は10です\n");
+    if(suuti2 != 10)printf("入力値は10ではありません\n");
+    
+    /* 比較演算子 answer = value1 == value2
+       value1と2が等しければanswerに1。違えば0が代入される
+       関係演算子と真になる条件
+       "<"左の値が右より小さい ">"左の値が右より大きい "<="左の値が右以下 ">="左の値が右以上
+    */
+    printf("Enter number!:");
+    scanf("%d",&suuti3);
+    if(suuti3 == 10)printf("入力値は10です\n");
+    if(suuti3 > 10)printf("入力値は10より大きいです\n");
+    if(suuti3 < 10)printf("入力値は10より小さいです\n");
+    
+    /* 論理演算子
+    "&&" 両方で真 かつ "||" 片方でも真 または "!" 条件が偽 否
+     */
+    printf("Enter number!!:");
+    scanf("%d",&suuti4);
+    if(suuti4 >= 8 && suuti4 <= 12) printf("8から12の間です\n");
+    if(!(suuti4 >=8 && suuti4 <= 12)) printf("8から12の間ではありません\n");
+    return 0;
+}
+    // 復数の処理
+    // #include<stdio.h>
+    
+    // 複数の処理の実行
+
+     int main(void)
+     {
+     int value,remainder;    int score;
+     printf("点数を入力してください");
+     scanf("%d",&score);
+     if(score > 100) printf("入力が100より大きいので修正します。¥n");
+     if(score > 100) score = 100;
+     printf("点数は%d点です。¥n,score");
+     
+     // ブロック文を使った処理
+     int score;
+     printf("点数を入力してください");
+     scanf("%d",&score);
+     if(score > 100) {
+     printf("入力が100より大きいので修正します¥n");
+     score = 100;
+     }
+     print("点数は%d点です。¥n",score);
+     return 0;
+     
+     // 整数か奇数かを表示するプログラム。o(odd)奇数。e(even)偶数
+     
+     scanf("%d",&value);
+     
+     remainder = value % 2;
+     
+     
+     if(remainder == 0)printf("E");
+     if(remainder == 1)printf("0");
+     
+     printf("¥n");
+     return 0;
+     
+    // 西暦年を入力すると、その年にオリンピックが開催されるかどうかを表示するプログラムを作成せよ
+// }
+
+    #include<stdio.h>
+    int main(void)
+    {
+        int year;
+        
+        printf("西暦年を入力してください:");
+        scanf("%d",&year);
+        
+        if(year % 4 == 0)printf("夏季五輪¥n"); // 夏季五輪は% 4
+        if(year % 2 == 0 && year % 4 != 0)printf("冬季五輪");
+        // 冬季五輪は% 2
+        if(year % 2 != 0)printf("五輪なし¥n"); // %2 != 0
+        return 0;
+    }
 
