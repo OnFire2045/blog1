@@ -281,9 +281,16 @@ int main(void)
         return 0;
     }
 
+//
+//  main.c
+//  sample2
+//
+//  Created by 松枝　伸明 on 2018/10/30.
+//  Copyright © 2018年 OnFire. All rights reserved.
+
 //　p150~ 8章　場合分け処理を使う
 
-
+/*
 #include <stdio.h>
 int main(void)
 {
@@ -298,8 +305,11 @@ int main(void)
  return 0;
  }
  }
+ */
+
 
 // 3択の判断を行う(動物園の入場料と年齢の関係)
+/*
 #include<stdio.h>
 int main(void)
 {
@@ -311,7 +321,8 @@ int main(void)
     if(age <= 3)printf("幼児:無料\n");
     if(age >= 4 && age <= 12)printf("子供:250円\n");
     if(age >= 13)printf("大人:400円\n");
-
+    */
+/*
     //修正した記述
     if(age <= 3) {
         printf("幼児:無料\n");
@@ -324,7 +335,9 @@ int main(void)
     return 0;
     
 }
+*/
 
+/*
 #include<stdio.h>
 int main(void)
 {
@@ -343,8 +356,10 @@ int main(void)
         printf("そんな番号の人はいない");
     }
 }
+*/
 
 // switch ~ case 美しい記述
+/*
 #include<stdio.h>
 int main(void)
 {
@@ -369,12 +384,14 @@ int main(void)
             printf("男性");
             break;
         default:
- 
- printf("そんな番号の人はいない\n");
+            printf("そんな番号の人はいない\n");
             break;
     }
     return 0;
 }
+*/
+
+/*
 // case文をまとめる
 #include<stdio.h>
 int main(void)
@@ -402,6 +419,8 @@ int main(void)
 // caseは判断力が弱い。整数値しか使えない。
 
 //  プログラム書き取り　月を入力すると陰暦を表示 switch文
+
+/*
 #include<stdio.h>
 int main(void)
 {
@@ -453,11 +472,12 @@ int main(void)
     }
     return 0;
 }
+*/
 
 // switch文はcase文にジャンプする機能しか持たないためbreakが必須
 
 // p170~ 9章　回数が決まっている繰り返し
-
+/*
   #include<stdio.h>
 int main(void){
     int i;
@@ -465,7 +485,9 @@ int main(void){
         printf("メッセージ\n");
     }
 }
+*/
 // カウント変数
+/*
 #include<stdio.h>
 int main(void)
 {
@@ -475,6 +497,7 @@ int main(void)
     }
     return 0;
 }
+*/
 
 
 /*
@@ -484,6 +507,7 @@ for(初期化; 条件式; 更新) {
 }
 */
 
+/*
 #include<stdio.h>
 int main(void)
 {
@@ -493,7 +517,7 @@ int main(void)
     }
     return 0;
 }
-
+*/
 /*
  ループの開始時点でiは1となり、条件式の比較によりi <= 10の結果は真となる。
 その結果ループの実行が続く。次に繰り返す文としてprintf分が実行される。i++でiの値は1増加する。
@@ -516,6 +540,7 @@ int main(void)
 */
 
 // 強制脱出 break文によってfor文を強制終了させる
+/*
 #include<stdio.h>
 int main(void)
 {
@@ -526,6 +551,7 @@ int main(void)
     }
     return 0;
 }
+ */
 // 3回目で終了する
 
 // for文を使用して掛け算の九九を表示するプログラムを作成せよ

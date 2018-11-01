@@ -263,10 +263,9 @@ int main(void)
      
      printf("¥n");
      return 0;
-     
+     }
     // 西暦年を入力すると、その年にオリンピックが開催されるかどうかを表示するプログラムを作成せよ
-// }
-
+// 
     #include<stdio.h>
     int main(void)
     {
@@ -281,4 +280,268 @@ int main(void)
         if(year % 2 != 0)printf("五輪なし¥n"); // %2 != 0
         return 0;
     }
+
+//　p150~ 8章　場合分け処理を使う
+
+
+#include <stdio.h>
+int main(void)
+{
+    // elseを使った条件分岐
+    int suuti;
+    printf("enter number:");
+    scanf("%d",&suuti);
+    if(suuti == 10) {
+        printf("入力値は10です。\n");
+    } else {
+        printf("入力値は10ではありません。\n");
+ return 0;
+ }
+ }
+
+// 3択の判断を行う(動物園の入場料と年齢の関係)
+#include<stdio.h>
+int main(void)
+{
+    int age;
+    printf("年齢:");
+    scanf("%d",&age);
+
+    // ここから無駄のある記述
+    if(age <= 3)printf("幼児:無料\n");
+    if(age >= 4 && age <= 12)printf("子供:250円\n");
+    if(age >= 13)printf("大人:400円\n");
+
+    //修正した記述
+    if(age <= 3) {
+        printf("幼児:無料\n");
+    } else if(age <= 12) {
+        printf("子供:250円\n");
+    } else {
+        printf("大人:400円\n");
+    }
+    
+    return 0;
+    
+}
+
+#include<stdio.h>
+int main(void)
+{
+    int no;
+    printf("enter number:");
+        scanf("%d",&no);
+    if(no == 1) {
+        printf("野比のび太");
+    } else if(no == 2) {
+        printf("源静香");
+    } else if(no == 3) {
+        printf("剛田武");
+    }else if(no == 4) {
+        printf("骨川スネ夫\n");
+    } else {
+        printf("そんな番号の人はいない");
+    }
+}
+
+// switch ~ case 美しい記述
+#include<stdio.h>
+int main(void)
+{
+    int no;
+    printf("enter number:");
+    scanf("%d",&no);
+    switch(no) {
+        case 1:
+            printf("野比のび太\n");
+            printf("男性");
+            break;
+        case 2:
+            printf("源静香\n");
+            printf("女性");
+            break;
+        case 3:
+            printf("剛田武\n");
+            printf("男性");
+            break;
+        case 4:
+            printf("骨川スネ夫\n");
+            printf("男性");
+            break;
+        default:
+ 
+ printf("そんな番号の人はいない\n");
+            break;
+    }
+    return 0;
+}
+// case文をまとめる
+#include<stdio.h>
+int main(void)
+{
+    int no;
+    printf("enter number:");
+    scanf("%d",&no);
+    switch(no) {
+        case 1:
+        case 3:
+        case 4:
+             printf("男性");
+            break;
+        case 2:
+            printf("女性");
+            break;
+        default:
+            printf("そんな番号の人はいない\n");
+            break;
+    }
+    return 0;
+}
+ */
+ 
+// caseは判断力が弱い。整数値しか使えない。
+
+//  プログラム書き取り　月を入力すると陰暦を表示 switch文
+#include<stdio.h>
+int main(void)
+{
+    int month;
+    
+    printf("月を整数で入力してください:");
+    scanf("%d",&month);
+    
+    switch(month) {
+        case 1:
+            printf("陸月");
+            break;
+        case 2:
+            printf("如月");
+            break;
+        case 3:
+            printf("弥生");
+            break;
+        case 4:
+            printf("卯月");
+            break;
+        case 5:
+            printf("皐月");
+            break;
+        case 6:
+            printf("水無月");
+            break;
+        case 7:
+            printf("文月");
+            break;
+        case 8:
+            printf("葉月");
+            break;
+        case 9:
+            printf("長月");
+            break;
+        case 10:
+            printf("神無月");
+            break;
+        case 11:
+            printf("霜月");
+            break;
+        case 12:
+            printf("師走");
+            break;
+        default:
+            printf("1から12の月を入力してください");
+            break;
+    }
+    return 0;
+}
+
+// switch文はcase文にジャンプする機能しか持たないためbreakが必須
+
+// p170~ 9章　回数が決まっている繰り返し
+
+  #include<stdio.h>
+int main(void){
+    int i;
+    for(i = 1; i <= 10; i++) {
+        printf("メッセージ\n");
+    }
+}
+// カウント変数
+#include<stdio.h>
+int main(void)
+{
+    int i;
+    for(i = 1; i < 10; i++){
+        printf("%0d回目\n",i);
+    }
+    return 0;
+}
+
+
+/*
+ ループ動作の仕組み
+for(初期化; 条件式; 更新) {
+# 繰り返す文;
+}
+*/
+
+#include<stdio.h>
+int main(void)
+{
+    int i;
+    for(i = 1; i <= 10; i++){
+        printf("メッセージ");
+    }
+    return 0;
+}
+
+/*
+ ループの開始時点でiは1となり、条件式の比較によりi <= 10の結果は真となる。
+その結果ループの実行が続く。次に繰り返す文としてprintf分が実行される。i++でiの値は1増加する。
+iが11になった時、偽となりループから抜け出す。
+ */
+
+
+// 無限ループ
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    for(;;){
+        printf("メッセージ");
+    }
+    return 0;
+}
+// 実行すると、無限ループする。
+*/
+
+// 強制脱出 break文によってfor文を強制終了させる
+#include<stdio.h>
+int main(void)
+{
+    int i;
+    for(i = 1; i <= 10; i++){
+        printf("%d\n",i);
+        if(i == 3) break; //ループを終了させる
+    }
+    return 0;
+}
+// 3回目で終了する
+
+// for文を使用して掛け算の九九を表示するプログラムを作成せよ
+#include<stdio.h>
+int main(void)
+{
+    int x,y;
+    
+    for(x = 1; x<= 9;x++){
+        for(y = 1; y <= 9; y++){
+            printf(" %2d ",x * y);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+// P.183~ 10章　回数の分からない繰り返し
 
