@@ -281,6 +281,7 @@ int main(void)
         return 0;
     }
 
+
 //　p150~ 8章　場合分け処理を使う
 
 
@@ -543,5 +544,369 @@ int main(void)
     return 0;
 }
 
-// P.183~ 10章　回数の分からない繰り返し
+// １０章 P.191~ 回数のわからない繰り返し
+
+/* 無駄のある書き方
+#include<stdio.h>
+
+int main(void)
+{
+    int r;
+    double s;
+    printf("半径?:");
+    scanf("%d",&r);
+    while(r < 0) {
+        printf("半径?:");
+        scanf("%d",&r);
+    }
+    
+    s = r * r * 3.14;
+    printf("面積は%fです。\n",s);
+    
+    return 0;
+}
+*/
+
+// do whileを使って無駄をなくす
+
+#include<stdio.h>
+
+int main(void)
+{
+    int r;
+    double s;
+    
+    do{
+        printf("半径?:");
+        scanf("%d",&r);
+    } while(r < 0);
+    s=r*r*3.14;
+    printf("面積は％%fです。\n",s);
+    return 0;
+}
+
+
+// whileは先判定。do whileは後判定
+
+// テストの点数を入力(0から100まで)するプログラム
+
+#include<stdio.h>
+
+int main(void)
+{
+    
+    int score;
+    
+    do {
+        printf("点数を入力してください");
+        scanf("%d",&score);
+    } while (score < 0 || score > 100);
+    printf("入力された点数 %d\n",score);
+    return 0;
+}
+// do whileは後判定のため必ず一回は実行される（チェックに向いている）
+
+
+// P.198~ 11章　関数の作り方
+
+// 関数としての再利用を部品化と呼ぶ
+/*
+#include<stdio.h>
+
+int sum(void);
+ プロトタイプ宣言
+プロトタイプ宣言は関数の形を宣言しておく事で他のすべての
+関数からその関数を使えるようにすること。
+*/
+/*
+int main(void)
+{
+    return 0;
+}
+
+int sum(void)
+{
+    printf("%d\n",(1+100) * 100 / 2);
+    return 0;
+}
+*/
+
+// 自作関数を呼び出す
+/*
+#include<stdio.h>
+
+int sum(void); // プロトタイプ宣言
+ 
+int main(void)
+{
+    sum();
+    return 0;
+}
+
+int sum(void)
+{
+    printf("%d\n",(1+100) * 100 / 2);
+    return 0;
+}
+*/
+// 引数 関数に情報を渡す情報の総称 int sum(int max);
+// 入力した数値までの数をすべて足した数を表示 例:50なら1~50
+/*
+#include<stdio.h>
+
+int sum(int); // プロトタイプ宣言
+
+int main(void)
+{
+ sum(50); // 50を渡している
+    return 0;
+}
+
+int sum(int max)
+{
+    printf("%d\n",(1 + max) * max / 2);
+    return 0;
+}
+*/
+
+// 12章 データ 
+// 12章は編集中です......
+
+
+// P.239 13章 2 復数の変数をまとめて扱う
+
+
+#include<stdio.h>
+
+int main(void)
+{
+    int array[100];
+    
+    array[9] = 100; // 0番からなので9は10番目
+    printf("1:%d\n",array[9]);
+    array[9]++;
+    printf("2:%d\n",array[9]);
+    
+    return 0;
+}
+
+
+// 配列の使い方
+
+#include<stdio.h>
+
+int main(void)
+{
+    int array[10] = {42,79,13};
+    
+    printf("array[0] = %d\n",array[0]);
+    printf("array[1] = %d\n",array[1]);
+    printf("array[2] = %d\n",array[2]);
+    printf("array[3] = %d\n",array[3]);
+    printf("array[4] = %d\n",array[4]);
+    
+    return 0;
+}
+
+// 要素数を省略して配列を宣言
+
+
+#include<stdio.h>
+
+int main(void)
+{
+    int array[] = {42,79,13}; // 要素数を省略
+    
+    printf("array[0] = %d\n",array[0]);
+    printf("array[1] = %d\n",array[1]);
+    printf("array[2] = %d\n",array[2]);
+    
+    return 0;
+    
+    // 配列は１つずつ代入する事 array[0] = 42;
+    
+}
+
+
+// 全要素の表示
+
+#include<stdio.h>
+int main(void)
+{
+    int array[] = {42,79,13,75,19};
+    int i;
+    
+    for(i = 0; i < 5; i++){
+        printf("array[%d] = %d\n",i,array[i]);
+    }
+    return 0;
+}
+
+
+// 配列の要素番号には変数が使える
+// 要素数を求める sizeof演算子
+// sizeof(array) / sizeof(array[0])
+
+
+#include<stdio.h>
+int main(void)
+{
+    int array[] = {42,79,13,75,19};
+    int i;
+    
+    for(i = 0; i < sizeof(array)/ sizeof(array[0]); i++){
+        printf("array[%d] = %d¥n",i,array[i]);
+    }
+    return 0;
+}
+
+
+// 配列のコピー
+
+
+#include<stdio.h>
+int main(void)
+{
+    int array1[] = {42,79,13,19,41};
+    int array2[] = {1,2,3,4,5};
+    int i;
+    
+    for(i = 0; i < sizeof(array2) / sizeof(array2[0]); i++){
+        printf("array2[%d] = %d\n",i,array2[i]);
+    }
+
+// array1の全要素をarray2にコピー
+    for (i = 0; i < sizeof(array2) / sizeof(array2[0]); i++){
+        array2[i] = array1[i];
+    }
+
+    for(i = 0; i < sizeof(array2) / sizeof(array2[0]); i++){
+    printf("array2[%d] = %d\n",i,array2[i]);
+    }
+    return 0;
+}
+
+
+// 結果はarray1の中身がarrray2にコピーされるが、これはmemcpy関数を使うと良い
+// #include<string.h>でmemcpy関数は使用可能
+// 書式 memcpy(コピー先配列名,コピー元配列名,配列全体のサイズ)
+
+
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    int array1[] = {42,79,13,19,41};
+    int array2[] = {1,2,3,4,5};
+    int i;
+    
+   for(i = 0; i < sizeof(array2) / sizeof(array2[0]); i++){
+   printf("array2[%d] = %d\n",i,array2[i]);
+    // array1の要素をarray2にコピー
+   }
+    memcpy(array2,array1,sizeof(array1));
+    
+    for(i = 0; i < sizeof(array2) / sizeof(array2[0]); i++){
+        printf("array2[%d] = %d\n",i,array2[i]);
+    }
+    return 0;
+}
+
+
+
+
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    int array1[] = {42,79,13,19,41};
+    int array2[] = {1,2,3,4,5};
+    int i;
+    
+   for(i = 0; i < sizeof(array2) / sizeof(array2[0]); i++){
+   printf("array2[%d] = %d\n",i,array2[i]);
+    // array1の要素をarray2にコピー
+   }
+    memcpy(array2,array1,sizeof(array1));
+    
+    for(i = 0; i < sizeof(array2) / sizeof(array2[0]); i++){
+        printf("array2[%d] = %d\n",i,array2[i]);
+    }
+    return 0;
+}
+
+
+// 基礎知識
+// 1.同じ型の変数を取り扱う方法を配列という
+
+// 2.平均の計算を行うプログラム
+
+#include<stdio.h>
+int main(void)
+{
+    int data[] = {79,42,39,79,13,75,19};
+    int i,sum = 0,avg;
+    
+    for(i = 0; i < sizeof(data) / sizeof(data[0]); i++){
+        sum += data[i];
+    }
+    avg = sum / sizeof(data) / sizeof(data[0]);
+            printf("%d\n",avg);
+            return 0;
+    }
+
+
+// 3.数字の合計を表示するプログラム
+
+#include<stdio.h>
+
+int main(void)
+{
+    int array[] = {42,79,13,65,19};
+    int i,sum = 0;
+    
+    for(i = 5-1; i >= 0; i--) {
+        sum += array[i];
+        printf("%d:",array[i]);
+// for文を逆順に回している
+    }
+    printf("sum = %d\n",sum);
+    return 0;
+    }
+
+
+
+// 4.入力された１０個の数値を最後から表示するプログラム
+
+ #include<stdio.h>
+
+int main(void)
+{
+    int data[10];
+    int i;
+    
+    for(i = 0; i < 10; i++){
+        printf("%d 番目の数値を入力してください:",i);
+        scanf("%d",&data[i]);
+    }
+
+    for(i = 9; i >= 0; i--){
+        printf("%d",data[i]);
+    }
+    printf("\n");
+    
+    return 0;
+    }
+
+// 以下の記述でも可能
+// for(i = 0; i < 10; i++){
+// printf("%d",data[9 - i];
+// }
+
+
+
+// ｈ5.配列の利点は番号を変数で指定することにより大量の変数をまとめて扱える事
+
 
