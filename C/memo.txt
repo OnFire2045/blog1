@@ -910,3 +910,402 @@ int main(void)
 // ｈ5.配列の利点は番号を変数で指定することにより大量の変数をまとめて扱える事
 
 
+
+// 14章　文字列を扱う方法
+
+// 文字列を数字に変換。0から９のみ。
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    char c = 'A'; // 数字
+    int suuti;
+    if(c >= '0' && c <= '9'){ //判定部分
+        suuti = c - '0'; // 数値に変換
+    } else {
+        suuti = 0;
+    }
+    printf("%d\n",suuti);
+    return 0;
+}
+*/
+
+// #include<ctype.h>
+
+/*
+文字種テスト関数
+ isalnum  = "アルファベットまたは数字かどうかの略"
+ isdigit  = "10進数表記用の数字かどうかの略"
+ isxdigit = "16進数表記用の数字かどうかの略"
+ isalpha  = "アルファベットかどうかの略"
+ isupper  = "アルファベット大文字かどうかの略"
+ islower  = "アルファベット小文字かどうかの略"
+ ispunch  = "記号かどうかの略"
+ isspace =  "スペースかどうかの略"
+ */
+
+/*
+// isdigit関数を使ってプログラムを書き換える
+#include<stdio.h>
+#include<ctype.h>
+
+int main(void)
+{
+    char c = 'A';
+    int suuti;
+    if(isdigit(c)) { // 判定部分
+        suuti = c - '0';
+    } else {
+        suuti = 0;
+    }
+    printf("%d\n",suuti);
+    return 0;
+}
+*/
+// 14.2 文字列を扱う方法　文字変数の配列を作れば文字列になる
+// EOS 文字列の終わりを表す記号。終端文字。End of String.
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    char str[6] = {'M','A','R','I','O','\n'};
+    printf("%s\n",str);
+    return 0;
+}
+// MARIO
+*/
+
+ // \nがEOSとなっている。要素が一つ多くなる
+// 配列の初期化の指定した数より少ない場合は残りに０が入るため問題ない
+
+// ""で囲んだ部分を文字列リテラルと呼ぶ
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    char str[] = "MARIO"; // この方法は宣言時にしか使えない
+    printf("%s\n",str);
+    return 0;
+}
+// MARIO
+*/
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    char str[6];
+    str[0] = 'M';
+    str[1] = 'A';
+    str[2] = 'R';
+    str[3] = 'I';
+    str[4] = 'O';
+    str[5] = '\n';
+    printf("%s\n",str);
+    return 0;
+}
+*/
+// MARIO
+
+// 配列の文字列を後から変更する場合は１文字ずつ代入するしかない
+
+// 文字列処理関数
+/*
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(void)
+{
+    char str[] = "145";
+    int suuti = atoi(str);
+    printf("%d\n",suuti);
+    return 0;
+}
+*/
+
+// 文字列のコピー strcpy関数で文字列を代入する
+// strcpy(コピー先文字列配列名,コピー元文字列配列名);
+/*
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    char str[10];
+    strcpy(str,"MARIO");
+    printf("%s\n",str);
+    return 0;
+}
+ // 結果
+ // MARIO
+ */
+// 文字列のコピー strcpy関数で簡単に代入できる
+// strncpy関数もあります
+// strncpy(コピー先文字列配列名,コピー元文字列配列名,コピーする文字数);
+
+// 文字列の先頭から三文字を取り出して表示する
+/*
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    char str1[] = "MARIO",str2[10];
+    strncpy(str2,str1,3);
+    str2[3] = '\0'; // EOSを付加
+    printf("%s\n",str2);
+    return 0;
+}
+// 結果
+// MAR
+*/
+
+// strcpy関数は必ずEOSを付加する事
+
+// 文字列リテラルの連結
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    char str[] = "DRAGON" "QUEST";
+    printf("%s\n",str);
+    return 0;
+}
+// 結果
+// DRAGONQUEST
+*/
+
+// 配列に記憶された文字列を連結するにはstrcat関数を使う
+// #include<String.h>
+// strcat(元の文字列が記憶された配列,追加する文字列の記憶された配列);
+
+//strcatを使った文字列の連結
+
+/*
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    char str1[12] ="DRAGON";
+    char str2[] = "QUEST";
+    strcat(str1,str2);
+    printf("%s\n",str1);
+    return 0;
+}
+// DRAGONQUEST
+// もとの配列長さ以上の文字列を入れないこと
+ */
+
+// 究極の文字列結合関数
+// sprintf関数
+// sprintf(結果を記憶する配列,書式文字列,各種変数...);
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+char str[16];
+char str1[12] = "DRAGON";
+char str2[] = "QUEST";
+int i = 3;
+sprintf(str,"%s%s%d\n",str1,str2,i);
+printf(str);
+return 0;
+}
+// DRAGONQUEST3
+// この関数でほとんどの文字合成が可能
+*/
+
+// printf(str); 文字列なのでそのまま表示できる
+
+// scanf関数を文字列入力で使う
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    char str[32];
+    printf("enter the word:");
+    scanf("%s",str);
+    printf("%s\n",str);
+    return 0;
+}
+*/
+// このままでは文字列32以上だとエラーが生じる
+// 32以上は切り捨てる
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    char str[32];
+    printf("enter the word:");
+    scanf("%31s",str);
+    printf("%s\n",str);
+    return 0;
+}
+*/
+// 文字数を数える
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    int i;
+    
+    char str[256];
+    printf("enter word:");
+    scanf("%s",str);
+    
+    for(i = 0;str[i] != '\0'; i++);
+    // EOSが出現するまでiを増加させる
+    printf("%d\n",i);
+    return 0;
+}
+*/
+
+//　strlen関数で文字を数えることができる
+// #include<string.h>
+// 変数　= strlen(文字配列);
+
+/*
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    int i;
+    char str[256];
+    printf("enter word:");
+    scanf("%s",str);
+    
+    i = strlen(str);
+    
+    printf("%d\n",i);
+    
+    return 0;
+}
+// 結果は同じ
+ 
+ */
+
+// 文字列の比較
+// str1 == str2;
+// 文字列演算子同士は==できない
+
+/*
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    int len,i;
+    char str1[256],str2[] = "DRAGONQUEST";
+    printf("enter word:");
+    scanf("%s",str1);
+    
+    len = strlen(str2);
+    
+    for(i = 0; i < len + 1; i++){
+        if (str1[i] != str2[i])
+            break;
+    }
+    
+    if(i== len + 1){
+        printf("同じ\n");
+    } else {
+        printf("違う\n");
+    }
+    
+    return 0;
+}
+*/
+
+// 入力文字列が一致すれば同じ。違えば違うと表示される
+
+// strcmp関数を使えば文字列を比較することができる
+// #include<string.h>
+// 変数 = strcmp(文字配列1,文字配列2);
+
+// strcmpを使って書き直す
+/*
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    char str1[256],str2[] = "DRAGONQUEST";
+    printf("enter word:");
+    scanf("%s",str1);
+    
+    if(strcmp(str1,str2) == 0) {
+        printf("同じ\n");
+    } else {
+        printf("違う\n");
+    }
+    return 0;
+    }
+// 結果は同じ
+*/
+
+// 練習問題
+// 1 各文字に別々の番号をつけることで区別する方法を文字コードという
+
+// 2 文字列の終わりをEOSと呼ぶ。end of string.
+
+// 3 表示される結果は？
+/*
+#include<stdio.h>
+
+int main(void)
+{
+    char C;
+    
+    for(C = 'A'; C <= 'Z'; C++) {
+        printf("%C",C);
+    }
+    printf("\n");
+    
+    return 0;
+}
+// ABCDEFGHIJKLMNOPQRSTUVWXYZ
+*/
+
+
+//4 名字と名前を結合させて別々に表示させるプログラム
+/*
+#include<stdio.h>
+#include<string.h>
+
+int main(void)
+{
+    char fname[256],lname[256];
+    
+    printf("名字を入力してください");
+    scanf("%s",fname);
+    
+    printf("名前を入力してください");
+    scanf("%s",lname);
+    
+    strcat(fname,lname);
+    printf("フルネームは%s\n",fname);
+    // printf("フルネームは%s%s\n",fname,lname); としても良い
+    return 0;
+}
+*/
+
+// 5 C言語の文字列の取扱に配列を使う理由は文字列は長さが様々なため
+// 長さを変えられる配列を使い節約している
+
+// p.280 15章　ポインタ変数の仕組み
+
