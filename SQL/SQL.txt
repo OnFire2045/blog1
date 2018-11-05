@@ -1,0 +1,861 @@
+﻿//データベースを確認する
+show databases;
+
+//データベースを指定する
+use world;
+
+//使用中のデータベースの確認
+select database();
+
+//テーブルの確認
+show tables;
+
+//テーブルの構造を確認する
+show columns from テーブル名(country);
+
+desc テーブル名;
+
+
+1 sampleDBデータベースを作成する
+create database sampleDB;
+
+2sampleDB指定
+use sampleDB;
+
+3使用データベースの確認
+select database();
+
+4データベース内のテーブルの確認
+show tables;
+
+5.テーブルの作成
+create table 家計簿(
+日付額 integer,
+出金額 integer);
+
+6.show columns from　家計簿;
+
+
+mysql> show tables;
++--------------------+
+| Tables_in_sampledb |
++--------------------+
+| 家計簿             |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> show columns from 家計簿;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| 日付   | date         | YES  |     | NULL    |       |
+| 費目ID | int(11)      | YES  |     | NULL    |       |
+| メモ   | varchar(100) | YES  |     | NULL    |       |
+| 入金額 | int(11)      | YES  |     | NULL    |       |
+| 出金額 | int(11)      | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+//データの挿入
+INSERT INTO　テーブル名（カラム1,カラム2,カラム3)
+VALUES(カラム1の値,カラム2の値,カラム3の値);
+
+
+//データの挿入
+insert into 家計簿(日付,メモ,出金額)
+values 		      ('2018-10-16','詳細は後で',60000);
+
+//テーブルの確認
+SHOW TABLES;
+
+//データの確認・抽出(SELECT文)
+SELECT * FROM テーブル名;
+
+SELECT * FROM 家計簿;
+
+//insert文
+insert into 家計簿(日付,メモ,入金額,出金額)
+values		  ('2013-02-03','コーヒーを購入',0,380);
+insert into 家計簿(日付,メモ,入金額,出金額)
+values		  ('2013-02-10','1月の給料',280000,0);
+insert into 家計簿(日付,メモ,入金額,出金額)
+values 		  ('2013-02-11','書籍を購入',0,2800);
+insert into 家計簿(日付,メモ,入金額,出金額)
+values 		  ('2013-02-14','同期会の会費',0,5000);
+insert into 家計簿(日付,メモ,入金額,出金額)
+values		  ('2013-02-18','1月の電気代',0,7560);
+/* 
+DATABASE:SAMPLE
+TABLE:家計簿 
+(間中はずっと)
+*/;
+
+--SELECT * FROM (行の文末まで)
+
+SELECT メモ AS MEMO FROM 家計簿;
+
+
+■練習
+--家計簿テーブルから日付と出金額の情報を取得する
+mysql> SELECT 日付,出金額 FROM 家計簿;
++------------+--------+
+| 日付       | 出金額 |
++------------+--------+
+| 2018-10-16 |  60000 |
+| 2013-02-03 |    380 |
+| 2013-02-10 |      0 |
+| 2013-02-11 |   2800 |
+| 2013-02-14 |   5000 |
+| 2013-02-18 |   7560 |
++------------+--------+
+6 rows in set (0.00 sec)
+
+//UPDATE文
+--UPDATE文の基本構文
+UPDATE 家計簿 SET 入金額 = 99999;
+SELECT 入金額 FROM 家計簿;
+
+UPDATE 家計簿 SET 入金額 = 0;
+
+UPDATE 家計簿 SET 入金額 = 280000
+WHERE メモ = '1月の給料';
+
+UPDATE 家計簿 SET 入金額 = NULL
+WHERE メモ = '詳細は後で';
+
+DELETE FROM 家計簿
+WHERE メモ = '詳細は後で';
+
+mysql> SELECT * FROM 家計簿;
++------------+--------+----------------+--------+--------+
+| 日付       | 費目ID | メモ           | 入金額 | 出金額 |
++------------+--------+----------------+--------+--------+
+| 2018-10-16 |   NULL | 詳細は後で     |   NULL |  60000 |
+| 2013-02-03 |   NULL | コーヒーを購入 |      0 |    380 |
+| 2013-02-10 |   NULL | 1月の給料      |      0 |      0 |
+| 2013-02-11 |   NULL | 書籍を購入     |      0 |   2800 |
+| 2013-02-14 |   NULL | 同期会の会費   |      0 |   5000 |
+| 2013-02-18 |   NULL | 1月の電気代    |      0 |   7560 |
++------------+--------+----------------+--------+--------+
+6 rows in set (0.00 sec)
+
+DELETE FROM　家計簿
+
+
+
+定型文
+
+show columns from member; // メンバーのデータベース表示
+
+INSERT INTO member(kana) VALUES(varchar(30));　// メンバーの追加
+
+
+
+
+ // 手順その1 テーブルの作成
+
+create table member(name char(20),kana varchar(30),birthday date,age int,b_place varchar(10),belong varchar(30));
+
+// 手順その2 テーブルの変数にデータ代入
+insert into member(name,kana,birthday,age,b_place,belong) values('石森虹花','いしもりにじか','1997-05-07',21,'宮城','欅坂46');
+
+
+
+//　バックアップファイル
+名前	
+　　　　　　　よみ	生年月日	年齢　出身地	 　　所属
+insert into member(name,kana,birthday,age,b_place,belong
+)
+values(
+'石森虹花','いしもりにじか','1997-05-07',21,'宮城','欅坂46');
+('今泉佑唯','いまいずみ ゆい','1998-09-30',20,'神奈川県','欅坂46'),
+('上村莉菜','うえむら りな','1997-01-04',21,'千葉県','欅坂46'),
+('尾関梨香','おぜき りか','1997-10-07',21,'神奈川県','欅坂46'),
+('織田奈那','おだ なな','1998-06-04',20,'静岡県','欅坂46'),
+('小池美波','こいけ みなみ','1998-11-14',19,'兵庫県','欅坂46'),
+('小林由依','こばやし ゆい','1999-10-23',18,'埼玉県','欅坂46'),
+('齋藤冬優花','さいとう ふゆか','1998-02-15',20,'東京都','欅坂46'),
+('佐藤詩織','さとう しおり','1996-11-16',21,'東京都','欅坂46'),
+('志田愛佳','しだ まなか','1998-11-23',19,'新潟県','欅坂46'),
+('菅井友香','すがい ゆうか','1995-11-29',22,'東京都','欅坂46'),
+('鈴本美愉','すずもと みゆ','1997-12-05',20,'愛知県','欅坂46'),
+('長沢菜々香','ながさわ ななこ','1997-04-23',21,'山形県','欅坂46'),
+('長濱ねる','ながはま ねる','1998-09-04',20,'長崎県','欅坂46'),
+('土生瑞穂','はぶ みづほ','1997-07-07',21,'東京都','欅坂46'),
+('原田葵','はらだ あおい','2000-05-07',18,'東京都','欅坂46'),
+('平手友梨奈','ひらて ゆりな','2001-06-25',17,'愛知県','欅坂46'),
+('守屋茜','もりや あかね','1997-11-12',20,'宮城県','欅坂46'),
+('米谷奈々未','よねたに ななみ','2000-02-24',18,'大阪府','欅坂46'),
+('渡辺梨加','わたなべ りか','1995-05-16',23,'茨城県','欅坂46'),
+('渡邉理佐','わたなべ りさ','1998-07-27',20,'茨城県','欅坂46');
+
+
+insert into member(
+name,kana,birthday,age,b_place,belong
+)
+values('石森虹花','いしもりにじか','1997-05-07',21,'宮城','欅坂46');
+
+
+// ワイルドカードを使った一部一致
+SELECT name
+FROM member
+WHERE kana LIKE "%お%";
+
+// 20歳以上のデータを取得
+select age
+from member
+where age >= 20;
+
+// 20歳以上を30歳に変更
+UPDATE member 
+SET age = 30
+WHERE age >= 20;
+
+// 年齢を取得
+select age
+from member
+where age;
+
+
+// 全てのメンバーのテーブルカラムを表示
+select *
+from member
+where age;
+
+// dropデータベース
+drop database if exists member;
+
+
+
+// memberテーブルのロールバック(推奨される手順)
+
+drop table if exists member;
+
+// 手順1 テーブルの作成
+
+create table member(name char(20),kana varchar(30),birthday date,age int,b_place varchar(10),belong varchar(30));
+
+// 出席番号付きのテーブル作成
+create table member(number int,name char(20),kana varchar(30),birthday date,age int,b_place varchar(10),belong varchar(30));
+
+
+
+// 手順2 インサートでカラムの変数に数値と文字列を代入(推奨)
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'石森虹花','いしもりにじか','1997-05-07',21,'宮城','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'今泉佑唯','いまいずみ ゆい','1998-09-30',20,'神奈川県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'上村莉菜','うえむら りな','1997-01-04',21,'千葉県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'尾関梨香','おぜき りか','1997-10-07',21,'神奈川県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'織田奈那','おだ なな','1998-06-04',20,'静岡県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'小池美波','こいけ みなみ','1998-11-14',19,'兵庫県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'小林由依','こばやし ゆい','1999-10-23',18,'埼玉県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'齋藤冬優花','さいとう ふゆか','1998-02-15',20,'東京都','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'佐藤詩織','さとう しおり','1996-11-16',21,'東京都','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'志田愛佳','しだ まなか','1998-11-23',19,'新潟県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'菅井友香','すがい ゆうか','1995-11-29',22,'東京都','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'鈴本美愉','すずもと みゆ','1997-12-05',20,'愛知県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'長沢菜々香','ながさわ ななこ','1997-04-23',21,'山形県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'長濱ねる','ながはま ねる','1998-09-04',20,'長崎県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'土生瑞穂','はぶ みづほ','1997-07-07',21,'東京都','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'原田葵','はらだ あおい','2000-05-07',18,'東京都','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'平手友梨奈','ひらて ゆりな','2001-06-25',17,'愛知県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'守屋茜','もりや あかね','1997-11-12',20,'宮城県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'米谷奈々未','よねたに ななみ','2000-02-24',18,'大阪府','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'渡辺梨加','わたなべ りか','1995-05-16',23,'茨城県','欅坂46');
+insert into member(name,kana,birthday,age,b_place,belong)
+values(
+'渡邉理佐','わたなべ りさ','1998-07-27',20,'茨城県','欅坂46');
+
+// 出席番号付きで代入(推奨）
+
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+1,'石森虹花','いしもりにじか','1997-05-07',21,'宮城','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+2,'今泉佑唯','いまいずみ ゆい','1998-09-30',20,'神奈川県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+3,'上村莉菜','うえむら りな','1997-01-04',21,'千葉県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+4,'尾関梨香','おぜき りか','1997-10-07',21,'神奈川県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+5,'織田奈那','おだ なな','1998-06-04',20,'静岡県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+6,'小池美波','こいけ みなみ','1998-11-14',19,'兵庫県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+7,'小林由依','こばやし ゆい','1999-10-23',18,'埼玉県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+8,'齋藤冬優花','さいとう ふゆか','1998-02-15',20,'東京都','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+9,'佐藤詩織','さとう しおり','1996-11-16',21,'東京都','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+10,'志田愛佳','しだ まなか','1998-11-23',19,'新潟県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+11,'菅井友香','すがい ゆうか','1995-11-29',22,'東京都','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+12,'鈴本美愉','すずもと みゆ','1997-12-05',20,'愛知県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+13,'長沢菜々香','ながさわ ななこ','1997-04-23',21,'山形県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+14,'長濱ねる','ながはま ねる','1998-09-04',20,'長崎県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+15,'土生瑞穂','はぶ みづほ','1997-07-07',21,'東京都','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+16,'原田葵','はらだ あおい','2000-05-07',18,'東京都','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+17,'平手友梨奈','ひらて ゆりな','2001-06-25',17,'愛知県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+18,'守屋茜','もりや あかね','1997-11-12',20,'宮城県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+19,'米谷奈々未','よねたに ななみ','2000-02-24',18,'大阪府','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+20,'渡辺梨加','わたなべ りか','1995-05-16',23,'茨城県','欅坂46');
+insert into member(number,name,kana,birthday,age,b_place,belong)
+values(
+21,'渡邉理佐','わたなべ りさ','1998-07-27',20,'茨城県','欅坂46');
+
+
+
+// 手順2 インサートでカラムの変数に数値と文字列を代入(非推奨)
+
+insert into member(name,kana,birthday,age,b_place,belong
+)
+values(
+'石森虹花','いしもりにじか','1997-05-07',21,'宮城','欅坂46'),
+('今泉佑唯','いまいずみ ゆい','1998-09-30',20,'神奈川県','欅坂46'),
+('上村莉菜','うえむら りな','1997-01-04',21,'千葉県','欅坂46'),
+('尾関梨香','おぜき りか','1997-10-07',21,'神奈川県','欅坂46'),
+('織田奈那','おだ なな','1998-06-04',20,'静岡県','欅坂46'),
+('小池美波','こいけ みなみ','1998-11-14',19,'兵庫県','欅坂46'),
+('小林由依','こばやし ゆい','1999-10-23',18,'埼玉県','欅坂46'),
+('齋藤冬優花','さいとう ふゆか','1998-02-15',20,'東京都','欅坂46'),
+('佐藤詩織','さとう しおり','1996-11-16',21,'東京都','欅坂46'),
+('志田愛佳','しだ まなか','1998-11-23',19,'新潟県','欅坂46'),
+('菅井友香','すがい ゆうか','1995-11-29',22,'東京都','欅坂46'),
+('鈴本美愉','すずもと みゆ','1997-12-05',20,'愛知県','欅坂46'),
+('長沢菜々香','ながさわ ななこ','1997-04-23',21,'山形県','欅坂46'),
+('長濱ねる','ながはま ねる','1998-09-04',20,'長崎県','欅坂46'),
+('土生瑞穂','はぶ みづほ','1997-07-07',21,'東京都','欅坂46'),
+('原田葵','はらだ あおい','2000-05-07',18,'東京都','欅坂46'),
+('平手友梨奈','ひらて ゆりな','2001-06-25',17,'愛知県','欅坂46'),
+('守屋茜','もりや あかね','1997-11-12',20,'宮城県','欅坂46'),
+('米谷奈々未','よねたに ななみ','2000-02-24',18,'大阪府','欅坂46'),
+('渡辺梨加','わたなべ りか','1995-05-16',23,'茨城県','欅坂46'),
+('渡邉理佐','わたなべ りさ','1998-07-27',20,'茨城県','欅坂46');
+
+
+// 手順3 全てのメンバーのテーブルカラムを表示
+select name , kana , birthday , age , b_place , belong
+from member
+where age;
+
+
+// 手順3 全てのメンバーのテーブルカラムを表示
+select number,name , kana , birthday , age , b_place , belong
+from member
+where age;
+
+
+// 手順3 全てのメンバーのテーブルカラムを表示(非推奨)
+select *
+from member1
+where age;
+
+// チャレンジ　kanaに"こ"が入っている人
+
+// かなにおが入ってる人をデリート（チェック）
+select kana
+from member
+where kana LIKE "%お%";
+
+// かなにおが入ってる人をデリート(削除）
+delete
+from member
+where kana LIKE "%お%";
+
+// かなの一番後ろにこがついている人(チェック)
+select kana
+from member
+where kana LIKE "%こ";
+
+// かなの一番後ろにこがついている人(削除)
+delete
+from member
+where kana LIKE "%こ";
+
+// 18歳を全部消す(チェック)
+select name ,age
+from member
+where age = 18;
+
+//  18歳を全部消す(削除)
+delete
+from member
+where age = 18;
+
+// 出席番号が5-15表示以外を表示
+select number
+from member
+where number >= 5 && number <= 15;
+
+// 空のテーブル作成
+create table member1(number int,name char(20),kana varchar(30),birthday date,age int,b_place varchar(10),belong varchar(30));
+create table member2(number int,name char(20),kana varchar(30),birthday date,age int,b_place varchar(10),belong varchar(30));
+
+
+// 出席番号をinsert intoで入れる　<= の法則
+insert into member1
+select number,name,kana,birthday,age,b_place,belong
+from member
+where 5 <= number and number <= 15;
+
+// 出席番号をinsert Intoで入れる
+insert into member2
+select number,name,kana,birthday,age,b_place,belong
+from member
+where 9 <= number and number <= 18;
+
+//  テーブル1を確認
+select *
+from member1;
+
+// テーブル2を確認
+select *
+from member2;
+
+
+// JOIN ON
+ select member2.number,member2.name
+ from member1
+ inner join member2
+ on member1.number = member2.number;
+
+
+// example_db
+
+// テーブル確認
+show table
+
+// カラムの確認
+// show columns from employee;
+
+// charは文字。varcharはバリアブル。intは整数値。
+
+// 設定の確認
+status;
+
+// set names utf8で変更する事もできる
+set names cp932 
+
+
+// 2018/10/29 netshop db 
+// item_t   
+// maker_t
+ 
+/* 一つのテーブルで商品価格を入れて作る
+item_t
+
+商品ID		ITEMID_C 	CHAR(10) 	PRIMALY KEY 	juice@1001
+商品名　	ITEMNAME_C 	VARCHAR(16) 	NOT NULL 	オランジーナ
+商品価格 	ITEMPRICE_C 	INT 		NOT NULL 	120
+メーカーID 	MAKERID_C 	CHAR(10) 	NOT NULL	maker@1001
+
+maker_t
+
+メーカーID	MAKERID_C 	CHAR(10) 	PRIMALY KEY 	maker@1001
+商品名　	MAKERNAME_C 	VARCHAR(16) 	NOT NULL 	オランジーナ
+商品価格 	ITEMPRICE_C 	INT 		NOT NULL 	120
+メーカーID 	MAKERID_C 	CHAR(10) 	NOT NULL	maker@1001
+
+
+商品ID      juice@1001
+商品名  　  オランジーナ
+商品価格    120円
+FK メーカーID  maker@1001
+
+商品ID	    juice@1002
+商品名　    カルピスソーダ
+商品価格　　140円
+メーカーID  maker@1002
+
+商品ID      juice@1003
+商品名　　　コカコーラ
+商品価格　  130円
+メーカーID  maker@1003
+
+maker_t
+メーカーID maker@1001
+メーカー名（株）キリン
+メーカーID maker@1002
+メーカー名（株）カルピス
+メーカーID maker@1003
+メーカー名 株コカ・コーラ
+
+0.データベースの削除
+drop database if exists maker_t;
+
+1.テーブルの作成
+create table item_t(
+ITEMID_C CHAR(10),ITEMNAME_C VARCHAR(16),ITEMPRICE_C INT(11), MAKERID_C CHAR(10));
+
+2.テーブルの確認
+show columns from item_t;
+
+3.テーブルの作成
+create table maker_t(
+MAKERID_C CHAR(10),MAKERNAME_C VARCHAR(16));
+
+4.テーブルの確認
+show columns from maker_t;
+
+5.テーブルに代入
+insert into item_t(ITEMID_C,ITEMNAME_C,ITEMPRICE_C, MAKERID_C)
+values(
+'juice@1001','オランジーナ',120,'maker@1001');
+insert into item_t(ITEMID_C,ITEMNAME_C,ITEMPRICE_C, MAKERID_C)
+values(
+'juice@1002','カルピスソーダ',140,'maker@1002');
+insert into item_t(ITEMID_C,ITEMNAME_C,ITEMPRICE_C, MAKERID_C)
+values(
+'juice@1003','コカコーラ',130,'maker@1003');
+
+6.数値を確認
+select *
+from item_t;
+
+7.テーブルに代入
+insert into maker_t(MAKERID_C ,MAKERNAME_C)
+values(
+'maker@1001','（株）キリン');
+insert into maker_t(MAKERID_C ,MAKERNAME_C)
+values(
+'maker@1002','（株）カルピス');
+insert into maker_t(MAKERID_C ,MAKERNAME_C)
+values(
+'maker@1003','（株）コーラ');
+
+8.数値を確認
+select *
+from maker_t;
+
+// JOIN句を使わない結合
+select 
+item_t.ITEMID_C,item_t.ITEMNAME_C,item_t.ITEMPRICE_C,maker_t.MAKERNAME_C
+from item_t, maker_t
+where item_t.MAKERID_C=maker_t.MAKERID_C;
+
+
+// JOIN ONを使った結合
+select 
+item_t.ITEMID_C,item_t.ITEMNAME_C,item_t.ITEMPRICE_C,maker_t.MAKERNAME_C
+from item_t
+JOIN maker_t
+ON item_t.MAKERID_C=maker_t.MAKERID_C;
+
+
+// 家計簿テーブルの作成 by 小崎式
+
+// statusを確認
+status;
+
+/*
+mysql> status;
+--------------
+C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe  Ver 8.0.12 for Win64 on x86_64 (MySQL Community Server - GPL)
+
+Connection id:          22
+Current database:
+Current user:           root@localhost
+SSL:                    Cipher in use is DHE-RSA-AES128-GCM-SHA256
+Using delimiter:        ;
+Server version:         8.0.12 MySQL Community Server - GPL
+Protocol version:       10
+Connection:             localhost via TCP/IP
+Server characterset:    utf8mb4
+Db     characterset:    utf8mb4
+Client characterset:    cp932
+Conn.  characterset:    cp932
+TCP port:               3306
+Uptime:                 18 days 28 min 59 sec
+
+Threads: 2  Questions: 944  Slow queries: 0  Opens: 382  Flush tables: 2  Open tables: 344  Queries per second avg: 0.000
+--------------
+*/ 
+
+// 確認
+show variables char;
+
+// subqueryテーブルを作成
+create database subquery;
+
+/* 家計簿テーブル定義 */
+日付 DATE NOTNULL;
+費目 VARCHAR(16) NOT NULL;
+メモ VARCHAR(16) NOT NULL;
+入金額 INT NOT NULL;
+入金額 INT NOT NULL;
+
+// 1.家計簿テーブルを作成
+create table 家計簿(
+日付 DATE,
+費目 VARCHAR(16),
+メモ VARCHAR(32),
+入金額 INT,
+出金額 INT);
+
+// 2.テーブル構造を表示
+show columns from 家計簿;
+
+//3.データを挿入 P122. 4-1 INSERT
+INSERT INTO 家計簿 VALUES(
+'2012-12-10','給料','11月の給料',280000,0);
+INSERT INTO 家計簿 VALUES(
+'2012-12-18','水道高熱費','水道代',0,4200);
+INSERT INTO 家計簿 VALUES(
+'2012-12-24','食費','レストランみやび',0,5000);
+INSERT INTO 家計簿 VALUES(
+'2012-12-25','居住費','1月の家賃支払い',0,80000);
+INSERT INTO 家計簿 VALUES(
+'2013-01-10','給料','12月の給料',0,80000);
+INSERT INTO 家計簿 VALUES(
+'2013-01-13','教育娯楽費','スッキリシネマズ',0,1800);
+INSERT INTO 家計簿 VALUES(
+'2013-01-13','食費','新年会',0,5000);
+INSERT INTO 家計簿 VALUES(
+'2013-01-25','居住費','1月の家賃支払い',0,80000);
+
+// 3-2.データを挿入 P.122 4-2 INSERT
+INSERT INTO 家計簿 VALUES(
+'2013-02-03','食費','コーヒーを購入',0,380);
+INSERT INTO 家計簿 VALUES(
+'2013-02-10','給料','1月の給料',280000,0);
+INSERT INTO 家計簿 VALUES(
+'2013-02-11','教養娯楽費','書籍を購入',0,2800);
+INSERT INTO 家計簿 VALUES(
+'2013-02-14','交際費','同期会の会費',0,5000);
+INSERT INTO 家計簿 VALUES(
+'2013-02-18','水道光熱費','1月の電気代',0,7560);
+
+// 4.家計簿テーブルの構造を表示
+select *
+from 家計簿;
+
+/* 副問い合わせ(サブクエリや副照会と呼ぶ) */
+
+// 1.出金額の最大を取得して値を書き留めておく
+select max(出金額) 
+from 家計簿;
+
+//
+select max(出金額) AS 最大出金額 from 家計簿;
+
+// 2."1"で得た金額を条件式に記述して費目と金額を取得
+select 費目,出金額
+from 家計簿
+where 出金額 = 7560;
+
+/* selectをネストする事でこれを一つの文にまとめることができる */
+
+// 1.1つのＳＱＬ文で最大の出費に関する費目と合計を求める
+select 費目,出金額
+from 家計簿
+where 出金額 = (
+select max(出金額) 
+from 家計簿
+);
+
+// 家計簿集計テーブル作成
+create table 家計簿集計 (
+費目 VARCHAR(16) NOT NULL, 
+合計 INT NOT NULL, 
+平均 INT NOT NULL, 
+最大 INT NOT NULL, 
+最小 INT NOT NULL, 
+回数 INT NOT NULL
+);
+
+// 構造表示
+show columns from 家計簿集計;
+
+// SET句で副問合せを利用する
+update 家計簿集計
+set 平均 = (
+select avg(出金額)
+from 家計簿
+where 出金額 > 0
+and 費目 = '食費')
+where 費目 = '食費';
+
+// データを挿入
+insert into 家計簿集計 values(
+'住居費',240000,80000,80000,80000,3);
+insert into 家計簿集計 values(
+'水道光熱費',11760,5880,7560,4200,2);
+insert into 家計簿集計 values(
+'食費',10380,5000,5000,380,3);
+insert into 家計簿集計 values(
+'教養娯楽費',4600,2300,2800,1800,2);
+insert into 家計簿集計 values(
+'給料',840000,280000,280000,280000,3);
+
+/* UPDATEを使って居住費の回数を修正 */
+
+// updateとwhereで住居費の回数を修正
+update 家計簿集計
+set 回数 = 2
+where 費目 = '居住費';
+
+*/ update 家計簿集計
+set 回数 = 2
+where 合計 = 240000;
+*/ // 合計の数値で指定してもよい
+
+// 選択リストで副問い合わせを利用
+select 日付,メモ,出金額,
+(select 合計 
+from 家計簿集計
+where 費目 = '食費') AS  過去の合計額
+from 家計簿
+where 費目 = '食費';
+
+/* 演算子の使い方
+   IN  ～の中にデータがある
+   ANY ～のいずれか
+   ALL ～の中ですべて
+*/w
+
+// INを使った条件式の例
+// 費目の中に指定したデータがある場合出力
+select * 
+from 家計簿集計
+where 費目 
+in ('食費','水道光熱費','教養娯楽費','給料');
+
+
+// ＩＮ演算子使って家計簿集計を表示
+select *
+from 家計簿集計
+where 費目
+IN('住居費','水道光熱費','食費','教養娯楽費','給料');
+
+// IN(中にデータ有)とDISTINCT(重複消去)演算子
+select *
+from 家計簿集計
+where 費目 
+IN (select distinct 費目 
+from 家計簿);
+
+// DISTINCT(重複削除)の使い方
+select distinct 費目 
+from 家計簿;
+
+// 13 rows in set 
+
+// distinctがないと重複カラムが表示される 
+select 費目 
+from 家計簿;
+
+// 8 rows in set
+
+
+// ANYで副問合せを利用する
+select *
+from 家計簿
+where 費目 = '食費'
+and 出金額 < any (select 出金額 from 家計簿
+where 費目 = '食費');
+
+// 出金額が5000以下,5000以下,380以下を実現した例
+// any演算子はselect from whereで指定しないと使えない
+select *
+from 家計簿
+where 出金額 < 
+any (
+select 出金額
+from 家計簿
+where 出金額 < 5000 and 出金額 < 5000 and 出金額 and 380);
+
+// 表形式の副問合せ
+select sum(sub.出金額) AS 出金額合計
+from (select 日付,費目,出金額 
+from 家計簿) AS sub;
+
+
+// 家計簿集計テーブルを削除
+drop table if exists 家計簿集計;
+
+/* INSERT文による家計簿テーブル作成手順 */
+
+// 1.家計簿集計テーブル作成
+create table 家計簿集計(
+費目 VARCHAR(16) NOT NULL, 
+合計 INT NOT NULL, 
+平均 INT NOT NULL, 
+最大 INT NOT NULL, 
+最小 INT NOT NULL, 
+回数 INT NOT NULL
+);
+
+// 2.INSERT文で副問合せを利用する
+insert into 家計簿集計(費目,合計,平均,最大,最小,回数)
+select 費目,SUM(出金額),AVG(出金額),MAX(出金額),MIN(出金額),0
+from 家計簿
+where 出金額 > 0
+group by 費目;
