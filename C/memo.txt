@@ -236,19 +236,19 @@ int main(void)
      int value,remainder;    int score;
      printf("点数を入力してください");
      scanf("%d",&score);
-     if(score > 100) printf("入力が100より大きいので修正します。¥n");
+     if(score > 100) printf("入力が100より大きいので修正します。\n");
      if(score > 100) score = 100;
-     printf("点数は%d点です。¥n,score");
+     printf("点数は%d点です。\n,score");
      
      // ブロック文を使った処理
      int score;
      printf("点数を入力してください");
      scanf("%d",&score);
      if(score > 100) {
-     printf("入力が100より大きいので修正します¥n");
+     printf("入力が100より大きいので修正します\n");
      score = 100;
      }
-     print("点数は%d点です。¥n",score);
+     print("点数は%d点です。\n",score);
      return 0;
      
      // 整数か奇数かを表示するプログラム。o(odd)奇数。e(even)偶数
@@ -261,7 +261,7 @@ int main(void)
      if(remainder == 0)printf("E");
      if(remainder == 1)printf("0");
      
-     printf("¥n");
+     printf("\n");
      return 0;
      }
     // 西暦年を入力すると、その年にオリンピックが開催されるかどうかを表示するプログラムを作成せよ
@@ -274,10 +274,10 @@ int main(void)
         printf("西暦年を入力してください:");
         scanf("%d",&year);
         
-        if(year % 4 == 0)printf("夏季五輪¥n"); // 夏季五輪は% 4
+        if(year % 4 == 0)printf("夏季五輪\n"); // 夏季五輪は% 4
         if(year % 2 == 0 && year % 4 != 0)printf("冬季五輪");
         // 冬季五輪は% 2
-        if(year % 2 != 0)printf("五輪なし¥n"); // %2 != 0
+        if(year % 2 != 0)printf("五輪なし\n"); // %2 != 0
         return 0;
     }
 
@@ -670,8 +670,451 @@ int sum(int max)
 */
 
 // 12章 データ 
-// 12章は編集中です......
+// 複数の引数 ,で区切る
 
+/*
+#include<stdio.h>
+
+int sum(int,int); // プロトタイプ宣言
+
+int main(void)
+{
+	sum(50,100);
+	return 0;
+}
+
+int sum(int min,int max)
+{
+	printf("%d\n",(min + max) * (max - min + 1) / 2);
+	return 0;
+}
+*/
+
+// 基礎知識 
+// プロトタイプ宣言 先頭で関数の型を宣言しておく
+// 仮引数 関数に数値を渡すために宣言する変数 int sum(int max);
+// 実引数 関数に渡す数値や変数 int sum(50);
+// 戻り値 関数から返す数値
+
+/*
+#include<stdio.h>
+
+int sum(int min,int max)
+{
+	printf("%d\n",(min + max) * (max - min + 1) / 2);
+	return 0;
+}
+*/
+
+
+// 関数名の前についているintは関数から帰る数値の型
+// return 0;には変数を返す機能がある。戻り値。関数から返される数値
+// 戻り値を呼び出し元で知りたい場合は変数に代入する必要がある
+// value = sum(50,100);
+
+/*
+#include<stdio.h>
+
+int sum(int,int); // プロトタイプ宣言
+
+int main(void)
+{
+	int value;
+	value = sum(50,100);
+	printf("最大値と最大値を入力してください");
+	printf("%d\n",value);
+	return 0;
+}
+
+int sum(int min,int max)
+{
+	int num;
+	num = (min + max) * (max - min + 1) / 2;
+	return num;
+}
+*/
+
+// 結果の表示をmain関数でprintf関数を使っている
+// 戻り値の制限 戻り値は一つだけしか返すことができない。
+// ただし、引数で数値を返す技がある 
+// 戻り値の型は好きな型を使える。voidは戻り値を返さない場合使う
+
+
+// p.218~ 12章 変数の寿命 ローカル変数の寿命
+// カウント変数を使ったプログラム
+
+/*
+#include<stdio.h>
+
+int countfunc(void); // プロトタイプ宣言
+
+int main(void) // メイン関数
+{
+	countfunc();
+	countfunc();
+	countfunc();
+	return 0;
+}
+
+int countfunc(void); // カウント関数
+{
+	int count = 0; // 初期化　初期化は必須 
+	count ++;
+	printf("%d\n",count);
+	return count;
+}
+
+*/
+
+/* 実行結果はすべて1になる。
+関数の寿命 関数の中で宣言された変数は関数が終了すると捨てられる
+関数の中で寿命が終わる変数をローカル変数と呼ぶ　
+他の変数から使用不可 */
+
+// 寿命と有効範囲をまとめてスコープと呼ぶ
+
+/*
+#include<stdio.h>
+
+int countfunc(void); // プロトタイプ宣言
+
+int main(void) // メイン関数
+{
+	int count = 0;
+	countfunc();
+	countfunc();
+	countfunc();
+	return 0;
+}
+
+int countfunc(void); // カウント関数
+{
+	int count; // 初期化なし　ダメな例
+	count ++;
+	printf("%d\n",count);
+	return count;
+}
+*/
+
+// ローカル変数が有効なのは宣言された関数の中のみ(古い言語にはこの仕組みはない)
+
+// ローカル変数の寿命は正確にはブロック内"{}"である
+// 関数の独立性
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+	int value1 = 10;
+	int value2 = 20;
+	printf("1:value1 %d\n",value1);
+	printf("1:value2 %d\n",value2);
+	{
+		int value1;
+		value1 = 30;
+		value2 = 40;
+		printf("2:value1 %d\n",value1);
+		printf("2:value2 %d\n",value2);
+
+	}
+	printf("3:value1 %d\n",value1);
+	printf("3:value2 %d\n",value2);
+
+	return 0;
+}
+*/
+
+// グローバル変数の寿命
+// 関数外で変数を宣言する事をグローバル変数と呼ぶ
+
+/*
+#include<stdio.h>
+
+int count; // グローバル変数
+
+int contfunc(void);
+
+int main(void)
+{
+	countfunc();
+	countfunc();
+	countfunc();
+	return 0;
+}
+int countfunc(void)
+{
+	count++:
+		printf("%d\n",count);
+	return count;
+}
+*/
+
+// 実行結果は関数を呼び出した回数が正しく実行される
+// グローバル変数の寿命はプログラムの最後まで生き残る
+// グローバル変数は開始時に0に初期化される
+
+
+// グローバル変数はすべての関数で共有される
+
+/*
+#include<stdio.h>
+
+int count; // グローバル変数
+
+int contunc(void);
+
+int main(void)
+{
+	countfunc();
+	count = 10; // 変更する
+	countfunc();
+	countfunc();
+	return 0;
+}
+int countfunc(void)
+{
+	count++;
+	printf("%d\n",count);
+	return count;
+}
+*/
+
+/* 結果
+1
+11 
+12
+*/
+
+
+// ローカル変数は独立する
+// 関数内にグローバル変数と同じ名前のローカル変数がある場合の例
+
+/*
+#include<stdio.h>
+
+int count; // グローバル変数
+
+int countfunc(void);
+
+int main(void)
+{
+	int count; // 同名で宣言
+
+	count = 10;
+	countfunc();
+	countfunc();
+	printf("main : count =%d\n",count);
+	return 0;
+}
+int countfunc(void)
+{
+	count++;
+	printf("%d\n",count);
+	return count;
+*/
+
+// グローバル変数よりもローカル変数が優先される
+// グローバル変数は正確には、1つのソースファイル内で共有される
+//　現段階ではすべての関数で共有されると考えても違和感ない
+
+//　静的なローカル変数の寿命
+// ローカル変数とグローバル変数の中間的な存在。静的なローカル変数
+// staticを型名の前につけることで宣言する事が可能。
+
+/*
+#include<stdio.h>
+
+int countfunc(void); // プロトタイプ宣言
+
+int main(void)
+{
+	countfunc();
+	countfunc();
+	countfunc();
+	return 0;
+}
+int countfunc(void)
+{
+	static int count; // 静的なローカル変数
+	count++;
+	printf("%d\n",count);
+	return count;
+}
+*/
+
+/* 
+staticを付けた静的なローカル変数はプログラムが終了するまで残る
+static int count = 0; 静的なローカル変数
+この変数は関数が以前に呼び出された値を覚えておきたい場合に使用
+*/
+
+/*
+使い道
+関数の呼び出し回数や検索を行う関数で以前の文字位置記録
+*/
+
+/*　基礎知識
+1-1 特定の関数内でしか使えない変数をローカル変数と呼ぶ
+1-2 ソースファイル全体で使用できる変数をグローバル変数と呼ぶ
+1-3 特定の関数でしか使えず値が残る変数を静的ローカル変数と呼ぶ
+*/
+
+/* 
+プログラム読み取り
+2-1 次のプログラムから、変数をそれぞれ抜き出しなさい
+#include<stdio.h>
+
+int var; // グローバル変数
+
+int main(void)
+{
+	int count // ローカル変数
+	static int arc; //静的ローカル変数
+
+	return 0;
+}
+グローバル:var ローカル:count 静的ローカル:arc
+*/
+
+/*
+3-1 変数は原則として各関数ごとに独立して作られる理由
+他の関数と同じ変数名になっていないかを気にせず作成するため
+*/
+
+/* 13章 複数の変数を一括して扱う
+配列の概念
+同じ型の変数を複数宣言し、番号によって管理する事で、
+複数のデータを一括して取り扱えるようにする仕組み。
+*/
+
+/* 配列の宣言 配列 配列名[要素数]; 例：int array[100];
+指定できるのは整数値のみで、宣言時には整数型の変数指定は不可
+番号は0から始まるので注意。数学的に0から始まる事は都合がよい
+*/
+
+// 配列の取り扱いは変数名に番号付ける以外は変数と同じ
+
+#include<stdio.h>
+
+int main(void)
+{
+	int array[100];
+
+	array[9] = 100; // 0番からなので9が10番目となる
+
+	printf("1:%d\n",array[9]);
+	array[9]++;
+	printf("2:%d\n",array[9]);
+
+	return0;
+}
+
+// 配列の使い方
+// 初期値の代入 
+// 型名 配列名[要素数]={0番の数値,1番の数値,2番の数値...};
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+	int array[10] = {42,79,13}          // 結果
+
+	printf("array[0] = %d\n",array[0]); // array[0] = 42
+	printf("array[1] = %d\n",array[1]); // array[1] = 79
+	printf("array[2] = %d\n",array[2]); // array[2] = 13
+	printf("array[3] = %d\n",array[3]); // array[3] = 0
+	printf("array[4] = %d\n",array[4]); // array[4] = 0
+
+	return 0;
+}
+*/
+
+// 要素数の省略
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+	int array[] = {42,79,13}; //要素数が省略されている
+	
+	printf("array[0] = %d\n",array[0]); // array[0] = 42
+	printf("array[1] = %d\n",array[1]); // array[1] = 79
+	printf("array[2] = %d\n",array[2]); // array[2] = 13
+
+	return 0;
+}
+*/
+
+// 配列の値は一つずつ代入する事 array[0] = 42; array[1] = 79;
+
+// 全要素の表示 for文のループ
+
+/*
+#include <stdio.h>
+
+int main(void)
+{
+	int array[] = { 42,79,13,75,19};
+	int i;
+
+	for(i = 0; i < 5; i++);
+	printf("array[%d] = %d\n",i,array[i]);
+}
+
+return 0;
+}
+*/
+
+// ポイントは配列の要素番号には変数も扱えるという事
+// 変数の値を変化させれば番号要素に直接アクセスできる
+// 配列ならfor文の数値変更で表示可能。何万人でも表示可能
+
+//要素数を求める sizeof演算子を使う
+// sizeof(変数や配列名) sizeof(array) / sizeof(array[0])
+// この記述でarrayの要素数を求めることができるa
+
+/*
+#include<stdio.h>
+
+int main(void)
+{
+	int array[] = {42,79,13,75,19}
+	int i;
+
+	for(i = 0; i < sizeof(array) / sizeof(array[0]; i++) {
+			printf("array[%d] = %d\n",i,array[i]);
+			}
+	return 0;
+}
+*/
+
+// 配列のコピー
+
+#include<stdio.h>
+int main(void)
+{
+	int array1[] = {42,79,13,19,41}
+	int array2[] = {1,2,3,4,5}
+	int i;
+
+	for(i = 0; i < sizeof(array2) / sizeof(array2[0]; i++){
+		printf("array[%d] = %d\n",i,array[2]);
+	}
+
+/* 
+	 array1の全要素をarray2にコピー
+	 for (i = 0; i < sizeof(array2) / sizeof(array2[0]); i++) {
+	 array2[i] = array[i];
+	 }
+*/
+	for(i = 0; i < sizeof(array2) / sizeof(array2[0]; i++){
+		printf("array2[%d] = %d\n",i,array2[i]);
+	}
+		return 0;
+	}
 
 // P.239 13章 2 復数の変数をまとめて扱う
 
@@ -755,7 +1198,7 @@ int main(void)
     int i;
     
     for(i = 0; i < sizeof(array)/ sizeof(array[0]); i++){
-        printf("array[%d] = %d¥n",i,array[i]);
+        printf("array[%d] = %d\n",i,array[i]);
     }
     return 0;
 }
