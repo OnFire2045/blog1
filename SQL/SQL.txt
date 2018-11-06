@@ -859,3 +859,122 @@ select 費目,SUM(出金額),AVG(出金額),MAX(出金額),MIN(出金額),0
 from 家計簿
 where 出金額 > 0
 group by 費目;
+
+
+// new added! 2018.11.6 11:30 by M.Nobuaki 
+// トランザクション	
+
+//0.テーブル削除(重複削除)
+drop table if exists asaka_t;
+drop table if exists minato_t;
+
+// 1.トランザクションデータベースを作成
+create DATABASE transaction_db;
+
+// 2.データベースを確認
+show DATABASES;
+
+// 3.トランザクションデータベース指定
+use transaction_db;
+
+// 4.テーブルを作成する(minato_t)
+create table minato_t (
+DATE_C DATE NOT NULL, 
+COMMENT_C VARCHAR(16) NOT NULL, 
+NYUUKIN_C INT NOT NULL, 
+SYUKKIN_C INT NOT NULL, 
+ZANDAKA_C INT NOT NULL
+);
+
+// 5.テーブルを作成する(asaka_t)
+create table asaka_t (
+DATE_C DATE NOT NULL, 
+COMMENT_C VARCHAR(16) NOT NULL, 
+NYUUKIN_C INT NOT NULL,
+SYUKKIN_C INT NOT NULL, 
+ZANDAKA_C INT NOT NULL
+);
+
+// テーブル構造表示
+show columns from minato_t;
+show columns from asaka_t;
+
+
+
+// INSERT文によるデータ挿入
+INSERT INTO minato_t VALUES ('2018-11-01', '口座開設', 100000, 0, 100000);
+
+INSERT INTO asaka_t VALUES ('2018-11-01', '口座開設', 50000, 0, 50000);
+
+
+// new added! 22018.11.06 13:10 トランザクションを活用したSQL文
+
+// minato_tから10000円を引き出す
+INSERT INTO minato_t VALUES 
+('2018-11-02', '振り込む', 0, 10000, ((
+SELECT ZANDAKA_C
+FROM minato_t AS a
+WHERE DATE_C=(
+SELECT MAX(DATE_C)
+FROM minato_t AS b)
+) - SYUKKIN_C));
+
+// asaka_tに10000を追加する
+INSERT INTO asaka_t VALUES 
+('2018-11-02', '振り込まれる', 10000, 0, ((
+SELECT ZANDAKA_C FROM asaka_t AS a WHERE DATE_C=(
+SELECT MAX(DATE_C) FROM asaka_t AS b
+)
+) + NYUUKIN_C));
+
+// 表示（湊）
+select *
+from minato_t;
+
+// 表示(朝霞)
+select *
+from asaka_t;
+
+// トランザクションを活用した振り込みと入金（湊→浅香)
+BEGIN;
+INSERT INTO minato_t VALUES 
+('2018-11-02', '振り込む', 0, 10000, ((
+SELECT ZANDAKA_C FROM minato_t AS a WHERE DATE_C=(
+SELECT MAX(DATE_C) FROM minato_t AS b
+)
+) - SYUKKIN_C));
+
+INSERT INTO asaka_t VALUES 
+('2018-11-02', '振り込まれる', 10000, 0, ((
+SELECT ZANDAKA_C FROM asaka_t AS a WHERE DATE_C=(
+SELECT MAX(DATE_C) FROM asaka_t AS b
+)
+) + NYUUKIN_C));
+COMMIT;
+
+// 表示（湊）
+select *
+from minato_t;
+
+// 表示(朝霞)
+select *
+from asaka_t;
+
+
+// 入金取り消し(DELETE文)
+DELETE FROM minato_t WHERE DATE_C='2018-11-02';
+
+DELETE FROM asaka_t WHERE DATE_C='2018-11-02';
+
+
+/*
+// 最も新しい日付を表示
+SELECT MAX(DATE_C) FROM minato_t;
+
+// 2018.11.01の湊の残高を表示
+SELECT ZANDAKA_C FROM minato_t WHERE DATE_C='2018-11-01';
+
+//　2018.11.02の湊のデータを削除する
+DELETE FROM minato_t WHERE DATE_C='2018-11-02';
+*/
+
