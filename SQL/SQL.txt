@@ -978,3 +978,176 @@ SELECT ZANDAKA_C FROM minato_t WHERE DATE_C='2018-11-01';
 DELETE FROM minato_t WHERE DATE_C='2018-11-02';
 */
 
+データベースを確認
+show databases;
+
+0.重複テーブルを削除
+drop table if exists AUTHOR_T;
+
+1.AUTHOR_Tテーブルを作成する
+CREATE TABLE AUTHOR_T;
+
+2.データベース内のテーブルの確認
+show tables;
+
+3.テーブルの作成
+CREATE TABLE AUTHOR_T(
+AUTHOR_ID INT PRIMARY KEY AUTO_INCREMENT,
+AUTHOR_NAME VARCHAR(50) NOT NULL,
+AUTHOR_PLACE VARCHAR(50)
+);
+
+4.テーブルの構造を確認する 
+show columns from AUTHOR_T;
+
+
+
+/* 出版社テーブルの作成 */
+
+0.重複テーブルを削除
+drop table if exists PUBLISHER_T;
+
+1.PUBLISHER_Tテーブルを作成する
+CREATE TABLE PUBLISHER_T;
+
+2.データベース内のテーブルの確認
+show tables;
+
+3.テーブルの作成
+
+CREATE TABLE PUBLISHER_T(
+PUB_ID INT PRIMARY KEY AUTO_INCREMENT,
+PUB_NAME VARCHAR(50) NOT NULL,
+PUB_PLACE VARCHAR(50),
+PUB_NUMBER VARCHAR(11)
+);
+
+
+4.テーブルの構造を確認する 
+show columns from AUTHOR_T;
+
+
+
+/* INSERTでテーブルに追加 */
+
+INSERT文
+1.著者テーブルの追加
+INSERT INTO AUTHOR_T(AUTHOR_NAME,AUTHOR_PLACE) VALUES(
+'ブルック・バーカー','オランダ アムステルダム');
+INSERT INTO AUTHOR_T(AUTHOR_NAME,AUTHOR_PLACE) VALUES(
+'丸山 貴史','東京');
+INSERT INTO AUTHOR_T(AUTHOR_NAME,AUTHOR_PLACE) VALUES(
+'齋藤孝','明治大学');
+INSERT INTO AUTHOR_T(AUTHOR_NAME,AUTHOR_PLACE) VALUES(
+'前野 ウルド浩太郎','秋田');
+INSERT INTO AUTHOR_T(AUTHOR_NAME,AUTHOR_PLACE) VALUES(
+'レイカーツワイル','地球');
+INSERT INTO AUTHOR_T(AUTHOR_NAME,AUTHOR_PLACE) VALUES(
+'中山 清喬','大阪');
+
+2.構造を表示
+select *
+from AUTHOR_T;
+
+3.出版社テーブルの追加
+INSERT INTO PUBLISHER_T(PUB_NAME,PUB_PLACE,PUB_NUMBER) VALUES(
+'ダイヤモンド社','大阪府大阪市北区堂島浜１丁目４?１９ 堂島イーストビル 8F',0663420570);
+INSERT INTO PUBLISHER_T(PUB_NAME,PUB_PLACE,PUB_NUMBER) VALUES(
+'SBクリエイティブ','東京都港区六本木2-4-5 六本木Dスクエア','0355491100');
+INSERT INTO PUBLISHER_T(PUB_NAME,PUB_PLACE,PUB_NUMBER) VALUES(
+'日本図書センター','東京都文京区大塚3-8-2','0339479387');
+INSERT INTO PUBLISHER_T(PUB_NAME,PUB_PLACE,PUB_NUMBER) VALUES(
+'光文社','東京','0353958164');
+INSERT INTO PUBLISHER_T(PUB_NAME,PUB_PLACE,PUB_NUMBER) VALUES(
+'東海大学出版部','神奈川','0463587811');
+INSERT INTO PUBLISHER_T(PUB_NAME,PUB_PLACE,PUB_NUMBER) VALUES(
+'株式会社NHK出版','株式会社NHK出版','0334647311');
+INSERT INTO PUBLISHER_T(PUB_NAME,PUB_PLACE,PUB_NUMBER) VALUES(
+'株式会社インプレス Impress Corporation','東京都千代田区神田神保町1-105　神保町三井ビルディング','0368374600');
+
+4.構造を表示
+select *
+from PUBLISHER_T;
+
+5.書籍テーブルの追加
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784478104200,'わけあって絶滅しました。世界一おもしろい絶滅したいきもの図鑑',1,1,1000, '2018-07-19');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784478105016,'生まれたときからせつない動物図鑑',1 , 1,1000 , '2018-07-19');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784471103682,'おもしろい! 進化のふしぎ 続ざんねんないきもの事典', 2,1,972,'2017-06-10');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784334039899,'バッタを倒しにアフリカへ',4,4,920,'2017-05-01');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784486018483,'フィールドの生物学　孤独なバッタが群れるとき―サバクトビバッタの相変異と大発生',4,5,2000,'2012-11-1');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784797393446,'大人の語彙力ノート: 誰からも「できる!」と思われる',3,2,1404,'2017-09-09');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784284203777,'強くしなやかなこころを育てる!こども孫子の兵法日本図書センター',3,3,1620,'2017-09-09');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784140816974,'シンギュラリティは近い',5,6,'1500,2016-04-26');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784140816974,'ポスト・ヒューマン誕生',5,6,3000,'2007-1-25');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784295003687,'スッキリわかるＣ言語入門',6,7,2700,'2018-06-22');
+INSERT INTO BOOK_T(ISBM,BOOK_NAME,AUTHOR_ID,PUBLISH_ID,PRICE,PUB_DAY) VALUE(
+9784844336389,'スッキリわかるＪａｖａ入門（第２版）',6,7,2700,'2018-06-22');
+
+6.構造を表示
+select *
+from BOOK_T
+
+7.スッキリを含む文字列の表示(ワイルドカード)	
+select *
+from BOOK_T
+where BOOK_NAME like '%スッキリ%';
+
+// 2018 10:30 new added!
+
+/* JOIN ONを使ったテーブルの結合 */
+
+// 名前と値段と会社名のみを表示する
+0.book_tの内容を一部表示
+select book_t.BOOK_NAME,book_t.PRICE,publisher_t.PUB_NAME
+from book_t
+inner join author_t
+on book_t.AUTHOR_ID=author_t.AUTHOR_ID
+join PUBLISHER_T
+on book_t.PUBLISH_ID =PUBLISHER_T.PUB_ID;
+
+*/
+ワイルドカード　例:スッキリ "where BOOK_NAME like '%スッキリ%'"
+'%スッキリ%' 部分一致
+'%スッキリ'  後方一致
+'スッキリ%'  前方一致
+*/
+
+// whereとLIKE演算子とワイルドカード使った絞り込みの方法
+// %%(ワイルドカード)を使って部分一致検索を行う
+
+
+// 使い方
+"%%" の中身を書き換えれば好きな文字列で検索可能
+select book_t.BOOK_NAME,book_t.PRICE,publisher_t.PUB_NAME
+from book_t
+join author_t
+on book_t.AUTHOR_ID=author_t.AUTHOR_ID
+join PUBLISHER_T
+on book_t.PUBLISH_ID =PUBLISHER_T.PUB_ID
+where BOOK_NAME like '%スッキリ%';
+
+
+// whereとlike演算子とor演算子を使った絞り込みの手法
+// BOOK_NAMEとPUB_NAMEとAUTHOR_NAME各種が文字列と一致した場合
+
+/* 使い方
+"%%" の中身を書き換えれば好きな文字列で検索可能 
+ 書籍名,会社名,著者名の順番で%%の中身を書き換えれば良い
+*/
+select BOOK_T.ISBM,BOOK_T.BOOK_NAME, AUTHOR_T.AUTHOR_NAME,PUBLISHER_T.PUB_NAME,BOOK_T.PRICE,BOOK_T.PUB_DAY
+from BOOK_T
+join author_t
+on book_t.AUTHOR_ID=author_t.AUTHOR_ID
+join PUBLISHER_T
+on book_t.PUBLISH_ID =PUBLISHER_T.PUB_ID
+where BOOK_NAME like '%スッキリ%' or  PUB_NAME like '%ダイヤ%' or AUTHOR_NAME like '%齋藤孝%';
