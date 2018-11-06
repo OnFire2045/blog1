@@ -610,7 +610,7 @@ JOIN maker_t
 ON item_t.MAKERID_C=maker_t.MAKERID_C;
 
 
-// 家計簿テーブルの作成 by 小崎式
+// 家計簿テーブルの作成
 
 // statusを確認
 status;
@@ -640,7 +640,7 @@ Threads: 2  Questions: 944  Slow queries: 0  Opens: 382  Flush tables: 2  Open t
 */ 
 
 // 確認
-show variables char;
+SHOW VARIABLES like 'char%';
 
 // subqueryテーブルを作成
 create database subquery;
