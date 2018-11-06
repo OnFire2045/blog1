@@ -1,0 +1,62 @@
+<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+-->
+<!DOCTYPE HTML>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>検索システム</title>
+	</head>
+	<body>
+		<div style="text-align:center">
+			<h1>
+				<font size="7" color="#4285F4">検</font>
+				<font color="#DB4437">索</font>
+				<font color="#F4B400">シ</font>
+				<font color="#4285F4">ス</font>
+				<font color="#0F9D58">テ</font>
+				<font color="#DB4437">ム</font>
+			</h1>
+			<form action="#" method="post">
+				<input type="text" size="50" placeholder="ISBN" name="isbn"><br>
+				<input type="text" size="50" placeholder="書籍名" name="name"><br>
+				<input type="text" size="50" placeholder="著者名" name="authorName"><br>
+				<input type="text" size="50" placeholder="出版社" name="publisherName"><br>
+				<input type="hidden" name="action" value="search">
+				<input type="submit" name="submit" value="Google Search">
+				<input type="reset" value="I'm Feeling Lucky">
+			</form>
+			<br>
+			<!-- 検索結果表示 -->
+			
+ 			<center>
+ 				<table>
+ 				<tr>
+    				<th>ISBN</th>
+    				<th>書籍名</th>
+    				<th>著者名</th>
+    				<th>出版社</th>
+    				<th>発売日</th>
+    				<th>価格</th>
+ 				</tr>
+ 				<c:forEach var="book" items="${bookList}">
+ 				<tr>
+	 				 <td><c:out value="${book.isbn}"/></td>
+	 				 <td><c:out value="${book.name}"/></td>
+	 				 <td><c:out value="${book.authorName}"/></td>
+	 				 <td><c:out value="${book.publisherName}"/></td>
+	 				 <td><c:out value="${book.pubDay}"/></td>
+	 				 <td><c:out value="${book.price}"/></td>
+ 				</tr>
+ 				</c:forEach>
+				</table>
+			</center>
+			
+			<p>Copyright Oracle Field All Rights Reserved.</p>
+		</div>
+	</body>
+</html>
+
+
+
