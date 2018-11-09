@@ -3,9 +3,6 @@
 
 // Rogue Like Game. コマンド4択を使ったゲーム(仮)
 // 現在、時間計算とモンスター選択と戦闘システム一部のみ完成
-// 通常のコンパイルではMS932文字コードエラーが起きるため起動時は下記のコードを推奨
-// C:Path(保存先のパス)>javac -encoding utf8 Sample00.java
-// java Sample00
 import java.util.Scanner;
 import java.util.Random;
 class Sample00 {
@@ -141,7 +138,7 @@ class Fighting {
 	public int getMonster(){
 	return this.monster;
 	}
-
+	// 戦闘システム
 	public void battle(Fight fight){
 	int select = 0;
 	int damage = 0;
@@ -179,6 +176,11 @@ class Fighting {
 				System.out.println("その入力は無効だ。やり直せ");
 				break;
 			        }
-		      }     
+		      }
+		if(mhp < 0){
+		System.out.println(fight.getName()+"を倒した");
+		} else {
+		System.out.println("あなたは闇に呑まれた");
 		}
+	     }
        } 
