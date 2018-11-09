@@ -77,7 +77,7 @@ class Time{
 		}
 		catch(Exception e){
 			System.out.println("その入力は無効だ。最初からやり直せ");
-			return;
+			System.exit(0);
 		}
 	}
 	// 条件分岐により入力された時間から日数と時間を計算するメソッド
