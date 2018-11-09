@@ -151,6 +151,7 @@ class Fighting {
 			select = scanner.nextInt();
 			}catch(Exception e){
 			System.out.println("その入力は無効だ。やり直せ");
+			break;
 			}
 				switch(select){
 				case 1:
