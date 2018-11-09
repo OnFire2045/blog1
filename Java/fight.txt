@@ -2,7 +2,7 @@
 
 
 // Rogue Like Game. コマンド4択を使ったゲーム(仮)
-// 現在、時間計算とモンスター選択まで作成
+// 現在、時間計算とモンスター選択と戦闘システム一部のみ完成
 // 通常のコンパイルではMS932文字コードエラーが起きるため起動時は下記のコードを推奨
 // C:Path(保存先のパス)>javac -encoding utf8 Sample00.java
 // java Sample00
@@ -25,14 +25,12 @@ class Sample00 {
 	System.out.println("暗闇の渦より生まれし混沌の使途があなたを襲う");
 	System.out.println(fight.getName() +"が闇の中から姿を現した:" 
 	+ "パターン" + fighting.getMonster());
-
+	fighting.battle(fight);
 	}
 }
-// 戦闘のクラス
+// 名前を登録するクラス
 class Fight {
 	Scanner scanner = new Scanner(System.in);
-	private int hp;
-	private int mhp;
 	private String name;
 	private String uname;
 	// constracter
@@ -100,10 +98,14 @@ class Time{
 	}
 }
 
-// モンスターをランダムで選択するクラス
+// モンスターをランダムで選択し、戦うクラス
 class Fighting {
 	Random random = new Random();
-	int monster;
+	Scanner scanner = new Scanner(System.in);
+	private int monster;
+	private int hp = 50;
+	private int mhp;
+	private boolean mukuro;
 	// コンストラクタ
 	Fighting(Fight fight){
 	// ランダムでモンスターを選択するために乱数を取得
@@ -112,17 +114,22 @@ class Fighting {
 	switch(monster){
 	    case 0:
 	    fight.setName("泥人形シェム・バ");
+	    mhp = 20;
 	    break;
 	   
 	    case 1:
 	    fight.setName("腐肉食らいアンディッド");
+	    mhp = 30;
 	    break;
-	   
+
 	    case 2:
 	    fight.setName("死肉漁りのスライム");
+	    mhp = 40;
 	    break;
+
 	    case 3:
 	    fight.setName("変異した肉食ワーム");
+	    mhp = 50;
 	    break;
 	    
 	    default:
@@ -135,4 +142,43 @@ class Fighting {
 	return this.monster;
 	}
 
-}
+	public void battle(Fight fight){
+	int select = 0;
+	int damage = 0;
+	int damage2 = 0;
+		while(hp > 0 || mhp > 0){
+		System.out.println("行動を選択してください:");
+		System.out.print("1:ぶん殴る 2:骸袋 3:呪術 4:逃げる");
+
+			try{
+			select = scanner.nextInt();
+			}catch(Exception e){
+			System.out.println("その入力は無効だ。やり直せ");
+			}
+				switch(select){
+				case 1:
+				
+				System.out.println(select +":ぶん殴る");
+				System.out.println(fight.getName()+"に"+ damage +"のダメージ");
+				damage = random.nextInt(20)+5;
+				mhp -= damage;
+				System.out.println(fight.getUname()+"に"+ damage +"のダメージ");
+				damage2 = random.nextInt(20);
+				hp -= damage2;
+				break;
+				case 2:
+				System.out.println("骸袋は空だ");
+				break;
+				case 3:
+				System.out.println("魔力が足りない......");
+				break;
+				case 4:
+				System.out.println("逃げられない");
+				break;
+				default:
+				System.out.println("その入力は無効だ。やり直せ");
+				break;
+			        }
+		      }     
+		}
+       } 
