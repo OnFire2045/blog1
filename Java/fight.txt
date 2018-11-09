@@ -145,7 +145,7 @@ class Fighting {
 	int damage2 = 0;
 		while(hp > 0 || mhp > 0){
 		System.out.println("行動を選択してください:");
-		System.out.print("1:ぶん殴る 2:骸袋 3:呪術 4:逃げる");
+		System.out.println("1:ぶん殴る 2:骸袋 3:呪術 4:逃げる");
 
 			try{
 			select = scanner.nextInt();
