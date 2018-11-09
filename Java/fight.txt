@@ -1,0 +1,118 @@
+/* FightingGame(ProtoType)*/
+
+
+// Rogue Like Game. コマンド4択を使ったゲーム(仮)
+// 現在、時間計算とモンスター選択まで作成
+// 通常のコンパイルではMS932文字コードエラーが起きるため起動時は下記のコードを推奨
+// C:Path(保存先のパス)>javac -encoding utf8 Sample00.java
+// java Sample00
+import java.util.Scanner;
+import java.util.Random;
+class Sample00 {
+	public static void main(String[] args) {
+	Scanner scanner = new Scanner(System.in);
+	// インスタンスを作成
+	Fight fight = new Fight(); 
+	Time time = new Time();
+	
+	int timer;
+	String uname;
+
+	// 例外処理開始
+		try{
+		timer = scanner.nextInt();
+		}
+		catch(Exception e){
+			System.out.println("その入力は無効だ。最初からやり直せ");
+			return;
+		}
+	
+	Fighting fighting = new Fighting(fight);
+	System.out.println("あなたは暗闇の中で目を覚ました");
+	time.clock(timer);
+	System.out.println("時刻みの烙印が目覚めとともに金切り声を上げる");
+	System.out.print("俺の名前は......");
+	uname = scanner.next();
+	System.out.println("アナタは災イヲ呼ビ寄セル旅人"+ "\""+  uname + "\"デス」");
+	System.out.println("時刻みの烙印が小さな金切り声を上げた");
+	System.out.println("暗闇の渦より生まれし混沌の使途があなたを襲う");
+	System.out.println(fight.getName() +"が闇の中から姿を現した:" 
+	+ "パターン" + fighting.getMonster());
+
+	}
+}
+
+class Fight {
+	// 戦闘とモンスター名のクラス	
+	Scanner scanner = new Scanner(System.in);
+	private int hp;
+	private int mhp;
+	private String name;
+	// constracter
+	Fight() {
+	System.out.println("どれほどの長い時間眠っていたのだろうか...");
+	System.out.print("何時間眠っていたんだ?:");
+	}
+	// getter
+	public String getName(){
+	return this.name;
+	}
+
+	// setter
+	public void setName(String name) {
+	this.name = name;
+	}
+}
+
+class Time{
+	// 条件分岐により入力された時間から日数と時間を計算するクラス
+	public void clock(int timer){
+	    if(timer > 24){
+	    int days = timer / 24;
+	    int hours = timer % 24;
+	    System.out.println("「アナタガ転生スルマデ二カカッタ時間は"+ days + "日と"+ hours  + "時間デス」" );
+	    } else {
+            int hours = timer % 24;
+	    int days = timer / 24;
+	    System.out.println("「アナタガ転生スルマデ二カカッタ時間は" + hours  + "時間デス」" );
+	    }	
+	
+	}
+}
+
+class Fighting {
+	// モンスターをランダムで選択するクラス
+	Random random = new Random();
+	int monster;
+	// コンストラクタ
+	Fighting(Fight fight){
+	// ランダムでモンスターを選択するために乱数を取得
+	monster = random.nextInt(4);
+	// セッターを使用して名前をセット
+	switch(monster){
+	    case 0:
+	    fight.setName("泥人形シェム・バ");
+	    break;
+	   
+	    case 1:
+	    fight.setName("腐肉食らいアンディッド");
+	    break;
+	   
+	    case 2:
+	    fight.setName("死肉漁りのスライム");
+	    break;
+	    case 3:
+	    fight.setName("変異した肉食ワーム");
+	    break;
+	    
+	    default:
+	    fight.setName("突然変異体ヌル");;
+	    break;
+	    }
+	}
+	// getter Monster select
+	public int getMonster(){
+	return this.monster;
+	}
+
+}
