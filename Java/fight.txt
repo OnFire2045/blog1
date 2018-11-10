@@ -3,7 +3,7 @@
 
 // Rogue Like Game. コマンド4択を使ったゲーム(仮)
 // 戦闘可能。５戦で終了する。時間計算とモンスター選択と戦闘システムが完成
-// 骸袋は2戦目。呪術は3戦目から使用可能。
+// 難易度：ベリーハード 骸袋、呪術は2戦目から使用可能。
 import java.util.Scanner;
 import java.util.Random;
 
@@ -23,40 +23,37 @@ class Sample00 {
 	System.out.println("アナタは災イヲ呼ビ寄セル旅人"+ "\""+  fight.getUname() + "\"デス」");
 	System.out.println("時刻みの烙印が小さな金切り声を上げた");
 	System.out.println("暗闇の渦より生まれし混沌の使途があなたを襲う");
-	System.out.println(fight.getName() +"が闇の中から姿を現した:" 
-	+ "パターン" + fighting.getMonster());
+	System.out.println(fight.getName() +"が闇の中から姿を現した:");
 	fighting.battle(fight);
 	
 	fighting.create(fight);
 	System.out.println("時刻みの烙印が再び小さな金切り声を上げた");
 	System.out.println("暗闇の渦より生まれし混沌の使途があなたを襲う");
-	System.out.println(fight.getName() +"が闇の中から姿を現した:" 
-	+ "パターン" + fighting.getMonster());
+	System.out.println(fight.getName() +"が闇の中から姿を現した:");
 	fighting.battle(fight);
 	
 	fighting.create(fight);
 	System.out.println("時刻みの烙印が再び小さな金切り声を上げた");
 	System.out.println("暗闇の渦より生まれし混沌の使途があなたを襲う");
-	System.out.println(fight.getName() +"が闇の中から姿を現した:" 
-	+ "パターン" + fighting.getMonster());
+	System.out.println(fight.getName() +"が闇の中から姿を現した:");
 	fighting.battle(fight);
 	
 	fighting.create(fight);
 	System.out.println("時刻みの烙印が再び小さな金切り声を上げた");
 	System.out.println("暗闇の渦より生まれし混沌の使途があなたを襲う");
-	System.out.println(fight.getName() +"が闇の中から姿を現した:" 
-	+ "パターン" + fighting.getMonster());
+	System.out.println(fight.getName() +"が闇の中から姿を現した:");
 	fighting.battle(fight);
 
 	fighting.create(fight);
 	System.out.println("時刻みの烙印が再び小さな金切り声を上げた");
 	System.out.println("暗闇の渦より生まれし混沌の使途があなたを襲う");
-	System.out.println(fight.getName() +"が闇の中から姿を現した:" 
-	+ "パターン" + fighting.getMonster());
+	System.out.println(fight.getName() +"が闇の中から姿を現した:");
 	fighting.battle(fight);
 	
 	System.out.println("どこからともなく枯れた苦痛にゆがんだ声が聞こえる...");
-	System.out.println("あなたの意識は途絶えた");
+	System.out.println("目の前に大きな石造の形をした肉の塊が現れた...");
+	System.out.println("to be continued...");
+	
 	}
 }
 // 名前を登録するクラス
@@ -150,41 +147,6 @@ class Fighting {
 	   case 0:
 	    fight.setName("泥人形シェム・バ");
 	    mhp = 20;
-	    powerM = 10;
-	    break;
-	   
-	    case 1:
-	    fight.setName("腐肉食らいアンディッド");
-	    mhp = 30;
-	    powerM = 12;
-	    break;
-
-	    case 2:
-	    fight.setName("死肉漁りのスライム");
-	    mhp = 40;
-	    powerM = 18;
-	    break;
-
-	    case 3:
-	    fight.setName("変異した肉食ワーム");
-	    mhp = 50;
-	    powerM = 24;
-	    break;
-	    
-	    default:
-	    fight.setName("突然変異体ヌル");;
-	    break;
-	    }
-	}
-	// 
-	public void create(Fight fight){
-	// ランダムでモンスターを選択するために乱数を取得
-	monster = random.nextInt(4);
-	// セッターを使用して名前をセット
-	switch(monster){
-	    case 0:
-	    fight.setName("泥人形シェム・バ");
-	    mhp = 20;
 	    powerM = 5;
 	    break;
 	   
@@ -204,6 +166,41 @@ class Fighting {
 	    fight.setName("変異した肉食ワーム");
 	    mhp = 50;
 	    powerM = 15;
+	    break;
+	    
+	    default:
+	    fight.setName("突然変異体ヌル");;
+	    break;
+	    }
+	}
+	// 
+	public void create(Fight fight){
+	// ランダムでモンスターを選択するために乱数を取得
+	monster = random.nextInt(4);
+	// セッターを使用して名前をセット
+	switch(monster){
+	    case 0:
+	    fight.setName("泥人形シェム・バ");
+	    mhp = 20;
+	    powerM = 8;
+	    break;
+	   
+	    case 1:
+	    fight.setName("腐肉食らいアンディッド");
+	    mhp = 30;
+	    powerM = 10;
+	    break;
+
+	    case 2:
+	    fight.setName("死肉漁りのスライム");
+	    mhp = 40;
+	    powerM = 15;
+	    break;
+
+	    case 3:
+	    fight.setName("変異した肉食ワーム");
+	    mhp = 50;
+	    powerM = 20;
 	    break;
 	    
 	    default:
@@ -296,9 +293,9 @@ class Fighting {
 		System.out.println("ギギギ...タオシタマモノ..." + count + "ヒキ");
 		System.out.println("返り血を浴びた骸袋の口元が動き、歪み震えた低い声が響いた");		
 		mukuro += 1;
-		    if(count % 3 == 0){
+		    if(count % 2 == 0){
 		    System.out.println("呪術の手袋が小さく光った");
-		    mp +=3;
+		    mp +=1;
 		    } else {
 		    }
 		} else {
@@ -307,3 +304,4 @@ class Fighting {
 		}
 	     }
     } 
+
