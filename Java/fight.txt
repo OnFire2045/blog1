@@ -2,8 +2,7 @@
 
 
 // Rogue Like Game. コマンド4択を使ったゲーム(仮)
-// 現在、戦闘可能。５戦で終了する。
-// 現在、時間計算とモンスター選択と戦闘システム一部のみ完成
+// 戦闘可能。５戦で終了する。時間計算とモンスター選択と戦闘システムが完成
 import java.util.Scanner;
 import java.util.Random;
 class Sample00 {
@@ -208,6 +207,7 @@ class Fighting {
 	int select = 0;
 	int damage = 0;
 	int damage2 = 0;
+	int damage3 = 0;
 		while(hp > 0 || mhp > 0){
 		System.out.println("行動を選択してください:");
 		System.out.println("1:ぶん殴る 2:骸袋 3:呪術 4:逃げる");
@@ -222,11 +222,12 @@ class Fighting {
 				case 1:
 				
 				System.out.println(select +":ぶん殴る");
-				System.out.println(fight.getName()+"に"+ damage +"のダメージ");
 				damage = random.nextInt(20)+5;
+				System.out.println(fight.getName()+"に"+ damage +"のダメージ");
 				mhp -= damage;
-				System.out.println(fight.getUname()+"に"+ damage +"のダメージ");
+				
 				damage2 = random.nextInt(20);
+				System.out.println(fight.getUname()+"に"+ damage2 +"のダメージ");
 				hp -= damage2;
 				break;
 				case 2:
@@ -241,7 +242,16 @@ class Fighting {
 				}
 				break;
 				case 3:
+				if(mp < 1) {
 				System.out.println("魔力が足りない......");
+				} else{
+				System.out.println("漆黒の炎が腕を包む");
+				System.out.println(fight.getName()+ "は炎に包まれた");
+				damage3 = random.nextInt(30)+20;
+				System.out.println(fight.getName()+"に"+ damage3 +"のダメージ");
+				mhp -= damage3;
+				mp -= 1;
+				}
 				break;
 				case 4:
 				System.out.println("逃げられない");
@@ -255,7 +265,12 @@ class Fighting {
 		System.out.println(fight.getName()+"を倒した");
 		count += 1;
 		System.out.println("ギギギ...タオシタマモノ..." + count + "ヒキ");
-		System.out.println("返り血を浴びた骸袋の口元が動き、歪み震えた低い声が響いた");		      mukuro += 1;
+		System.out.println("返り血を浴びた骸袋の口元が動き、歪み震えた低い声が響いた");		mukuro += 1;
+		    if(count %3 == 0){
+		    System.out.println("呪術の手袋が小さく光った");
+		    mp +=2;
+		    } else {
+		    }
 		} else {
 		System.out.println("あなたは闇に呑まれた");
 		System.exit(0);
