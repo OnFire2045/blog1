@@ -150,25 +150,25 @@ class Fighting {
 	   case 0:
 	    fight.setName("泥人形シェム・バ");
 	    mhp = 20;
-	    powerM = 5;
+	    powerM = 10;
 	    break;
 	   
 	    case 1:
 	    fight.setName("腐肉食らいアンディッド");
 	    mhp = 30;
-	    powerM = 7;
+	    powerM = 12;
 	    break;
 
 	    case 2:
 	    fight.setName("死肉漁りのスライム");
 	    mhp = 40;
-	    powerM = 8;
+	    powerM = 18;
 	    break;
 
 	    case 3:
 	    fight.setName("変異した肉食ワーム");
 	    mhp = 50;
-	    powerM = 15;
+	    powerM = 24;
 	    break;
 	    
 	    default:
@@ -222,8 +222,9 @@ class Fighting {
 	int damage2 = 0;
 	int damage3 = 0;
 	int run = 0;
-		while(hp > 0 || mhp > 0){
-		System.out.println(fight.getName()+ "\t生命力:" + mhp);
+		while(hp > 0 && mhp > 0){
+		System.out.println("生命力" +hp);
+		System.out.println(fight.getName()+ "\t"+ "生命力:" + mhp);
 		System.out.println("行動を選択してください:");
 		System.out.println("1:ぶん殴る 2:骸袋 3:呪術 4:避ける");
 
@@ -293,7 +294,8 @@ class Fighting {
 		count += 1;
 		power += 2;
 		System.out.println("ギギギ...タオシタマモノ..." + count + "ヒキ");
-		System.out.println("返り血を浴びた骸袋の口元が動き、歪み震えた低い声が響いた");		mukuro += 1;
+		System.out.println("返り血を浴びた骸袋の口元が動き、歪み震えた低い声が響いた");		
+		mukuro += 1;
 		    if(count % 3 == 0){
 		    System.out.println("呪術の手袋が小さく光った");
 		    mp +=3;
