@@ -136,30 +136,36 @@ class Fighting {
 	private int mhp;
 	private int mukuro;
 	private int count = 0;
+	private int power = 5;
+	private int powerM = 0;
 	// コンストラクタ
 	Fighting(Fight fight){
 	// ランダムでモンスターを選択するために乱数を取得
 	monster = random.nextInt(4);
 	// セッターを使用して名前をセット
 	switch(monster){
-	    case 0:
+	   case 0:
 	    fight.setName("泥人形シェム・バ");
 	    mhp = 20;
+	    powerM = 5;
 	    break;
 	   
 	    case 1:
 	    fight.setName("腐肉食らいアンディッド");
 	    mhp = 30;
+	    powerM = 7;
 	    break;
 
 	    case 2:
 	    fight.setName("死肉漁りのスライム");
 	    mhp = 40;
+	    powerM = 8;
 	    break;
 
 	    case 3:
 	    fight.setName("変異した肉食ワーム");
 	    mhp = 50;
+	    powerM = 15;
 	    break;
 	    
 	    default:
@@ -176,21 +182,25 @@ class Fighting {
 	    case 0:
 	    fight.setName("泥人形シェム・バ");
 	    mhp = 20;
+	    powerM = 5;
 	    break;
 	   
 	    case 1:
 	    fight.setName("腐肉食らいアンディッド");
 	    mhp = 30;
+	    powerM = 7;
 	    break;
 
 	    case 2:
 	    fight.setName("死肉漁りのスライム");
 	    mhp = 40;
+	    powerM = 8;
 	    break;
 
 	    case 3:
 	    fight.setName("変異した肉食ワーム");
 	    mhp = 50;
+	    powerM = 15;
 	    break;
 	    
 	    default:
@@ -209,6 +219,7 @@ class Fighting {
 	int damage2 = 0;
 	int damage3 = 0;
 		while(hp > 0 || mhp > 0){
+		System.out.println(fight.getName()+ "\t生命力:" + mhp);
 		System.out.println("行動を選択してください:");
 		System.out.println("1:ぶん殴る 2:骸袋 3:呪術 4:逃げる");
 
@@ -222,11 +233,11 @@ class Fighting {
 				case 1:
 				
 				System.out.println(select +":ぶん殴る");
-				damage = random.nextInt(20)+5;
+				damage = random.nextInt(20)+ power;
 				System.out.println(fight.getName()+"に"+ damage +"のダメージ");
 				mhp -= damage;
 				
-				damage2 = random.nextInt(20);
+				damage2 = random.nextInt(20)+ powerM;
 				System.out.println(fight.getUname()+"に"+ damage2 +"のダメージ");
 				hp -= damage2;
 				break;
@@ -264,11 +275,12 @@ class Fighting {
 		if(mhp < 0){
 		System.out.println(fight.getName()+"を倒した");
 		count += 1;
+		power += 2;
 		System.out.println("ギギギ...タオシタマモノ..." + count + "ヒキ");
 		System.out.println("返り血を浴びた骸袋の口元が動き、歪み震えた低い声が響いた");		mukuro += 1;
-		    if(count %3 == 0){
+		    if(count % 3 == 0){
 		    System.out.println("呪術の手袋が小さく光った");
-		    mp +=2;
+		    mp +=3;
 		    } else {
 		    }
 		} else {
@@ -276,4 +288,4 @@ class Fighting {
 		System.exit(0);
 		}
 	     }
-       } 
+    } 
