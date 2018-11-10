@@ -173,7 +173,7 @@ class Fighting {
 	    break;
 	    }
 	}
-	// 
+	// クリエイトメソッド ランダムモンスター
 	public void create(Fight fight){
 	// ランダムでモンスターを選択するために乱数を取得
 	monster = random.nextInt(4);
@@ -219,18 +219,21 @@ class Fighting {
 	int damage2 = 0;
 	int damage3 = 0;
 	int run = 0;
+	// 条件分岐による戦闘。敵か味方のHPが0になるまでループ
 		while(hp > 0 && mhp > 0){
 		System.out.println("生命力" +hp);
 		System.out.println(fight.getName()+ "\t"+ "生命力:" + mhp);
 		System.out.println("行動を選択してください:");
 		System.out.println("1:ぶん殴る 2:骸袋 3:呪術 4:避ける");
 
+		// 例外処理
 			try{
 			select = scanner.nextInt();
 			}catch(Exception e){
 			System.out.println("その入力は無効だ。やり直せ");
 			break;
 			}
+			// switchによる条件分岐
 				switch(select){
 				case 1:
 				
@@ -286,22 +289,22 @@ class Fighting {
 				break;
 			        }
 		      }
+		// ループを抜けた後の処理
 		if(mhp < 0){
 		System.out.println(fight.getName()+"を倒した");
 		count += 1;
 		power += 2;
 		System.out.println("ギギギ...タオシタマモノ..." + count + "ヒキ");
 		System.out.println("返り血を浴びた骸袋の口元が動き、歪み震えた低い声が響いた");		
-		mukuro += 1;
+		mukuro += 1; // 回復アイテムを1つ獲得
 		    if(count % 2 == 0){
 		    System.out.println("呪術の手袋が小さく光った");
-		    mp +=1;
+		    mp +=1; // 2回敵を倒すたびに魔法を1回使えるMPを獲得
 		    } else {
 		    }
 		} else {
 		System.out.println("あなたは闇に呑まれた");
 		System.exit(0);
 		}
-	     }
-    } 
-
+	}
+} 
