@@ -3,8 +3,10 @@
 
 // Rogue Like Game. コマンド4択を使ったゲーム(仮)
 // 戦闘可能。５戦で終了する。時間計算とモンスター選択と戦闘システムが完成
+// 骸袋は2戦目。呪術は3戦目から使用可能。
 import java.util.Scanner;
 import java.util.Random;
+
 class Sample00 {
 	public static void main(String[] args) {
 	Scanner scanner = new Scanner(System.in);
@@ -12,6 +14,7 @@ class Sample00 {
 	Fight fight = new Fight(); 
 	Time time = new Time();
 	Fighting fighting = new Fighting(fight);
+	Fighting fighting1 = new Fighting(fight);
 	
 	System.out.println("あなたは暗闇の中で目を覚ました");
 	time.clock();
@@ -133,8 +136,8 @@ class Fighting {
 	private int monster;
 	private int hp = 50;
 	private int mp = 0;
-	private int mhp;
-	private int mukuro;
+	private int mhp = 0;
+	private int mukuro = 0;
 	private int count = 0;
 	private int power = 5;
 	private int powerM = 0;
@@ -218,10 +221,11 @@ class Fighting {
 	int damage = 0;
 	int damage2 = 0;
 	int damage3 = 0;
+	int run = 0;
 		while(hp > 0 || mhp > 0){
 		System.out.println(fight.getName()+ "\t生命力:" + mhp);
 		System.out.println("行動を選択してください:");
-		System.out.println("1:ぶん殴る 2:骸袋 3:呪術 4:逃げる");
+		System.out.println("1:ぶん殴る 2:骸袋 3:呪術 4:避ける");
 
 			try{
 			select = scanner.nextInt();
@@ -265,7 +269,19 @@ class Fighting {
 				}
 				break;
 				case 4:
-				System.out.println("逃げられない");
+				run = random.nextInt(2);
+				if(run == 1){
+				System.out.println(fight.getName()+ "の攻撃を躱し、打撃を与えた");
+				damage = random.nextInt(30)+ power;
+				System.out.println(fight.getName()+"に"+ damage +"のダメージ");
+				mhp -= damage;
+				}else {
+				System.out.println("避けられない。背後からの不意打ちを受けた");
+				damage2 = random.nextInt(30)+ powerM;
+				System.out.println(fight.getUname()+"に"+ damage2 +"のダメージ");
+				hp -= damage2;
+
+				}
 				break;
 				default:
 				System.out.println("その入力は無効だ。やり直せ");
