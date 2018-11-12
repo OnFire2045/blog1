@@ -31,7 +31,7 @@ class NameRegister {
 	System.out.println("「僕の名前は"+ "\""+ uname + "\"だ」");
 	}
 	public String getName(){
-		return this.name;
+	return this.name;
 	}
 }
 
@@ -48,7 +48,7 @@ private int score;
      public void select(Fight fight,Game game){
 	    while(goal > 0){
 	    System.out.println("行動を選択してください");
-	    System.out.println("1:時の賽を投げる 2:闘いの賽を投げる 3:天使と死神の賽を投げる 4:魂を捧げる");
+	    System.out.println("1:時の賽を投げる 2:闘いの賽を投げる 3:天使と死神の硬貨を投げる 4:魂を捧げる");
 	    // 例外処理
 		    try{
 		       select = scanner.nextInt();
@@ -72,14 +72,14 @@ private int score;
 				System.out.println(select + ":天使と死神の硬貨を投げる");
 				deathGod = (int)(Math.random() * 2)+1;
 				if(deathGod == 2){
-				System.out.println("投げたコインのは天使に姿を変えた");
-				System.out.println("アナタのスピリットが10000増えました");
+				System.out.println("投げたコインは天使に姿を変えた");
+				System.out.println("あなたのスピリットが10000増えました");
 				spirit += 10000;
 				} else {
 				System.out.println("投げたコインは死神に姿を変えた");
 				spirit -= 10000;
 				score();
-				System.out.println("アナタは闇に呑まれた");
+				System.out.println("あなたは闇に呑まれた");
 				System.exit(0);
 				}
 				break;
@@ -88,7 +88,7 @@ private int score;
 				System.out.println("あなたはスピリットと転生日数を捧げた");
 				spirit += 20000;
 				score();
-				System.out.println("アナタは闇に呑まれた");
+				System.out.println("あなたは闇に呑まれた");
 				System.exit(0);
 		     }
 	    }
@@ -151,9 +151,8 @@ private int score;
 	    this.spirit += spirit;
 	}
 }
-        // 以下作成中
-
-	// battle class 戦闘を行うクラス
+	
+        // battle class 戦闘を行うクラス
 	class Fight{
 	Random random = new Random();
 	Scanner scanner = new Scanner(System.in);
@@ -196,7 +195,7 @@ private int score;
 		    case 4:
 		    mhp = 60;
 		    mpower = 20;
-		    setName("肉食らいのオーグ");
+		    setName("朽ちた兵士");
 		    break;
 
 		    default:
@@ -300,7 +299,7 @@ private int score;
 
 
 
-		// ↓while文終了の}  
+		// while文終了 
 		}
 	 	 if(mhp < 0){
 		     System.out.println(name + "を倒した");
@@ -313,9 +312,14 @@ private int score;
 		     game.setSpirit(10000);
 		     
                  } else {
-	         System.out.println("アナタは闇に呑まれました");
+	         System.out.println("あなたは闇に呑まれました");
 	         System.exit(0);
 		 }
 
           }
 }
+
+// 以下、イベント作成中 
+class Event{
+}
+
