@@ -1,0 +1,310 @@
+/* Board_Game(Unfinished) */
+/* 
+現状:ダイスを振れます。スコアと戦闘システム完成。遊べますが、一部未完成です。
+* TRPGの戦闘システムを採用したRogue Likeな人生ゲーム
+* math.random関数を使用
+*/
+
+// ランダム関数はSecureRandomを採用
+import java.util.Random;
+import java.security.SecureRandom;
+import java.util.Scanner;
+
+// メインメソッド
+class Sample01{
+	public static void main(String[] args) {
+	Scanner scanner = new Scanner(System.in);
+	Game game = new Game();
+	NameRegister nameR = new NameRegister();
+	Fight fight = new Fight();
+
+	game.select(fight);
+
+	}
+}
+// 名前を受け取るメソッド
+class NameRegister {
+	Scanner scanner = new Scanner(System.in);
+		private String name;
+		private String uname;
+	NameRegister() {
+	System.out.print("僕の名前は......");
+	uname = scanner.next();
+	System.out.println("「僕の名前は"+ "\""+ uname + "\"だ」");
+	}
+	public String getName(){
+		return this.name;
+	}
+}
+
+// ゲームの処理をするメソッド
+class Game {
+Scanner scanner = new Scanner(System.in);
+Random random = new Random();
+private int forward = 0;
+private int goal = 30;
+private int spirit = 0;
+private int select;
+private int deathGod;
+private int score;
+     public void select(Fight fight){
+	    while(goal > 0){
+	    System.out.println("行動を選択してください");
+	    System.out.println("1:時の賽を投げる 2:闘いの賽を投げる 3:天使と死神の賽を投げる 4:魂を捧げる");
+	    // 例外処理
+		    try{
+		       select = scanner.nextInt();
+		    }catch(Exception e){
+			System.out.println("その入力は無効です。やり直してください");
+			System.exit(0);
+		    }
+			// switchによる条件分岐 セレクト
+		    switch(select){
+			case 1:
+				System.out.println(select + ":時の賽を投げる");
+				rollTheDice();
+				break;
+			case 2:
+				System.out.println(select + ":戦いの賽を投げる");
+				fight.create();
+				fight.battle();
+				rollTheDice();
+				break;
+			case 3:
+				System.out.println(select + ":天使と死神の硬貨を投げる");
+				deathGod = (int)(Math.random() * 2)+1;
+				if(deathGod == 2){
+				System.out.println("投げたコインのは天使に姿を変えた");
+				System.out.println("アナタのスピリットが10000増えました");
+				spirit += 10000;
+				} else {
+				System.out.println("投げたコインは死神に姿を変えた");
+				spirit -= 10000;
+				score();
+				System.out.println("アナタは闇に呑まれた");
+				System.exit(0);
+				}
+				break;
+			case 4:
+				System.out.println(select + ":魂を捧げる");
+				System.out.println("あなたはスピリットと転生日数を捧げた");
+				spirit += 20000;
+				score();
+				System.out.println("アナタは闇に呑まれた");
+				System.exit(0);
+		     }
+	    }
+    }
+    // ダイスを振って数値を返すメソッド rollTheDice() Math.random使用
+    public void rollTheDice(){
+    System.out.println("あなた賽を投げた");
+    forward = (int)(Math.random() * 6)+1;
+	    switch(forward){
+		    case 1:
+		    System.out.println("時が"+ forward+ "日進んだ");
+		    goal -= 1;
+		    break;
+		    
+		    case 2:
+		    System.out.println("時が"+ forward+ "日進んだ");
+		    goal -= 2;
+		    break;
+
+		    case 3:
+		    System.out.println("時が"+ forward+ "日進んだ");
+		    goal -= 3;
+		    break;
+
+		    case 4:
+		    System.out.println("時が"+ forward+ "日進んだ");
+		    goal -= 4;
+		    break;
+
+		    case 5:
+		    System.out.println("時が"+ forward+ "日進んだ");
+		    goal -= 5;
+		    break;
+
+		    case 6:
+		    System.out.println("時が"+ forward+ "日進んだ");
+		    goal -= 6;
+		    break;
+
+		    default:
+		    System.out.println("賽はどこかに消えた");
+		    goal -= 30;
+		    break;
+	    }
+		    if(goal > 0){
+			System.out.println("転生まで" + goal + "日");
+		    }else{
+		    System.out.println("Reincanation");
+		    System.out.println("目の前に光が広がる。視界が広げた。あたりは薄暗い");
+		    spirit += 20000;
+		    score();
+		    }
+     }
+        // スコアを計算するメソッド
+	public void score(){
+		    score = spirit + 30000 - (goal * 1000);	
+		    System.out.println("スコア:" + score + "点");
+	}
+}
+        // 以下作成中
+
+	// battle class 戦闘を行うクラス
+	class Fight{
+	Random random = new Random();
+	Scanner scanner = new Scanner(System.in);
+
+	private int event;
+	private int monster;
+	private String name;
+	private int hp = 50;
+	private int mp = 0;
+	private int power = 6;
+	private int mhp = 0;
+	private int mpower = 0;
+	private int count = 0;
+	
+	    // constracter　コンストラクタ
+	    Fight(){
+	    monster = (int)(Math.random() * 4)+1;
+	    }
+	    // create method monster モンスター生成メソッド
+	    public void create(){
+	        switch(monster){
+		    case 1:
+		    setName("蠢くワーム");
+	            mhp = 20;
+		    mpower = 3;
+		    break;
+
+		    case 2:
+		    setName("爛れたアンデット");
+		    mhp = 30;
+		    mpower = 5;
+		    break;
+
+		    case 3:
+		    mhp = 40;
+		    mpower = 10;
+		    setName("死肉を食らいのグール");
+		    break;
+
+		    case 4:
+		    mhp = 50;
+		    mpower = 12;
+		    setName("肉食らいのオーグ");
+		    break;
+
+		    default:
+		    mhp = 100;
+		    mpower = 20;
+		    setName("歪んだ泥人形");
+		    break;
+	        }
+            }
+	    // セッター
+	    public void setName(String name){
+	    this.name = name;
+            }
+	    // ゲッター
+	    public String getName(){
+	    return this.name;
+	    }
+	    
+	    // fight system
+	    public void battle(){
+	    int select = 0;
+	    int damage = 0;
+	    int damage2 = 0;
+	    int damage3 = 0;
+	    int run = 0;
+	    int counter = 0;
+	    
+	    // whileとswitchによる戦闘。敵か味方がHP0になるまで戦う
+	    	while(hp > 0 && mhp > 0){
+		    System.out.println("生命力:" + hp);
+	       	    System.out.println(name + "\t" + "生命力:"+mhp);
+		    System.out.println("行動を選択してください");
+		    System.out.println("1:攻撃 2:受け流し 3:魔術 4:逃げる");
+		   
+	    // 例外処理
+		       try{
+		       select = scanner.nextInt();
+		       } catch(Exception e) {
+		       System.out.println("その入力は無効だ");
+		       }
+		       
+		       // switchによる条件分岐
+		           switch(select){
+			       case 1:
+			       System.out.println(select +":攻撃");
+			       damage = random.nextInt(20) + power;
+			       System.out.println(name + "に" + damage + "のダメージ");
+			       mhp -= damage;
+				   if(mhp > 0){
+				   damage2 = random.nextInt(20) + mpower;
+				   System.out.println(damage2+ "を受けた");
+				   hp -= damage2;
+				   } else {
+				   }
+				   break;
+			       
+                               case 2:
+			       System.out.println(select + "受け流し");
+			       counter = (int)(Math.random() * 2) +1;
+			       if(counter == 1){
+			       System.out.println(name +"の攻撃を受け流した");
+			       damage = (int)(Math.random() * 30)+ power;
+			       System.out.println(name + "に" + damage+"のダメージ");
+			       mhp -= damage; 
+			       } else {
+			       System.out.println("受け流しに失敗した");
+			       damage2 = (int)(Math.random() * 30) + mpower;
+			       System.out.println(damage2 +"を受けた");
+			       hp -= damage2;
+			       }
+			       break;
+
+			       case 3:
+			       if(mp < 1){
+			       System.out.println("魔力が足りない......");
+			       } else {
+			       System.out.println("眩い光が" + name +"を照らす");
+			       damage3 = (int)(Math.random() * 40) + power;
+			       System.out.println("魔力によりHPが回復した");
+			       hp += 30;
+			       mp -= 1;
+			       }
+			       break;
+
+			       case 4:
+			       System.out.println("逃げられない");
+			       break;
+
+			       default:
+			       System.out.println("その入力は無効です");
+			       break;
+			  }
+
+
+
+		// ↓while文終了の}  
+		}
+	 	 if(mhp < 0){
+		     System.out.println(name + "を倒した");
+		     power += 2;
+	             count += 1;
+		     System.out.println("経験が" + count + "になりました"); 
+		     System.out.println("力が上がり、魔力が増えました。");
+	             System.out.println("スピリットが10000増えました");
+		     mp += 1;
+                 } else {
+	         System.out.println("アナタは闇に呑まれました");
+	         System.exit(0);
+		 }
+
+   }
+}
