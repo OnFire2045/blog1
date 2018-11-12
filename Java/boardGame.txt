@@ -170,31 +170,31 @@ private int score;
 	
 	    // constracter　コンストラクタ
 	    Fight(){
-	    monster = (int)(Math.random() * 4)+1;
 	    }
 	    // create method monster モンスター生成メソッド
 	    public void create(){
+	    monster = (int)(Math.random() * 4)+1;
 	        switch(monster){
 		    case 1:
 		    setName("蠢くワーム");
-	            mhp = 20;
+	      mhp = 30;
 		    mpower = 13;
 		    break;
 
 		    case 2:
 		    setName("爛れたアンデット");
-		    mhp = 30;
+		    mhp = 40;
 		    mpower = 14;
 		    break;
 
 		    case 3:
-		    mhp = 40;
+		    mhp = 50;
 		    mpower = 15;
 		    setName("死肉を食らいのグール");
 		    break;
 
 		    case 4:
-		    mhp = 50;
+		    mhp = 60;
 		    mpower = 20;
 		    setName("肉食らいのオーグ");
 		    break;
@@ -319,4 +319,3 @@ private int score;
 
           }
 }
-
