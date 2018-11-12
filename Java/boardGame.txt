@@ -1,9 +1,7 @@
 /* Board_Game(Unfinished) */
-/* 
-現状:ダイスを振れます。スコアと戦闘システム完成。遊べますが、一部未完成です。
-* TRPGの戦闘システムを採用したRogue Likeな人生ゲーム
-* math.random関数を使用
-*/
+// 現状:ダイスを振れます。スコアと戦闘システム完成。遊べます。
+// コマンド式の戦闘システムを採用したRogue Likeな人生ゲーム。
+// 難易度:ハード
 
 // ランダム関数はSecureRandomを採用
 import java.util.Random;
@@ -18,7 +16,7 @@ class Sample01{
 	NameRegister nameR = new NameRegister();
 	Fight fight = new Fight();
 
-	game.select(fight);
+	game.select(fight,game);
 
 	}
 }
@@ -47,7 +45,7 @@ private int spirit = 0;
 private int select;
 private int deathGod;
 private int score;
-     public void select(Fight fight){
+     public void select(Fight fight,Game game){
 	    while(goal > 0){
 	    System.out.println("行動を選択してください");
 	    System.out.println("1:時の賽を投げる 2:闘いの賽を投げる 3:天使と死神の賽を投げる 4:魂を捧げる");
@@ -67,7 +65,7 @@ private int score;
 			case 2:
 				System.out.println(select + ":戦いの賽を投げる");
 				fight.create();
-				fight.battle();
+				fight.battle(game);
 				rollTheDice();
 				break;
 			case 3:
@@ -149,6 +147,9 @@ private int score;
 		    score = spirit + 30000 - (goal * 1000);	
 		    System.out.println("スコア:" + score + "点");
 	}
+	public void setSpirit(int spirit){
+	    this.spirit += spirit;
+	}
 }
         // 以下作成中
 
@@ -177,30 +178,30 @@ private int score;
 		    case 1:
 		    setName("蠢くワーム");
 	            mhp = 20;
-		    mpower = 3;
+		    mpower = 13;
 		    break;
 
 		    case 2:
 		    setName("爛れたアンデット");
 		    mhp = 30;
-		    mpower = 5;
+		    mpower = 14;
 		    break;
 
 		    case 3:
 		    mhp = 40;
-		    mpower = 10;
+		    mpower = 15;
 		    setName("死肉を食らいのグール");
 		    break;
 
 		    case 4:
 		    mhp = 50;
-		    mpower = 12;
+		    mpower = 20;
 		    setName("肉食らいのオーグ");
 		    break;
 
 		    default:
 		    mhp = 100;
-		    mpower = 20;
+		    mpower = 30;
 		    setName("歪んだ泥人形");
 		    break;
 	        }
@@ -215,7 +216,7 @@ private int score;
 	    }
 	    
 	    // fight system
-	    public void battle(){
+	    public void battle(Game game){
 	    int select = 0;
 	    int damage = 0;
 	    int damage2 = 0;
@@ -273,10 +274,18 @@ private int score;
 			       System.out.println("魔力が足りない......");
 			       } else {
 			       System.out.println("眩い光が" + name +"を照らす");
-			       damage3 = (int)(Math.random() * 40) + power;
+			       damage3 = (int)(Math.random() * 30) + power;
+			       System.out.println(name + "に" +damage3 +"のダメージ");
+			       mhp -= damage3;
 			       System.out.println("魔力によりHPが回復した");
-			       hp += 30;
+			       hp += 25;
 			       mp -= 1;
+				   if(mhp > 0){
+				   damage2 = random.nextInt(20) + mpower;
+				   System.out.println(damage2+ "を受けた");
+				   hp -= damage2;
+				   } else {
+				   }
 			       }
 			       break;
 
@@ -301,10 +310,13 @@ private int score;
 		     System.out.println("力が上がり、魔力が増えました。");
 	             System.out.println("スピリットが10000増えました");
 		     mp += 1;
+		     game.setSpirit(10000);
+		     
                  } else {
 	         System.out.println("アナタは闇に呑まれました");
 	         System.exit(0);
 		 }
 
-   }
+          }
 }
+
