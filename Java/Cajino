@@ -1,0 +1,321 @@
+/* Cajino_Game(unfinished) */
+
+ * 1.HighRiskDice(DICE GAME) 
+ * 20面ダイス。1/20で全額没収。残りは金額が1.06倍
+ * diceR = (Math)(Math.random() * 20) +1;
+ *
+ * 2.Clown(SLOT GAME)
+ * 1回500コインで遊べるが、偶にしか当たらない。
+ * 大当たりなら30000コイン。小当たりなら10000コイン｡
+ * 中当たりなら15000コイン｡1/30と1/3の二重抽選。AＴＹＰＥ機。
+ * 
+ * 3.Snake(SLOT GAME)
+ * 500コインで遊べる継続率管理のゲーム。継続率が50%~90%で割り振られ、
+ * 継続する限りコインが増え続ける。選択肢で継続が決まる。
+ *
+ * 4.ZeuS(SLOT GAME)
+ * 低確率でZeus揃い。継続率90%で継続し続ける。
+ */
+ 
+// Math.Randomを採用
+import java.util.Random;
+import java.security.SecureRandom;
+import java.util.Scanner;
+
+class Sample02{
+	public static void main(String[] args){
+	Scanner scanner = new Scanner(System.in);
+	Random random = new Random();
+	Game game = new Game();
+	int money = 10000;
+	game.dice();
+	game.clown();
+	game.snake();
+	game.close();
+	}
+}
+/*	public void setMoney(int money){
+		this.money += money;
+	}
+	public int getMoney(){
+	return this.money;
+	}
+*/
+class Game {
+Scanner scanner = new Scanner(System.in);
+private String name = "匿名希望者";
+private int select = 0;
+private int money = 10000;
+    Game(){
+    System.out.println("ようこそいらっしゃいました。" + name + "様。");
+    System.out.println("ここは屈指のギャンブラー達が集う賭博場です。");
+    System.out.println("ごゆっくりとお楽しみくださいませ。\n");
+    }
+        public void select(){
+	System.out.println("");
+	}
+
+
+
+	public void dice(){
+	System.out.println("ハイリスクダイスヲフルカイ？");
+	System.out.println("20面体のサイコロだ。1面だけ髑髏のマークが刻まれている");
+	System.out.println("1:振る 2:振らない");
+
+	    try{
+	    select = scanner.nextInt();
+	    } catch(Exception e){
+	    System.out.println("不正な値が入力されました");
+	    System.out.println("不正行為の疑いがあります。あなたは連行されました\nEND");
+	    System.exit(0);
+	    }
+	
+	    if(select == 1){
+	        System.out.println("答えは決まっている。俺はダイスを手に取った");
+	        diceRoll();
+	            if(select ==1){
+		    dice();
+		    } else {
+		    }
+	    } else {
+        System.out.println("ハイリスクダイスを振るのをやめた");
+        System.out.println("所持金:" + money + "\n");
+	    }
+        }
+	public void diceRoll(){
+	int riskDice = 0;
+	riskDice = (int)(Math.random() * 20)+1;
+		switch(riskDice){
+		case 1:
+			System.out.println("髑髏絵柄の目が出た");
+			System.out.println("所持金は全部没収だ。悪いな\n");
+			System.out.println("所持金が0になりました");
+			money = 0;
+			System.out.println("アナタは連行されました\nEND");
+			System.exit(0);
+		default:
+			System.out.println("札束絵柄の目が出た");
+			System.out.println("配当は所持金の1.06倍だ。持ってきな");
+			money *= 1.06;
+			System.out.println("所持金が"+ money + "になりました\n");
+			break;
+			}
+		}
+
+	public void clown(){
+	if(money <= 0){
+	System.out.println("所持金が0になりました。あなたは連行されました\nEND");
+	System.exit(0);
+	} else{
+	}
+	System.out.println("Clownを回すかい？");
+	System.out.println("道化師を象ったスロットマシーンだ");
+	System.out.println("1:回す 2:回さない");
+	    try{
+	    select = scanner.nextInt();
+	    } catch(Exception e){
+	    System.out.println("不正な値が入力されました");
+	    System.out.println("不正行為の疑いがあります。あなたは連行されました\nEND");
+	    System.exit(0);
+	    }
+	    if(select == 1){
+	        System.out.println("答えは決まっている。俺はclownに所持金を入れた");
+	        clownPlay();
+	            if(select ==1){
+		    clown();
+		    } else {
+		    }
+	    } else {
+        System.out.println("Clownを回すのをやめた");
+        System.out.println("所持金:" + money + "\n");
+	    }
+	}
+
+        public void clownPlay(){
+        int sbig = 1; 
+	int big = 2;
+	int reg = 3;
+	int slot = 0;
+	System.out.println("所持金が500減った");
+	money -= 500;
+	System.out.println("スロットが回りだした...\n");
+	slot = (int)(Math.random() * 30)+1;
+		if(slot == sbig){
+		
+		System.out.println("/＼//＼//＼//＼//＼//＼//＼//＼");
+		System.out.println("/＼//＼//＼//＼//＼//＼//＼//＼");
+		System.out.println("\t SUPER BIG BONUS!!");
+		System.out.println("/＼//＼//＼//＼//＼//＼//＼//＼");
+		System.out.println("/＼//＼//＼//＼//＼//＼//＼//＼\n");
+		
+		System.out.println("所持金が12000増えた");
+		money += 12000;
+		System.out.println("所持金が"+ money + "になりました\n");
+		} else if(slot == big){
+		System.out.println("/＼//＼//＼//＼//＼//＼//＼//＼");
+		System.out.println("/＼//＼//＼//＼//＼//＼//＼//＼");
+		System.out.println("\t BIG BONUS!");
+		System.out.println("/＼//＼//＼//＼//＼//＼//＼//＼");
+		System.out.println("/＼//＼//＼//＼//＼//＼//＼//＼\n");
+		
+		System.out.println("所持金が5000増えた");
+		money += 5000;
+		System.out.println("所持金が"+ money + "になりました\n");
+		} else if(slot == reg){
+		
+			
+		
+		System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		System.out.println("\t REGULAR BONUS");
+		System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/\n");
+		
+		System.out.println("所持金が1000増えた");
+		money += 1000;
+		System.out.println("所持金が"+ money + "になりました\n");
+		} else {
+		System.out.println("ハズレです");
+		System.out.println("所持金が"+ money + "になりました\n");
+		}
+        }
+
+	public void snake(){
+	if(money <= 0){
+	System.out.println("所持金が0になりました。あなたは連行されました\nEND");
+	System.exit(0);
+	} else{
+	}
+	System.out.println("Snakeを回すかい？");
+	System.out.println("蛇を象ったスロットマシーンだ");
+	System.out.println("1:回す 2:回さない");
+	    try{
+	    select = scanner.nextInt();
+	    } catch(Exception e){
+	    System.out.println("不正な値が入力されました");
+	    System.out.println("不正行為の疑いがあります。あなたは連行されました\nEND");
+	    System.exit(0);
+	    }
+	    if(select == 1){
+	        System.out.println("俺はSnakeに所持金を入れた");
+	        snakePlay();
+	            if(select ==1){
+		    snake();
+		    } else {
+		    }
+	    } else {
+        System.out.println("Snakeを回すのをやめた");
+        System.out.println("所持金:" + money);
+            }
+	}
+
+	public void snakePlay(){
+	int mission = 0;
+	int art = 0;
+	int ok= 0;
+	int ok2 = 0;
+	int ok3 = 0;
+	int clear;
+	System.out.println("所持金が500円減った");
+	money -= 500;
+	System.out.println("「ミッションスタートだ」");
+	System.out.println("スロットが回りだした......\n");
+	System.out.println("今回のミッションの難易度は...");
+	System.out.println("ミッションを選択してください");
+	System.out.println("1:easy 2:normal 3:hard");
+	    try{
+	    mission = scanner.nextInt();
+	    } catch(Exception e){
+	    System.out.println("エラーが発生したぞ！　不正の疑いがある!");
+	    System.out.println("あなたは連行されました\tEND");
+	    System.exit(0);
+	    }
+	    System.out.println("準備OKだ......");
+	        switch(mission){
+	        case 01:
+	        System.out.println("ミッション:追ってから逃げきれ!");
+		System.out.println("分かれ道を選択せよ");
+		System.out.println("1:左 2:中 3:右");
+		    try{
+		    ok = scanner.nextInt();
+		    } catch(Exception e){
+		    System.out.println("エラーが発生したぞ！　不正の疑いがある!");
+		    System.out.println("あなたは連行されました\tEND");
+		    System.exit(0);
+		    }
+		    clear = (int)(Math.random() * 3)+1;
+		        if(ok == clear){
+			System.out.println("ミッション成功だ!\n");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+			System.out.println("スネークタイム突入!*未実装です");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/\n");
+			money += 3000;
+			System.out.println("未実装のためお金を増やしました");
+			} else {
+	                System.out.println("ミッション失敗だ");
+		        }
+		break;
+		case 02:
+	        System.out.println("ミッション:敵を殲滅せよ");
+		System.out.println("敵はどこから来る？　予想しろ！");
+		System.out.println("1:前 2:後 3:右 4:左 5:上");
+		try{
+		    ok2 = scanner.nextInt();
+		    } catch(Exception e){
+		    System.out.println("エラーが発生したぞ！　不正の疑いがある!");
+		    System.out.println("あなたは連行されました\tEND");
+		    System.exit(0);
+		    }
+		    clear = (int)(Math.random() * 5)+1;
+		        if(ok2 == clear){
+			System.out.println("ミッション成功だ!\n");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+			System.out.println("スネークタイム(ミドル)突入!*未実装です");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/\n");
+			money += 5000;
+			System.out.println("未実装のためお金を増やしました");
+			} else {
+	                System.out.println("ミッション失敗だ");
+		        }
+
+
+		break;
+		case 03:
+	        System.out.println("ミッション:敵の包囲網を突破せよ");
+		System.out.println("どの扉を選べばいい？");
+		System.out.println("1:赤の扉 2:青の扉 3:緑の扉 4:黄色の扉 5:紫の扉 6:金の扉 7:銀の扉 8:白の扉 9:黒の扉");
+		try{
+		    ok3 = scanner.nextInt();
+		    } catch(Exception e){
+		    System.out.println("エラーが発生したぞ！　不正の疑いがある!");
+		    System.out.println("あなたは連行されました\tEND");
+		    System.exit(0);
+		    }
+		    clear = (int)(Math.random() * 10)+1;
+		        if(ok3 == clear){
+			System.out.println("ミッション成功だ!\n");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+			System.out.println("スネークタイム(ハイ)突入!*未実装です");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/");
+		        System.out.println("/＼/＼/＼/＼/＼/＼/＼/＼/＼/＼/\n");
+			money += 10000;
+			System.out.println("未実装のためお金を増やしました");
+			} else {
+	                System.out.println("ミッション失敗だ");
+		        }
+		break;
+	        }
+		System.out.println("所持金が"+ money + "になりました\n");
+	}
+
+        public void close(){
+	System.out.println("終了の時間です");
+	System.out.println("スコア:"+ money);
+	}
+
+}
