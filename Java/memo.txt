@@ -1,0 +1,1644 @@
+/* スッキリわかるJava入門 */
+
+/* 1章 ようこそ Javaの世界へ */
+
+/* 変数の初期化と変数の上書き
+public class Sample {
+	public static void main(String[] args){
+	int age = 20; // 変数ageを20で初期化
+	System.out.println("私の年齢は" + age);
+	age = 31; // 変数ageに再代入
+	System.out.println("本当の年齢は" + age);
+	System.out.println("Hello World");
+	System.out.println(30+30);
+	}
+}
+*/
+
+/* 定数の宣言 */
+
+/*
+public class Main{
+	public static void main(String[] args) {
+	final double TAX = 1.08; // TAXは定数のため変更不可
+	int fax = 5;
+	System.out.println("5万円から4万円に値下げします");
+	System.out.println("FAXの新価格(税込み)");
+	System.out.println(fax * TAX + "万円");
+	}
+}
+*/
+
+/* 1章のまとめ 開発と実行の流れ
+ * ソースコードを作成
+ * コンパイラでコンパイラして、バイトコードに変換
+ * インタプリタはバイトコードをマシン語に変換しながらCPUを動かす
+ * 
+ * 流れと基本構造
+ * ブロックによる二重構造
+ * 外側は形式的記述。内側に文を並べる
+ * 読みやすいソースにするためコメントとインデントを活用
+ *
+ * 変数宣言の文
+ * 変数は「型 変数名；」で宣言
+ * 変数名には制約がある。代表的な９の型がある
+ * finalをつけると書き換えられることがない
+ * */
+
+/* 練習問題1-1
+ * ""を埋めなさい
+ * Javaでプログラム開発するためには、"コンパイラ"と、"インタプリタ"というソフトウェアが必要
+ * "コンパイラ"は、Javaの文法に沿って記述したコードをバイトコードに変換。インタプリタは内部に持っている
+ * "JVM"の仕組みを使ってこれを解釈し、マシン語に変換してCPUが実行する
+ */
+
+/* 練習問題1-2
+ * "縦幅 3 横幅 5 の長方形の面積は、15"を表示するソースコードを作成
+*/
+/*
+public class Main{
+    public static void main(String[] args){
+		int a = 3;
+		int b = 5;
+		int c = a * b;
+		System.out.println("縦幅3横幅5の長方形の面積は、" + c);
+	}
+}
+*/
+
+/* 練習問題1-3
+ * 1.true 2.'駆' 3.3.14 4.314159265853979L 5."ミナトの攻撃！ 敵に１５ポイントのダメージを与えた。"
+ */
+
+/*
+public class Main{
+    public static void main(String] args){
+	    char favoriteCharacter = '駆';
+		double pi = 3.14;
+		long number = 314159265853979L;
+		String msg = "ミナトの攻撃! 敵に15ポイントのダメージを与えた。";
+	}
+}
+*/
+
+/* 2章　式と演算子 */
+/*
+public class Main{
+    public static void main(String[] args){
+    	int a; // 変数宣言
+		int b;
+		a = 20; // 代入
+		b = a + 5; // 足し算して代入
+		System.out.println(a);
+		System.out.println(b);
+	}
+}
+*/
+
+/* 整数リテラルに関する応用記法
+ *  0xを先頭につけると16進数。0をつけると8進数。0bをつけると2進数として解釈される。
+*/
+/*
+public class Main{
+	public static void main(String[] args){
+	    System.out.println("私の好きな記号は二重引用符(\")です");
+	}
+}
+*/
+
+/* 型の変換 */
+/*
+public class Main {
+    public static void main(String[] args){
+	    float f = 3; // float型の変数にint型を代入
+		double d = f; // double型の変数にfloat型を代入
+		int age = (int)3.2; // キャスト intに型変換して代入
+		double d = 8.5 /2; // intをdoule型に変換
+		long l = 5 + 2L; // int型をlong型に変換
+		string msg = "私の年齢は" + 23 // int型がstring型に変換され連結される
+		System.out.println(f);
+		System.out.println(d);
+	}
+}
+*/
+/*
+// 命令実行の文
+public class Main{
+  public static void main(String[] args){
+    String name = "すがわら"; // 変数宣言の文
+    String message;
+    message = name + "さん、こんにちは"; // 計算の文
+    System.out.println(message); // 命令実行の文
+  }
+}
+
+// 命令実行　呼び出す命令の名前(引数);
+public class Main{
+  public static void main(String[] args) {
+    String name = "すがわら";
+    String message;
+    message = name + "さん、こんにちは";
+    System.out.println(message);
+  }
+}
+*/
+
+// 大きい方の数字を代入する命令 Math.max(,);
+/*
+public class Main{
+  public static void main(String[] args) {
+    int a = 5;
+    int b = 3;
+    int m = Math.max(a,b);
+    System.out.println("比較実験:" + a + "と" + b + "とで大きい方は" + m);
+  }
+}
+*/
+
+// 文字列を数字に変換する命令　Integer.parseInt();
+/*
+public class Main{
+  public class void main(String[] args) {
+    String age = "31";
+    int n = Integer.perseInt(age);
+    System.out.println("アナタは来年、" + (n+1)+"歳になりますね。");
+  }
+}
+*/
+// int r = new java.util.Random().nextInt();
+/*
+public class Main{
+  public static void main(String[] args) {
+    int r = new java.util.Random().nextInt(90);
+    System.out.println("あなたはたぶん、" + r + "歳ですね?");
+  }
+}
+*/
+// １行の文字列入力の受け取り
+// String input = new java.util.Scanner(System.in).nextLine();
+// 1つの整数の入力の受け取り
+// int input = new java.util.Scanner(System.in).nextLne();
+
+// キーボードから入力を受け付ける命令
+/*
+public class Main{
+  public static void main(String[] args){
+    System.out.println("アナタの名前を入力してください。");
+    String name = new java.util.Scanner(System.in).nextLine();
+    System.out.println("アナタの年齢を入力してください");
+    int age = new java.util.Scanner(System.in).nextInt();
+    System.out.println("ようこそ"+ age + "歳の" + name + "さん");
+  }
+}
+*/
+
+/* 2章のまとめ */
+/* 式は演算子とオペランドで構成。リテラルにも型がある。
+ * 演算子が評価されると演算子とオペランドは結果に化ける。
+ * 式の評価時、大きなデータに揃えるように自動に型変換される。
+ * javaに用意されている様々な命令を実行可能 */
+
+// 練習問題
+// 1.x+yは15と表示させなさい
+/*
+public class Main{
+  public static void main(String[] args) {
+    int x = 5;
+    int y = 10;
+    int z = x + y;
+    String ans = "x+yは" + z;
+    System.out.println(ans);
+  }
+}
+*/
+//2 正しい文法を選んでください
+/* int x = 3 + 5.0; x
+ * double d = 2.0F; o
+ * int i = "5"; x
+ * String s = 2 + "人目"; o
+ * byte b = 1; o
+ * double d = true; x
+ * short s = (byte)2; o
+*/
+
+// 3.プログラムの作成
+/*
+class Main{
+  public static void main(String[] args){
+  System.out.println("ようこそ占いの館へ");
+  System.out.println("アナタの名前を入力してください");
+  String name = new java.util.Scanner(System.in).nextLine();
+  System.out.println("アナタの年齢を入力してください");
+  String ageString =
+  new java.util.Scanner(System.in).nextLine();
+  int age = Integer.parseInt(ageString);
+  int fortune = new java.util.Random().nextInt(4);
+  fortune++;
+  System.out.println("占いの結果が出ました");
+  System.out.println(age + "歳の" + name + "さん、あなたの運気番号は" + fortune + "です");
+  System.out.println("1:大吉 2:中吉 3:吉 4:凶");
+  }
+}
+*/
+
+// 3章 条件分岐と繰り返し
+/*
+public class Main {
+public static void main(String[] args) {
+  boolean tenki = true;
+  if (tenki == true) {
+      System.out.println("洗濯をします");
+      System.out.println("散歩に行きます");
+      } else {
+        System.out.println("DVDを見ます");
+      }
+  }
+}
+*/
+
+/*
+public class Main {
+  public static void main(Strung[] args) {
+    boolean doorClose = false; // trueかfalseを代入
+    while (doorClose == true) {
+      System.out.println("ノックする");
+      System.out.println("1分待つ");
+      }
+  }
+}
+*/
+
+// ブロックの書き方 ブロック 
+
+// 波括弧の省略
+/*
+public class Main {
+  public static void main(String[] args) {
+    boolean tenki = true;
+    if (tenki == true) {
+      System.out.println("洗濯をします");
+      System.out.println("散歩に行きます");
+    } else
+      System.out.println("DVDを見ます");
+  }
+}
+*/
+
+// 変数が利用可能な範囲をスコープと呼ぶ
+// 条件式 sw! =false 変数swがfalseでなかったら deg-273.15 < 0 変数degから273.15を引いた数が0でなかったら
+// initial == '雅' 変数initialに入っている文字が「雅」だったら
+// 等しいと表現する関係演算子は =が２つで"=="であるということに注意してください
+
+// 算術演算子 3+5 => 8 関係演算子 age > 18 -> true  age >= 18 => true if age >= 18) => if(true)
+
+// if whileで用いる条件式はTrue Falseになる式でなければならない
+
+// 文字列の比較 
+// if(s.equals("夕日")){
+// 文字列型の変数.equals(比較相手の文字列)
+
+
+// && かつ || または 論理演算子
+// if((age >= 18 && gender ==1) || (age >= 16 && gender == 0) {
+
+// 冗長ですっきりしないコード
+/*
+public class Main{
+  public static void main(String[] agrs) {
+    System.out.println("アナタの運勢を占います");
+    int fortune = new java.util.Random().nextInt(4) + 1;
+
+    if(fortune == 1) {
+      System.out.println("大吉");
+    } else if (fortune == 2) {
+      System.out.println("中吉");
+    } else if (fprtune == 3) {
+      System.out.println("吉");
+    } else {
+      System.out.println("凶");
+    }
+  }
+}
+*/
+
+/*
+public class Main{
+  public static void main(String[] args) {
+    System.out.println("アナタの運勢を占います");
+    int fortune = new java.util.Random().nextInt(5) + 1;
+    switch(fortune) {
+      case 1:
+      case 2:
+        System.out.println("いいね!");
+        break;
+      case 3:
+        System.out.println("普通です");
+      case 4:
+      case 5:
+        System.out.println("うーん・・・");
+    }
+  }
+}
+*/
+
+//　条件式の短絡評価 javaはまたはの評価の際、片方がfalseなら後半を評価しない
+
+
+// for文のサンプル(基本) 1.初期化処理、2.繰り返し条件、3.繰り返し処理
+/*
+public class Main{
+  public static void main(String[] args){
+    for (int i = 0; i < 10; i++) {
+      System.out.println("こんにちは");
+    }
+  }
+}
+*/
+
+// for文のループ変数iの内容を表示する
+/*
+public class Main{
+  public static void main(String[] args) {
+    for(int i = 0; i < 3; i++) {
+      System.out.println("現在" + (i + 1) + "周目");
+    }
+  }
+}
+*/
+
+
+// 複雑なfor文
+// for(int i = 1;i < 10;i++){ ループ変数を1からスタート
+// for(int i = 0;i < 10;i+=2){ ループ変数を2ずつ増やす
+// for(int i = 10; i > 0;i--){ ループ変数を10から1ずつ1まで減らしていく
+// for(;i < 10; 1++){ ループ変数を初期化しない
+// for(int i = 0; i < 10;){ 繰り返し時の処理を行わない
+
+
+// 制御構文のネスト 入れ子とネストは同じ
+/*
+public class Main{
+  public static void main(String[] args) {
+    for(int i = 1; i < 10; i++) {
+      for(int j = 1; j < 10; j++) {
+        System.out.println(i * j); // 掛け算の結果を出力
+        System.out.println(" ");; // 空白出力
+      }
+      System.out.println(""); // 改行出力
+    }
+  }
+}
+*/
+
+
+// 繰り返し処理の中断
+// break文　繰り返し自体を中断　continue文　今回の周を中断し次の周へ
+
+// 無限ループ　while(true) {  for(;;) {
+
+// 練習問題3-1
+// weight == 60;
+// (age1 + age2) * 2 > 60;
+// age % 2 == 1
+// name.equals("操");
+
+// 3-3
+/*
+public class Main {
+  public static void main(String[] args){
+    int seibetsu = 0;
+    int age = 52;
+    System.out.println("こんにちは");
+    if (seibetsu == 0) {
+      System.out.println("私は男です");
+    } else {
+      System.out.println("私は女です");
+    }
+    if (seibetsu == 0){
+      System.out.println(age + "歳です。");
+    }
+      System.out.println("よろしくおねがいします");
+    }
+}
+*/
+
+// 3-5
+/*
+public class Main{
+  public static void main(String[] args){
+    System.out.print("[メニュ] 1:検索 2:登録 3:削除 4:変更");
+    int selected = new java.util.Scanner(System.in).nextInt();
+    switch(selected) {
+      case 1:
+        System.out.println("検索します。");
+        break;
+      case 2:
+        System.out.println("登録します。");
+        break;
+      case 3:
+        System.out.println("削除します。");
+        break;
+      case 4:
+        System.out.println("変更します。");
+        b   int num = new java.util.Scanner(System.in).nextInt();
+        reak;
+    }
+  }
+}
+*/
+
+// 3-6 数宛ゲーム
+/*
+public class Mai(String[] args) {
+  System.out.print("【数当てゲーム】");
+  int ans = new java.util.Random().nextInt(10);
+  for(int = 0; i < 5; i++) {
+    System.out.println("0~9の数字を入力してください");
+    int num = new java.util.Scanner(System.in).nextInt();
+    if(ans == num) {
+       System.out.println("アタリ!");
+       break;
+    } else {
+       System.out.println("違います。");
+    }
+  }
+  */
+
+// 4章　配列　点数管理プログラム
+/*
+public class Main {
+  public static void main(String[] args) {
+    int sansu - 20;
+    int kokugo = 30;
+    int rika = 40;
+    int eigo = 50;
+    int syakai = 80;
+
+    int sum = sansu + kokugo + rika + syakai + eigo;
+
+    int avg = sum / 5;
+    System.out.println("合計点:" + sum);
+    System.out.println("平均点:" + avg);
+  }
+}
+*/
+
+// 配列 
+// int[] score;
+// score = new int[5];
+
+/*
+public class Main{
+  public class void main(String[] args) {
+    int[] score;
+    score = new int[5];
+  }
+}
+*/
+
+// はいれつの作成手順
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[] score = new int[5];
+  }
+}
+*/
+
+// 配列の長さを調べる
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[] score = new int[5];
+    int kobakos = score.length;
+    System.out.println("要素の数:" + kobakos);
+  }
+}
+*/
+// 点数管理プログラム
+/*
+public class Main {
+  public static void main(String[] args) {
+    int sansuu = 20;
+    int kokugo = 30;
+    int rika = 40;
+    int eigo = 50;
+    int syakai = 80;
+
+    int sum = sansu + kokugo + rika + syakai + eigo;
+
+    int avg = sum / 5;
+    System.out.println("合計点:" + sum);
+    System.out.println("平均点:" + avg);
+  }
+}
+*/
+
+// 配列の要素に値を代入
+/*
+public class Main {
+  public static void(String[] args) {
+    int[] score;
+:e
+score = new int[5];
+    score[1] = 30;
+    System.out.println(score[1]);
+  }
+}
+*/
+
+// 初期化されていない変数を利用
+/*
+public class Main{
+  public static void main(String[] args) {
+    int x;
+    System.out.println(x);
+  }
+}
+*/
+// エラーになる
+
+// 配列の初期化
+/*
+public class Main {
+  public static void main(String[] args ) {
+    int[] score = new int[5];
+    System.out.println(score[0]);
+  }
+}
+*/
+// 配列はintやdoubleだと0で初期化 booleanならfalseで初期化
+
+// 省略記法
+/*
+int[] score1 = new int[] { 20, 30, 40, 50, 80 };
+int[] score2 = { 20, 30, 40, 50, 80 };
+*/
+
+// 配列と例外
+// 点数管理プログラム（配列版)
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[] score = { 20,30, 40, 50, 80 };
+    int sum =
+      score[0] + score[1] + score[2] + score[3] + score[4];
+    int avg = sum / score.length;
+    System.out.println("合計点:" + sum);
+    System.out.println("平均点:" + avf);
+  }
+}
+*/
+
+//　配列とfor文
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[] score = { 20, 30, 40, 50, 80 };
+    for(int i = 0; i < length; i++) {
+      System.out.println(score[i]);
+    }
+  }
+}
+*/
+
+// 配列を回す
+
+//従来のfor文
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[] score = { 20, 30, 40, 50, 80 };
+    for (int i = 0; i < score.length; i++) {
+      System.out.println(score[i]);
+    }
+  }
+}
+*/
+
+// 拡張for文の例
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[] score = { 20, 30, 40, 50, 80 };
+    for (int value : score) {
+      System.out.println(value);
+    }
+  }
+}
+*/
+
+// 実行結果は?
+public class Main {
+  public static void main(String[] args) {
+    int[] a = { 1,2,3 };
+    int[] b;
+    b = a;
+    b[0] = 100;
+    System.out.println(a[0]);
+  }
+}
+
+// 100が表示される。なぜか。配列の利用時にPCで何が起きているか?
+// アドレスを参照している
+
+// ガベージコレクション
+/*
+public class Main {
+  public static void main(String[] args) {
+    boolean b = true;
+    if (b == true) {
+      int[] i = { 1, 2, 3 };
+    }
+  }
+}
+*/
+// 自動で使わなくなったメモリ領域を削除してくれる
+
+// null
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[] a = { 1, 2, 3 };
+    a = null;
+    a[0] = 10;
+  }
+}
+*/
+
+// nullで参照を切る
+
+// 配列のlengthと文字列のlength()
+/*
+string s = "Javaで開発";
+System.out.println(s.length());
+*/
+
+// 文字列型変数に格納されている文字列の長さを得る事ができる
+
+// 多次元配列
+
+// 2次元配列
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[][] scores = new int[2][3];
+    scores[0][0] = 40;
+    scores[0][1] = 50;
+    scores[0][2] = 60;
+    scores[1][0] = 80;
+    scores[1][1] = 60;
+    scores[1][2] = 70;
+    System.out.printn(scores[1][1]);
+  }
+}
+*/
+
+// 親配列と子配列の要素数を表示
+public class Main {
+  public static void main(String[] args) {
+    int[][] scores = { { 10, 20, 30 }.{ 30, 40, 50 } };
+    System.out.println(scores.length);
+    System.out.println(scores[0].length);
+  }
+}
+
+// 2と3が出力
+
+// 配列の基礎　配列は同じ型の複数の値を混詰めて扱う
+// 配列を構成する箱の要素何番目であるかをインデックスと呼び、0から始まる
+
+
+// 配列の準備
+// 配列の利用には配列変数の宣言、要素の作成という2つのステップが必要
+// 配列変数の方には要素の型を指定する。
+// 要素を作成するには new　要素の型[要素数]とし配列変数に代入する
+
+// 配列の利用
+// 配列変数名　添え字でそれぞれの要素を読み書きできる
+// for文や拡張for文を用いて配列変数に1つずつアクセスする
+
+// 配列と参照
+// 配列変数は。配列の実態(newで確保された各要素のメモリ領域)を参照している
+// 特別な値nullが代入された配列変数は、どの実体も参照しない。
+// 何らかの理由で参照されなくなったメモリ領域は、ガベージコレクションによって自動的に開放される。
+
+// 練習問題 4-1
+/*
+public class Main {
+  public static void main(String[] args) {
+    int[] points = new int[4];
+    double[] weights = new double[5];
+    boolean[] answers = new boolean[3];
+    String[] anames = new String[3];
+  }
+}
+*/
+
+// 練習問題 4-2
+/*
+public class Main{
+  public static void main(String[] args) {
+    int[] moneyList = { 121902, 8302, 55100 };
+    for (int i = 0; i < moneyList.length; i++) {
+      System.out.println(moneyList[i]);
+    }
+    for(int m : moneyList) {
+      System.out.println(m);
+    }
+  }
+}
+*/
+
+// 練習問題 4-3
+// NullpointerException
+// ArrayIndexOutOfBoundsException
+
+// 練習問題 4-4
+/*
+public class Main {
+  public static void main(String[] args) {
+    // (1)配列の準備
+    int[] numbers = { 3, 4, 9 };
+
+    // (2)メッセージの表示
+    System.out.println("1桁の数字を入力してください");
+
+    // (3)キーボードからの数字入力
+    int input = new java.util.Scanner(System.in).nextInt();
+
+    // (4)配列を回しながら判定
+    for (int n : numbers) {
+      if(n == input) {
+        System.out.println("アタリ!");
+      }
+    }
+  }
+}
+*/
+// 5章　メソッド
+
+// シンプルなメソッドの定義
+/*
+public class Main {
+  public static void hello() {
+    System.out.println("こんにちは")l
+  }
+}
+*/
+
+// 5-2 メソッドの呼び出し
+/*
+public class Main { // mainメソッド
+  public static void main(String[] args) {
+    System.out.println("メソッドを呼び出します");
+    hello(); // helloメソッドを呼び出す
+    System.out.println("メソッドの呼び出しが終わりました");
+  }
+  public static void hello() { // helloメソッド
+    System.out.println("漢さん、こんにちは");
+*/
+
+// 5-3 mainメソッド外からメソッドを呼び出す
+public class Main {
+  public static void methodA() {
+    System.out.println("methodA");
+    methodB();
+  }
+  public static void methodB() {
+    System.out.println("methodB");
+
+}
+public static void main(String[] args) {
+  methodA();
+}
+}
+
+// 必ずプログラムはmain()から動き始め
+
+
+// 引数の利用
+// mainメソッドでメソッドAを呼び出し、メソッドAの中で処理;
+
+// 5-4 引数の例（渡す値が1の場合)
+/*
+public class Main {
+  public static void main(String[] args) {
+    System.out.println("メソッドを呼び出します");
+    hello("湊");
+    hello("朝香");
+    hello("菅原");
+    System.out.println("メソッドの呼び出しが終わりました");
+  }
+  public static void hello(String name) {
+    System.out.println(name + "さん、こんにちは");
+  }
+}
+*/
+
+// 5-5
+public class Main {
+  public static void main(String[] args) {
+    add(100, 20);
+    add(200, 50);
+  }
+  // 複数の値を受け取るaddメソッド
+  public static void add(int x,int y) {
+    int ans = x + y;
+    System.out.println(x + "+" + y + "=" + ans);
+  }
+}
+
+// 引数の渡し方:何も渡さない場合:メソッド名()
+// 値を1つ渡す場合:メソッド名(値)
+// 値を複数渡す場合:メソッド名(値、値、...)
+
+
+// 仮引数と実引数
+// public static 戻り値の型　メソッド名(引数リスト) {
+//    メソッドが呼び出されたときに実行される具体的な処理
+// }
+
+// リスト　5-6 変数のスコープとローカル変数　
+/*
+public class Main {
+  public static void main(String[] args) {
+    int x = 100; // addで使用
+    int y = 10; // addで使用
+    add(); //addメソッド
+  }
+  public static void add() {
+    int ans = x + y; / エラー
+  System.out.println(x + "+" + y + "=" + ans);
+    }
+}
+*/
+
+// mainメソッドで使用した変数xとyはmainメソッドブロックでしか使えない
+// ローカル変数と呼ぶ。その変数が属するメソッド内で有効
+
+// 5-3　戻り値の利用 呼び出されたメソッドから、
+// 呼び出し元のメソッドへ値を返す
+
+// 値の戻し方
+/*
+public static　戻り値の型　メソッド名(引数リスト...) {
+メソッドが実行されたときに動く処理
+    return 戻り値;
+*/
+
+// 戻り値を受け取る
+//  型　変数名 = メソッド名(引数リスト);
+
+// public static void main(String[] args)
+// int returnValue = methodA(); -> int returnValue = 100;
+
+// public static int methodA()
+// int x = 100;
+// return x;
+
+// 引数は複数用意できない
+
+// 戻り値の例
+/*
+public class Main {
+  public static int add(int x,int y) {
+  int ans = x + y;
+  return ans;
+  }
+
+  public static void main(String[] args) {
+    int ans = add(100,10); // 110に化け
+    System.out.println("100 + 10 =" + ans);
+  }
+}
+*/
+
+// 5-8 戻り値をそのまま使う
+/*
+public class Main {
+  public static int add(int x, int y) {
+    int ans = x + y;
+    return ans;
+  }
+  public static void main(String[] args) {
+    System.out.println(add(add(10,20),add(30,40)));
+  }
+}
+/*
+
+// 最終的に「System.out.println(100)」
+*/
+// 誤ったreturn文
+public static int sample() {
+
+  return 1;
+  int x = 10; // この文は実行されない
+}
+
+// オーバーロードの実行
+//　類似する複数のメソッドを定義する
+// overload
+
+// 5-10
+public class  Main {
+  // 1つ目のaddメソッド
+  public static int add(int x, int y) {
+    return x + y;
+  }
+
+  // 2つ目のaddメソッド
+  public static double add(double x, double y) {
+  return x + y;
+  }
+
+  // 3つ目のaddメソッド
+  public static String add(String x, String y) {
+    return x + y;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(add(10,20));
+    
+    System.out.println(add(3.5,2.7));
+    
+    System.out.println(add("Hello" , "World"));
+  }
+}
+
+// 仮引数が異なれば同じ名前のメソッドを複数定義することが許されている。
+// JVMが呼び出し元の引数(実引数)を見てその引数の型に一致するメソッドを呼び出してくれます。
+
+// 5-11 オーバーロード(引数の数が異なる場合)
+public class Main{
+  public static int add(int x, int y ) {
+  return x + y;
+  }
+  public static int add(int x, int y, int z) {
+    return x + y + z;
+  }
+  public static void main(String[] args) {
+    System.out.println("10+20=" + add(10, 20));
+    System.out.println("10+20+30=" + add(10, 20, 30)); // 2つのaddメソッドが呼び出される
+  }
+}
+
+// オーバーロード
+// 仮引数の個数や型が異なれば2つのaddメソッドが区別され、正しく呼び出されていることが分かる
+
+// メソッドのシグネチャ
+// メソッド宣言で「戻り値の型」の後に記述する以下の情報をまとめてメソッドのシグネチャという
+
+// 1.メソッド名、2.引数の個数・型・並び順 シグネチャが重複しない場合許される
+
+// 5.5　引数や戻り値に配列を用いる
+
+// 配列が引数
+public class Main {
+// int型配列を受け取り、すべての要素を表示するメソッド
+  public static void printArray(int[] array) {
+    for (int element : array) {
+      System.out.println(element);
+    }
+  }
+  public static void main(String[] args) {
+ a   int[] array = { 1, 3, 4 };
+    printArray(array); // 配列を渡す
+  }
+}
+
+// 配列はint[]にすれば良い
+
+// int[]型のような配列型変数には、配列の実体を指し示すメモリ番地が入っている
+
+// アドレス情報を引数として渡している
+
+// 値そのものが渡される呼び出しを値渡しと呼ぶ
+
+/*
+   public static void main(String[] args)
+   int x = 100;
+   methodA(x);
+   ↓
+   public static void methodA(int x)
+   */
+// 変数自体が渡されているのではない
+
+/*
+  public static void main(String[] args)
+  int x = 100;
+  methodA(x);
+  ↓
+  public static void methodA(int x)
+*/
+// 変数に代入されている値が渡されている
+
+// 基本データ型の変数をメソッド呼び出しで渡すと
+// ・呼び出し元の変数の内容が、呼び出し先の引数にコピーされる
+// ・呼び出し先で引数の内容を書き換えても、呼び出し元の変数は変化しない
+
+// 配列を呼び出すと不思議な事が起こる。
+// 渡されるのは配列の内容ではなく、配列の先頭要素のアドレス(=8832番地)
+
+/*
+    public static void main(String[] args)
+    int[] array = {1,2,3};
+    printArray(array); // 8832番地
+    ↓
+    public static void printArray(int[] array)
+ // 参照渡しの場合、配列の先頭要素のアドレスが渡される
+*/
+// 配列を複数の配列変数で参照することになる。
+
+// 引数としてアドレスを渡すことを参照渡しといいます。
+// 呼び出し先で加えた変更が呼び出し元にも影響す。厳密には参照の値渡し。
+
+// 配列をメソッド呼び出しで渡すと
+// ・呼び出し元の配列のアドレスが、呼び出し先の引数にコピーされる
+// ・呼び出し先で配列の実体を書き換えると、呼び出し元にも影響する。
+
+// 参照渡しによって発生する不思議な減少　同じ配列を参照していることを確認する
+// 5-13
+/*
+public class Main {
+  // int型配列を受け取り、
+  // 配列内の要素全てに1を加えるメソッド
+  public static void incArray(int[] array) {
+    for(int i = 0; i < array.length; i++) {
+      array[i]++;
+    }
+  } // 計算結果をリターンで返していない
+  public static void main(String[] args) {
+    int[] array = { 1, 2, 3 };
+    incArray(array); // メソッド実行
+    for ( int i : array) {
+      System.out.println(i); // arrayの全要素を出力
+    }
+  }
+}
+*/
+// 戻り値に配列を用いる
+// 引数と同様に、モドロ地に配列を使用することができます(5-14)
+// 戻り値が配列の場合
+/*
+public class Main {
+  public static int[] makeArray(int size) { // int型配列を作成して戻すメソッド
+    
+    int[] newArray = new int[size];
+    for (int i = 0; i < newArray.length; i++) {
+      newArray[i] = i;
+    }
+    return newArray; // 配列を戻す
+  }
+  public static void main(String[] args) {
+    int[] array = makeArray(3);
+    for(int i : array) {
+      System.out.println(i);
+    } // arrayの全要素を出力
+  }
+}
+        // 結果は012
+*/
+// int型を戻す場合は戻り値の型はint,int型配列を戻す場合はint[]
+// 実際には配列のアドレスを戻している
+/*
+   public static int[] makearray(int size)
+   int[] newArray=new int[size];
+   for(int=0; i < newArray.length; i++){
+   newArray[i];
+   }
+   return newArray;
+*/
+
+// 戻り値が配列型変数の場合、配列の戦闘要素のアドレスが戻される
+
+// return newArray;によって配列の先頭要素のアドレスがmainメソッドに戻される。
+// mainメソッドではそれを自身で宣言した配列変数arrayに代入します。makeArrayメソッドで作成された配列を参照可
+
+// コマンドライン引数
+
+// public static void main(String[] args) {
+  
+// メソッドは通常は仮引数に入っている値は「呼び出し元のメソッド」が指定した実引数
+// mainメソッドには「呼び出し元のメソッド」がありません。
+
+// コマンドライン引数
+//    java　プログラム名　引数リスト(半角スペース区切り)
+// java Main 湊 勇者
+
+// java Main 菅原 湊 朝霞
+// 配列を作成　[0] [1] [2] 8832番地の配列
+// public static void main(String[] args)
+
+// コマンドライン引数
+// プログラム起動時に指定したコマンドライン引数が、JVMによって配列に変換され、mainメソッド起動時に渡される
+
+// 第5章のまとめ
+
+/*
+   メソッド
+   ・メソッドでコードを部品化することができる。
+   ・クラスブロックの中にメソッド定義を宣言する事ができる。
+   
+   引数
+   ・メソッドの呼び出しのときに、引数として値を渡すことができる。
+   ・メソッドを呼び出すときに渡す値を実引数、受け取る側の変数を仮引数という。
+   ・メソッド内で宣言した変数はローカル変数といい、他のメソッドからは使用できない。
+   またそのメソッドの実行が終わるとローカル変数は消滅する。
+   
+   戻り値
+   ・return文を使用してメソッドの呼び出し元へ値を戻すことができる
+   ・戻す値の型はメソッド定義で宣言する必要がある。
+   ・戻り値を受け取るには代入演算子「＝」を使用する。
+
+   メソッドの活用
+   ・仮引数の数と型が異なる同じ名前のメソッドを定義することができる（オーバーロード）
+   ・配列を渡すとき、あるいは戻すときは、配列そのものではなく配列のアドレスを渡している。
+*/
+
+   /*　練習問題 5-1
+public class Main {
+  public static void main(String[] args) {
+    introduceOneself();
+  }
+  public static void introduceOneself() {
+  String name = "Java";
+  int age = 34;
+  double height = 169.9;
+  char gender = "男";
+  System.out.println("私の名前は" + name + "です");
+  System.out.println("歳は" + age + "歳です");
+  System.out.println("身長は" + height + "cmです");
+  System.out.println("性別は" + gender + "です");
+  }
+}
+*/
+
+/*
+// 練習問題 5-2
+public static void Main {
+  public static void main(String[] args) {
+    String title = "お誘い";
+    String address = "uso800@xxxx.com;
+    String text = "今度、飲みに行きませんか";
+    email(title, address, text);
+  }
+}
+
+public static void email(String title, String address, String text) {
+  System.out.println(address + "に、以下のメールを送信しました");
+  System.out.println("件名:" + title);
+  System.out.println("本文:" + text);
+}
+
+*/
+
+/*
+// 練習問題 5-3
+public class Main {
+  public static void main(String[] args) {
+    String address = "uso800@xxxx.com";
+    String text = "今度、飲みに行きませんか";
+    email(address,text);
+  }
+
+  public static void email(String address, String text) {
+    System.out.println(address + "に、以下のメールを送信しました");
+    System.out.println("件名：無題");
+    System.out.println("本文:" + text);
+  }
+
+  public static void email(String title, String address, String text) {
+    System.out.println(address + "に、以下のメールを送信しました");
+    System.out.println("件名:" + title);
+    System.out.println("本文:" + text);
+  }
+}
+*/
+
+/*
+// 練習問題 5-4
+public class Main {
+  public static void main(String[] args) {
+    double triangleArea = calcTraiangleArea(10.0,5.0);
+    System.out.println("三角形の面積:" + triangleArea + "平方cm");
+    double circleArea = calcCircleArea(5.0);
+    System.out.Println("円の面積:" + circleArea + "平方cm");
+  }
+  public static double calcTriangleArea(double bottom, double height) {
+    double area = (bottom * height) / 2;
+    return area;
+  }
+  public static double calcCircleArea(double radius) {
+    double area = radius * radius * 3.14;
+    return area;
+  }
+}
+*/
+
+// JDKを用いた開発
+
+/*
+   開発手順で必要となるツール
+   1.ソース作成 テキストエディタ
+   2.hava コンパイラ javac
+   3.java インタプリタ java
+
+
+*/
+
+// JREとはJava Runtime Environmentの略です
+
+// 開発の全体像
+// 手順①ソースコードの作成　手順②コンパイル　手順③実行
+
+// テキストエディタでソースコード作成し、javacでコンパイルし、
+// javaコマンドでクラスファイルの中身がjvmに読み込まれて実行される
+// JVM　java仮想マシン
+
+// 6章　ソースファイルを分割する
+// 複数のソースファイルに分けて開発するということは複数のクラスに分けて開発すること
+// ファイルごとに開発を分担し、それぞれが並行して開発を進められる(=分業しやすい)というメリットもあります
+// 部品化するという
+
+// 計算機プログラムを分割しよう
+// 6-1 計算機プログラムを分割しよう
+
+/*
+public class Calc {
+  public static void main(String[] args) {
+    int a = 10; int b = 2;
+    int total = tasu(a, b);
+    int delta = hiku(a, b);
+    System.out.println("足すと" + total + "、引くと" + delta);
+  }
+  public static int tasu(int a, int b) {
+    return (a + b);
+  }
+  public static int hiku(int a, int b) {
+    return (a - b);
+  }
+}
+*/
+
+// 6-2 CalcLogic.javaに計算結果を追加する
+/*
+public class CalcLogic {
+  public static int tasu(int a, int b) {
+    return (a + b);
+  }
+  public static int hiku(int a, int b) {
+  }
+}
+*/
+
+// 6-3 Calc.java error
+/*
+public class Calc {
+  public static void main(String[] args) {
+    int a = 10; int b = 2;
+    int total = tasu(a, b);
+    int delta = hiku(a, b);
+    System.out.println("足すと" + total + "、引くと" + delta);
+  }
+}
+*/
+
+/*
+// 6-4 Calc.java
+public class Calc {
+  public static void main(String[] args) {
+    int a = 10; int b = 2;
+    int total = CalcLogic.tasu(a,b);
+    int delta = CalcLogic.hiku(a.b);
+    System.out.println("足すと" + total + "、引くと" + delta);
+  }
+}
+*/
+
+// 複数クラスのコンパイル
+// javac Calc.java CalcLogic.java
+
+//dir
+
+//Javaプログラムの完成品
+//・Javaプログラムの完成品は、複数のクラスファイルの集合体
+//・誰かに配布する場合には、すべてのクラスファイルを渡す必要がある
+
+//プログラムの実行方法
+// java クラス名
+//複数の完成クラウファイルを渡すときは、どのクラスにmain()が入っているかを伝える必要がある.
+
+// JARファイルとは、複数のクラスファイルを一つにまとめるファイル形式。zipに似ている
+
+// パッケージを利用する
+
+//　クラスをパッケージに所属させる
+// package 所属させたいパッケージ名;
+
+// 6-5 Calcクラスをcalcapp.mainパッケージに所属させる
+/*
+package clacapp.main;
+public class Calc {
+*/
+
+/* CalcLogicクラスをcalcapp.logicsパッケージに所属させる
+package calcapp.logics;
+public class CalcLogic {
+
+// デフォルトパッケージ パッケージに属していない
+
+// int total = CalcLogic.tasu(a,b);
+// int delta = CalcLogic.hiku(a,b);
+*/
+//　どのパッケージのCalclogicクラスかを明示していない。
+// 所属パッケージ名を添えたクラス名を指定する必要がある。
+
+// 6-7 別のパッケージにあるクラスを呼び出す
+
+/*
+package calcapp.main;
+public class Calc {
+  public static void main(String[] args) {
+    int a = 10; int b = 2;
+    int total = calcapp.logics.CalcLogic.tasu(a,b);
+    int delta = calcapp.logics.CalcLogic.hiku(a,b);a
+    System.out.println("足すと" + total + "、引くと" + delta);
+  }
+}
+*/
+// 厳密にcalcapp.logicsパッケージのCalcLogicクラスのtasu()と指定する
+// FQCN(full qualified class name) 完全限定クラス名
+// パッケージ名.クラス名
+
+//　名前空間
+// 自分が作るクラスに対して、開発者が自由斜めをつける事ができる
+
+// gamen.printer.javaとinsatsu.printer.java
+
+// パッケージ名自体の衝突を避ける方法
+//パッケージ名さえ異なれば、クラス重複して良い。パッケージ名が衝突すると前提が崩れる。
+
+// 推奨されるパッケージ名
+
+// jp.a.myappパッケージ
+// gb.c.myappパッケージ
+
+// FQCNの部分　完全限定クラス名の入力を省略する
+/*
+public clacc Calc {
+  public static void main(String[] args) {
+    int total = calcapp.logics.CalcLogics.tasu(a,b);
+    int delta = calcapp.logics.CalcLogics.hiku(a,b);
+  }
+}
+*/
+
+// FQCN入力の手間を省くための宣言
+// import パッケージ名.クラス名;
+
+// 6-8 Calc.javaにimport文を追加する
+/*
+package calcapp.main;
+import calcapp.logics.CalcLogics;
+public class Calc {
+  public static void main(String[] args) {
+    int total = CalcLogic.tasu(a.b); // FQCNでなくてもエラーにならない
+    int delta =calcapp.logics.CalcLogics.hiku(a,b);//FQCNを指定しても良い
+*/
+// ②行目のインポート文はCalcLogicという表記があれば、calcapp.logics.CalcLogicのことだと解釈しなさいという意味
+
+// 6-9 calcapp.logicsパッケージに属するすべてのクラスをインポート
+/*
+package calcapp.main;
+import calcapp.logics.*;
+
+public class Calc {
+}
+*/
+// calcappパッケージに所属する全クラスをインポートできる
+//すべてのクラスをインポートしたい場合
+/*
+import calcapp.main.*;
+import calcapp.logics.*;
+*/
+
+/* import宣言はあくまで面倒さ軽減機能
+  Javaでは一切の宣言をすることなく、JVMが扱えるすべてのクラスで常時使うことができる
+  FQCNを確実に利用しなければならないので、import文はあくまでFQCNの記述を省略して面倒さを軽減するため
+  の構文に過ぎない
+  */
+
+// Java APIについてを学ぶ
+// HelloWorldプログラムは①つのクラスが他の347個のクラスと連携して動く348クラスからなるプログラム
+// APIとはApplication Programing Interfaceの略
+
+// 6-10 API利用の例
+public class Main {
+  public static void main(String[] args) {
+    int[] heights = { 172,149,152,191,255 };
+    java.util.Arrays.sort(heights); // javaが行う並び替え命令
+    for(int h : heights) {
+      System.out.println(h);
+    }
+  }
+}
+
+// APIで提供される代表的なパッケージ
+// java.lang javaに欠かせない重要なクラス群
+// java.util プログラミングを便利にする様々なクラス群
+// java.math 数学に関するクラス群
+// java.net ネットワーク通信などを行うためのクラス群
+// java.io ファイル読み書きなど、データを逐次処理するためのクラス群
+
+// これらはimport文を記述しなくても自動的にインポートされる
+// APIリファレンスで検索可能
+
+// APIについて知りたいのであればスッキリわかるjava入門　実践編
+
+
+// クラスが読み込まれる仕組み
+
+// クラスローディングは必要になったときに必要なクラスだけを読み込む
+
+// クラスローダーが行う。 JVMは使いたいクラス名を指定している。
+
+//javaコマンドでは指定しなくてもrt.jarというファイルがクラスパスに追加されるlibの中に。
+
+// javaコマンドの正確な構文
+// java　起動したいクラスの完全限定クラス名(FQCN)
+// java calcapp.main.Calcz
+
+// java calcapp.main.calc
+
+// パッケージに属したクラスファイルをクラスローダーに読み込んでもらうには
+// 現在のクラスパスを基準として、パッケージ改装に対応したフォルダ階層を作り、
+// その中に必要なクラスファイルを配置しておく必要がある
+
+//1 JVMは起動させるクラス名(calcapp.main.Calc)を受け取る
+//2 JVMはクラスローダーに対して(calcapp.main.Calc)を読み込むよう支持する
+//3 クラスローダーは、クラスパスを確認する
+//4 クラスローダーはクラスパスを基準としてcalcapp->mainとフォルダを落ちていき
+// すなわち、 c:¥work¥calcapp¥mainの中)、そこにCalc.classというファイルを発見する
+//5 クラスローダーは発見したCalc.classを読み込む
+//6 JVMは読み込み済みのCalcクラスのmainメソッドを実行する
+
+// 6章
+/* クラスの分割
+・複数のクラスで一つのプログラムを構成
+・別のクラスのメソッドを呼び出す場合はクラス名.メソッド名と指定
+・Javaプログラムの完成像は複数のクラスファイルの集合体です
+・実行する際には、mainメソッドが含まれるクラスのFQCNを指定してJavaコマンドを起動する
+
+// パッケージ
+・package文を用いて、クラスをパッケージに所属させることができる
+・import文を使うと、コード内のFQCN指定を省略できる
+
+// API
+・Javaに予め添付されている多数のクラス群をAPIという
+・APIには通常javaやjavaxで始まるパッケージ名を用いる
+・java.langパッケージに属するクラスは自動的にインポートされる
+・APIに用意されているクラスは、APIリファレンスで調べることができる
+
+// クラスローダーの動作
+
+・クラスローダーは読み込み対象クラスのFQCNに基づき、クラスパスを基準として
+パッケージ改装に従ったフォルダ構成内を探し、読み込む。
+
+・コンパイルして生成したクラスファイルは、実行時にクラスローダーが見つけられるように、適切なフォルダに配置しなければならない
+
+// 6-1　ソースコードを3つのクラスに分割する
+*/
+/*
+import comment.Zenhan;
+public class Main {
+  public static void main(STring[] args) throws Exception {
+    Zenhan.doWarusa();
+    Zenhan.doTogame();
+    comment.Kouhan.callDeae();
+    comment.Kouhan.showMondokoro();
+  }
+}
+
+package comment;
+public class Zenhan {
+  public static void doWarusa() {
+    System.out.println("きなこでござる。食えませんがの。");
+  }
+  public static void doTogame() {
+    System.out.println("この老いぼれの目はごまかせませんぞ。");
+  }
+}
+
+
+package comment;
+public class Kouhan {
+  public static void callDeae() {
+    System.out.println("えぇいこしゃくな。曲者だ！出会えい！");
+  }
+  public static void showMondokoro() throws Exception {
+    System.out.println("飛車さん、角さん。もういいでしょう。");
+    System.out.println("この紋所が目に入らぬか！");
+    Zenhan.doTogame(); // もう一度、とがめる
+  }
+}
+
+// 6-2
+1. コンピュータに適当なフォルダを作成する(c:¥app)
+2. c:¥app フォルダの中に、Main.classをコピーする
+3. c:¥appの中にcommentというフォルダを作成する
+4. c:¥app¥comment の中に、Zenhan.classとKouhan.classをコピーする。
+5.c:¥appを現在のフォルダ（カレントディレクトリ）とする。
+6.[Java Main]としてコマンドを実行する。
+
+// 6-3
+public static void showMondokoro() throws Exception {
+  System.out.println("飛車さん、角さん。もういいでしょう。");
+  System.out.println("この紋所が目に入らぬか！");
+  Thread.sleep(3000); // この行を追加
+  Znhan.doTogame(); // もう一度咎める
+}
+
+// 6-4
+Main.class -> c:¥work¥ex64 フォルダ
+Zenhan.classとKouhan.class ｰ> c:¥work¥ex64¥comment フォルダ
+
+// 6-5
+c:¥javaapp¥koumon
+*
+
+// javacコマンドはどのソースファイルをコンパイルするかをファイル名で指定して実行
+// javaコマンドはどのクラスのmainメソッドを起動するかをクラス名(FQCN)で指定して実行する
+
+
+// 第7章　オブジェクト指向を学ぶ理由
+// OOPの目的は人間が把握ししきれない複雑さを克服するため。
+
+// オブジェクト指向の定義。ソフトウェアを開発するときに用いる部品化の考え方
+// 柔軟性が上がる。再利用性が上がる。保守性が上がる
+// これらが、オブジェクト指向のメリット　人間に把握できるプログラム開発を実現する
+
+// らくして、楽しく、良いものを作れる オブジェクト指向
+
+// 現実世界における何らかの活動を自動化するためのものです
+
+// 部品化のルール　現実世界に出てくる登場人物の単位で、プログラムをクラスに分割する
+
+// オブジェクト指向の本質
+// 私達人間が慣れ親しみ、よく把握している現実世界を真似して作られたプログラムもまた、
+//私達人間に撮って把握しやすいものだから。
+
+// 現実の登場人物たちを、コンピュータの中の仮想世界にオブジェクトとして再現し、
+現実世界と同じように連携して動くようにプログラムを作ることこそが本質である。
+現実世界の登場人物とそのふるまいを、コンピュータ内の仮想世界で再現する。
+
+
+/*
+  オブジェクトと責務 サッカーで考えるオブジェクト指向
+選手を部品と考えそれぞれの責務(役割、責任）を事前に割り当てたクラスとして作る。
+
+後は選手オブジェクト自身が自分の役割を果たしながら他のオブジェクトと連携して動いてくれる。
+*/
+
+/*
+  責務の割当　オブジェクト指向プログラミングでは、プログラマはそれぞれの部品に責務をプログラムとして書き込む。
+
+  オブジェクトの姿
+オブジェクトは予め設定された役割を果たす行動責任をおっています。
+情報保持責任を負っている。
+
+ オブジェクトは属性と操作をもっている
+ 属性　その登場人物に関する情報を覚えておく箱
+ 操作　その登場人物が行う行動や動作の手順
+
+ 例：勇者
+ 属性 名前-湊,HP 10 情報保持責任
+ 操作 戦う,逃げる,眠る,座る 行動責任
+
+ 例：おばけきのこ
+ 属性　HP 35, LV 10 情報保持責任
+ 操作 戦う,逃げる,催眠ガス 行動責任
+
+ // オブジェクトのふるまいと相互作用
+ 複数の操作をもっていて、mainメソッドやオブジェクトからオブジェクトの操作を呼び出す（行動指示を送る）ことができる
+
+// オブジェクト指向の三大機能と今後の学習
+// カプセル化、継承、多様性
+*/
+//練習問題
+// 7-1
+/*
+・電卓の中に入っているプログラムは「支持したとおりにすばやく計算をしてくれる人」を機械化、自動化したもの
+・電子メールは、現実世界の「手紙」を電子化したものであり、そのメールを配送するインターネットのシステムは「郵便配送の仕組み」を機械化したもの
+・ネットショッピングサイトは、現実世界の「商店」を電子化したものであり、そのプログラムは従来、店員が受け持っていた「商品の検索依頼・注文依頼・決済」を自動化したもの
+
+// 7-2
+1「飛行機」オブジェクト、「空港」オブジェクト
+2「映画館」オブジェクト、「映画」オブジェクト、「俳優」オブジェクト
+3「食材」オブジェクト、「映画」オブジェクト、「料理」オブジェクト
+
+// 7-3
+1 「指定条件に基づいて観光地を検索する」操作
+2 「現実世界のお店や名所旧跡を再現した「観光地」オブジェクト
+
+// 8章　インスタンスとクラス
