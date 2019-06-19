@@ -1640,5 +1640,3988 @@ c:¥javaapp¥koumon
 // 7-3
 1 「指定条件に基づいて観光地を検索する」操作
 2 「現実世界のお店や名所旧跡を再現した「観光地」オブジェクト
-
+*/
 // 8章　インスタンスとクラス
+/*
+   仮想世界の作り方
+   Javaでオブジェクトは定義できない
+   オブジェクトそのものをプログラマが直接定義することは許されない。
+   そのかわりクラスを定義できる（オブジェクトの設計図）
+   ①クラスを定義して、②そのクラスに基づいてオブジェクトを生成する。
+
+   
+   ・オブジェクトを大量に作る必要がある状況を想像する
+   ・1000個の講座オブジェクトそれぞれに対して、「属性として、残高・名義人・解説日がある」
+   ・という定義を繰り返す。
+   ・口座クラスを一度作っておけば、このクラスから１００個でも1,000個でも必要な数だけオブジェクトを生み出す事ができる
+
+   ・クラスとオブジェクトは別物。仮想世界で活動するのは「オブジェクトだけ」であって、その金型であるクラスが仮想世界で活動することは基本的にありません。
+
+   ・オブジェクトという用語は時々クラスを指して使われることもあるが、曖昧なもの。
+   ・仮想世界で活動する実態を厳密にしたい場合はインスタンスという用語を使う。
+   
+   ・クラスとインスタンス　仮想世界で活動するのがインスタンス。生み出す金型がクラス
+
+   ・インスタンスは誰かから指示をもらうことで責任を果たすために動く
+　　ー指示待ちにならないように指示しなければならない
+*/
+
+// リスト 8-1 mainメソッドを作る
+
+/*
+public class Main {
+  public static void main(String[] args) {
+    // (以下の内容をJavaで記述していく)
+    // 勇者よ、この仮想世界に生まれよ
+    // おばけきのこよ、この仮想世界に生まれよ
+    // 勇者よ、戦え!
+    // おばけきのこよ、逃げろ!
+  }
+}
+
+ Javaプログラムの組成に必要なクラス
+・Mainメソッドを含む、１つの「神様クラス」
+・現実世界の登場人物をもした、複数の「登場人物クラス」
+*/
+
+// クラス(CLASS DIAGRAM)図 = UML(UNIFIED MODELING LANGUAGE)で定められた図のひとつ
+
+/*
+■クラスの定義方法
+
+ リスト 8-2 HeroクラスをJavaのコードで表したもの
+public class Hero {
+// 属性の定義
+  String name;
+  int hp;  
+  
+// 操作の定義
+  void attack()
+  void run()
+  void sit(int sec)
+  void slip()
+  void sleep()
+}
+
+
+■クラスの宣言
+
+public class Hero{
+}
+
+リスト 8-4
+
+public class Hero{
+  String name; // 名前の宣言
+  int hp;      // HPの宣言
+}
+
+■属性の初期値指定と定数フィールド
+
+リスト 8-5 フィールド宣言と同時に初期値設定
+
+public class Matango{
+  int hp;
+  int level = 10; // レベルに初期値１０を設定
+}
+
+// final をつけると値の書き換え不可の定数フィールドになる
+
+
+リスト 8-6 フィールドを定数として宣言
+
+public class Matango{
+  int hp;
+  final int LEVEL = 10; // LEVEL 定数10で固定
+}
+
+■操作の宣言方法
+
+リスト 8-7 眠る操作に含まれる要素を記述
+
+public class Hero{
+  String name;
+  int hp;
+
+  void sleep() {
+    this.hp = 100;
+    System.out.println(this.name + "は、眠って回復した!");
+  }
+}
+
+リスト 8-8 メソッド　「座る」「逃げる」「転ぶ」を追加
+
+public class Hero {
+  String name;
+  int hp;
+  void sleep() {
+    this.hp = 100l
+    System.out.println(this.name + "は眠って回復した!")
+  }
+  void sita(int sec) {
+    this.hp += sec;
+    System.out.println
+      (this.name + "は" + sec + "秒座った!");
+    System.out.println("HPが" + sec + "ポイント回復した");
+  }
+  void slip() {
+    this.hp -= 5;
+    System.out.println(this.name + "は、ころんだ!");
+    System.out.println("5のダメージ!");
+  }
+  void run() {
+    System.out.println(this.name + "は、逃げ出した!");
+    System.out.println("GAMEOVER");
+    System.out.println("最終HPは" + this.hp + "でした");
+  }
+}
+
+■クラス定義による効果
+・クラスに基づいて、インスタンスを生成できるようになる
+・クラスから生まれたインスタンスを入れる変数の型が利用できるようになる
+・Hero型の変数が利用できるようになる。 Heroを定義する事による恩恵。
+
+// クラスを定義すれば、Javaで利用可能な方の種類はどんどん増えていく
+
+リスト 8-9
+
+hero h;
+
+
+リスト8-10
+「神様のクラス」を作る
+
+public class main{
+  public static void main(String[] args) {
+
+  }
+}
+
+1.仮想世界に勇者を生み出す
+2.生み出された勇者にHPと名前を設定
+3.勇者に５秒座る。転ぶ。２５秒座る。逃げろと指示を出す。
+
+// インスタンスの生成
+クラス名　変数名 = new クラス名();
+
+リスト 8-11
+
+public class Main {
+  public static void main(String[] args) {
+    // 1.勇者を生成
+    Hero h = new Hero();
+  }
+}
+
+インスタンスフィールド利用
+
+フィールドへの値の代入
+変数名.フィールド名 = 値;
+
+リスト 8-12
+
+public class Main {
+  public static void main(String[] args) {
+  // 1.勇者生成
+    hero h = new Hero();
+
+  // 2.フィールドに初期値をセット
+    h.name = "ミナト";
+    h.hp = 100;
+    System.out.printl("勇者" + h.name + "を生み出しました");
+  }
+}
+
+インスタンスのメソッド呼び出し
+
+public class Main {
+  public static void main(String[] args) {
+    // 1.勇者を生成
+    Hero h = new Hero();
+    // 2.フィールドに初期値をセット
+    h.name = "ミナト";
+    h.hp = 100;
+    System.out.println("勇者" + h.name + "を生み出しました！");
+    // 3.勇者のメソッドを呼び出していく
+    h.sit(5);
+    h.slip();
+    h.sit(25);
+    h.run();
+  }
+}
+
+
+リスト 8-14 オブジェクト指向でない方法で作ったプログラム
+
+public class Main {
+  public static void main(String[] args){
+    int yusha_hp = 100;
+    int matango1_hp = 50;
+    int matango2_hp = 48;
+    String yusha_name = "ミナト";
+    int matango1_level = 10;
+    int matango2_level = 10;
+    System.out.println(yusha_name + "は５秒座った!");
+    yusha_hp += 5;
+    System.out.println("HPが５ポイント回復した");
+    }
+}
+
+・オブジェクト指向を使うとプログラムが把握しやすくなる
+
+
+リスト 8-15 おばけきのこクラスの定義
+
+public class Matango {
+  int hp;
+  final int LEVEL = 10;
+  char suffix;
+  void run() {
+    System.out.println("おばけきのこ" + this.suffix + "は逃げ出した");
+  }
+}
+
+リスト 8-16 仮想世界に勇者とおばけきのこ2匹を生み出すプログラム
+
+public class Main {
+  public static void main(String[] args) {
+    hero h = new Hero();
+    h.name = "ミナト";
+    h.hp = 100;
+
+    Matango m1 = new Matango();
+    m1.hp = 50;
+    m1.suffix = 'A';
+
+    Matango m2 = new Matango();
+    m2.hp = 48;
+    m2.suffix = 'B';
+
+    // 冒険の始まり
+    h.slip();
+    m1.run();
+    m2.run();
+    h.run();
+  }
+}
+
+
+・クラスやメソッドは開発者の都合や機能の単位
+・オブジェクト指向という明確な思想に基づいてクラスとメソッドが作られている。
+・現実世界と意味がつながったクラス
+・現実世界の人や物、出来事をクラスに置き換えていく
+・現実に似せて作り、現実に似せて動かしていく
+
+８章まとめ
+
+インスタンスとクラス
+・インスタンスとクラスは全くの別物であり、混同してはならない
+・仮想世界で活動するのは「インスタンス」（オブジェクトとも言う）
+・インスタンスを生み出すため金型「クラス」
+
+フィールドとメソッド
+・クラスには、属性としてフィールドを、操作としてメソッドを宣言する。
+・finalが付いたフィールドは定数フィールドであり値が不変になる。
+・thisは「自分のインスタンス」表すキーワードである。
+
+クラス型
+・クラスを定義することにより、そのクラス型の定数を宣言できるようになる。
+・あるクラスの変数には、そのクラスのインスタンスを格納できる。
+
+インスタンス化
+・new 演算子を用いることで、クラスからインスタンスを生み出せる。
+・あるクラス型変数にインスタンスが格納されているとき「変数名.フィールド名」や「変数名.メソッド名()」で、
+そのインスタンスのフィールドやメソッドを利用する事ができる。
+
+練習問題
+練習 8-1
+現実問題の聖職者クレリックをパブリック宣言
+
+public class Cleric {
+}
+
+練習 8-2 聖職者に名前、HP、最大HP、MP、最大MPを属性として追加　HPは初期値50。MPは初期値10。最大値は定数。
+
+public class Cleric {
+  String name;
+  int hp = 50;
+  final int MAX_HP = 50;
+  int mp = 10;
+  final int MAX_MP = 10;
+}
+
+練習 8-3 セルフエイドという魔法を使うMP5を使えばHPを最大HPまで回復 selfAid()
+
+public class Cleric {
+    String name;
+    int hp = 50;
+    final int MAX_HP = 50;
+    int mp = 10;
+    final int MAX_HP = 10;
+    
+
+    public void selfAid() {
+      System.out.println(this.name + "はセルフエイドを唱えた!");
+      this.hp = this.MAX_HP;
+      this.mp -=5;
+      System.out.println("HPが最大まで回復した。");
+    }
+}
+
+
+練習 8-4 聖職者は　祈る行動を取る。　MPをかいふくする。秒数にランダムで0~2補正。play()メソッド。
+
+import java util.*;
+public class Cleric {
+  String name;
+  int hp = 50;
+  final int MAX_HP = 50;
+  int mp = 10;
+  final int MAX_HP = 10;
+
+  public void selfAid() {
+    System.out.println(this.name + "はセルフエイドを唱えた!");
+    this.hp = this.MAXHP
+      this.mp -= 5;
+    System.out.println("HPが最大まで回復した。");
+}
+
+public int pla(int sec) {
+  System.out.println(this.name + "は" + sec + "秒間点に祈った!");
+
+  // 論理上の回復量を乱数を用いて決定sる
+  int recover = new Random().nextInt(3) + sec;
+  
+  // 実際の回復量を計算する
+  int recoverActual = Math.min(this.MAX_HP - this.mp, recover);
+
+  this.mp += revoverActual;
+  System.out.println("MPが" + recoverActual + "回復した。");
+  return recoverActual;
+  }
+}
+
+// 9章　さまざまなクラス機構
+・クラス型と参照
+・java仮想空間の表現は実際にはコンピューターのメモリ領域。ヒープと呼ばれる。
+・インスタンスは「ヒープの中に確保されたメモリ領域」
+
+ヒーロークラスをインスタンス化し、使用するコード
+
+public class Main {
+  public static void main(String[] args) {
+    hero h;
+    h = new hero();
+    h.hp = 100;
+  }
+}
+
+
+・hero hが動き、hero型の変数hをメモリ内に準備する
+・代入の場合は左辺より先に右辺が評価される。
+・new Hero() JVMがヒープ領域から必要なメモリを確保 (3922~24) 仮
+・h= 右辺の実行結果
+・newを実行することによって生成されたインスタンスのために確保されたメモリの戦闘番地
+・変数 hには3922という数字が代入される
+
+
+・同一インスタンスを指す変数
+
+リスト 9-2 ２つのHero型変数
+
+public class Main {
+  public static void main(string[] args) {
+    hero h1;
+    h1 = new Hero();
+    h1.hp = 100;
+    hero h2;
+    h2 = h1;
+    h2.hp = 200;
+    System.out.println(h1.hp);
+  }
+}
+
+
+・勇者インスタンスhのために確保しているメモリの戦闘番地。3922
+
+・h1とh2はどちらも全く同じ１人の勇者インスタンスを指している。結局は同じ勇者HPのインスタンス。
+
+
+■クラス型をフィールドに用いる
+
+リスト 9-3 Sword型フィールドを持つクラス
+
+// まずSwordクラスを定義
+public class Sword {
+  String name;
+  int damage;
+}
+
+// 次にHeroクラスを定義
+public class Hero
+  String name;
+  int hp;
+  Sword sword;
+  void attack() {
+    System.out.println(this.name + "は攻撃した!");
+    System.out.println("敵に5ptのだめーじをあたえた!");
+  }
+}
+
+・has-aの関係 あるクラスが別のクラスをフィールドとして利用する関係
+
+リスト 9-4
+
+public class Main {
+  public static void main(String[] args) {
+    Sword s = new Sword();
+    s.name = "炎の剣";
+    s.damage = 10;
+    hero h = new Hero();
+    h.name = "ミナト";
+    h.hp = 100;
+    h.sword = s;
+    System.out.println("現在の武器は" + h.sword.name);
+
+    
+    クラス型をメソッドや引数や戻り値に用いる
+
+    リスト 9-5
+    public class Wizard {
+      String name;
+      int hp
+      void heal(hero h) {
+        h.hp +=10;
+        System.out.println(h.name + "のHPを10回復した!");
+      }
+    }
+
+・どの勇者を回復させるのかを引数hとして受け取る
+
+  リスト 9-6
+  public class Main {
+    public static void main(String[] args) {
+      hero h1 = new Hero();
+      h1.name = "ミナト";
+      h1.hp = 100;
+      hero h2 = new Hero();
+      h2.name = "アサカ";
+      h2.hp = 100;
+      Wizard w = new Wizard();
+      w.name = "スガワラ";
+      w.hp = 50;
+      w.heal(h1); // ミナトを回復させる 100-110
+      w.heal(h2); // アサカを回復させる 100-110
+      w.heal(h2); // アサカを回復させる 110-120
+      }
+}
+
+■String型の真実
+intやdouble型と仲間ではなく、Hero型と同じ「クラス型」です。
+APIリファレンス。java.langパッケージに宣言されている。
+
+
+リスト 9-7
+public class Main {
+  public static void main(String[] args) {
+    String s = new String("こんにちは");
+    System.out.println(s);
+  }
+}
+
+・String クラスはnewするときについでに情報を指定できる特別な仕組みがある
+
+
+■9.2 コンストラクタ
+
+・newで生み出されたばかりのインスタンスフィールド(nameやhp)にはまだ何もはいっていない
+
+・フィールドの初期値
+
+int型、short型、long型など  0
+char型(文字) ¥u0000
+boolean型 false
+int[]など null
+String型などのクラス型 null
+
+フィールド初期値を自動設定
+開発者が正しく数値を代入してくれるとは限らない。
+インスタンスが生まれた直後に自動実行される処理をプログラミングできる。
+
+リスト 9-8
+public class Hero {
+  int hp;
+  String name;
+
+  void attack() {
+  }
+
+  Hero() {
+    this.hp = 100; // hpフィールドを100で初期化
+  }
+}
+
+・newされた直後に自動的に実行される Hero() コンストラクタ
+
+リスト 9-9
+public class Main {
+  public static void main(String[] args) {
+    hero h = new Hero(); // コンストラクタが生まれ、HPに100代入
+
+    System.out.println(h.hp); // hp100と表示
+    }
+}
+
+・1 hero h = new Hero(); 2 インスタンス生まれる 3.自動的にコンストラクタHero()が実行
+・コンストラクタはプログラマが呼び出すものではなく、間接的にHero()が実行される
+
+・コンストラクタの定義方法
+・コンストラクタの条件
+1.メソッド名がクラスメイト完全に等しい
+2.メソッド宣言に戻り値が記述されていない(voidもダメ)
+
+コンストラクタの基本書式
+
+public class クラス名 {
+  クラス名() {
+  }
+}
+
+・フィールド宣言による初期値の定義
+
+・コンストラクタに情報を渡す
+
+リスト 9-10 コンストラクタで引数を追加情報として受け取る
+
+public class Hero {
+  Hero(String name)
+    this.hp = 100;
+    this.name = name; // 引数の値でフィールドを初期化
+    }
+  }
+
+
+・newするときに名前の初期値も指定できる
+・コンストラクタに渡すべき引数をnewする際に指定する
+
+リスト 9-11 newする際に引数を渡す
+public class Main {
+  public static void main(String[] args) {
+    hero h = new Hero("ミナト"); // コンストラクタにミナトが渡される
+
+    System.out.println(h.hp); // 100
+    System.out.println(h.name); // ミナト
+  }
+}
+
+
+/*
+   1. hero h = new Hero("ミナト");
+   2.仮想世界にインスタンスが生まれる
+   3.コンストラクタHero(String name)が実行される。引数としてミナトが利用
+  
+■2つ以上の同盟コンストラクタを定義する
+・インスタンスを生成するときには必ず名前を指定する
+・引数を受け取らないコンストラクタも同時に定義することで解決
+
+リスト 9-12 コンストラクタのオーバーロード
+
+public class Hero {
+  Hero(String name) {
+  this.hp = 100;
+  this.name = name;
+  }
+  Hero() {
+    this.hp = 100;
+    this.name = "ダミー";
+  }
+}
+
+
+リスト9-13 コンストラクタをオーバーロードしたクラスの利用
+
+public class Main {
+public static void main(String[] args) {
+  Hero h1 = new Hero("ミナト");
+
+  System.outt.println(h1.name);
+  Hero h2 = new Hero();
+  
+  System.out.println(h2.name);
+  }
+}
+
+■暗黙のコンストラクタ
+・全てのクラスはインスタンス化に際して必ず何らかのコンストラクタを実行すること
+・本来全てのクラスは、最低でも１つ以上のコンストラクタ定義を持っていなければなりません。
+
+
+リスト 9-14 全てのクラスは必ずコンストラクタを定義しなければならない
+
+public class Map {
+Map() {
+  }
+}
+
+/*
+コンストラクタの特例
+ クラスに一つもコンストラクタが定義されていない場合に限って、
+「引数なし、処理内容なし」のコンストラクタ（デフォルトコンストラクタ）
+の定義がコンパイル時に自動追加される
+
+これまではこの特例によって引数なしコンストラクタが自動定義されていた。new Hero();
+*/
+
+・他のコンストラクタを呼び出す
+
+リスト 9-15 コンストラクタの中から別のコンストラクタを呼び出す(エラー)
+  
+  public class Hero {
+
+    Hero(String name) {
+      this.hp = 100;
+      this.name = name; // コンストラクタ①
+    }
+    
+    Hero() { // コンストラクタ②
+      this.Hero("ダミー");
+    }
+  }
+
+・コンストラクタは専用の文法を用いて、
+コンストラクタの戦闘で別のコンストラクタを呼び出すに限って特別に許される。
+
+・別コンストラクタの呼び出しに関するルール
+ this.クラス名(引数);と記述することはできない。
+ そのかわりに this(引数);と記述する
+
+ リスト 9-16 コンストラクタの中から別のコンストラクタを呼び出す（動作）
+
+ Hero(String name) {
+   this.hp = 100;
+   this.name = name;
+ }
+Hero() {
+  this("ダミー");
+}
+
+
+■静的メンバ
+
+リスト 9-17　同じクラスから作られても、個々のインスタンスは別々のフィールドを持つ
+public class Hero {
+  String name;
+  int hp;
+  int money;
+}
+
+// フィールドの先頭にstaticキーワードを追加します
+
+リスト 9-18 static キーワードによるフィールドの共有
+
+public class Hero {
+  String name;
+  int hp;
+  static int money;
+}
+
+・静的フィールド
+
+// 1.フィールド変数の実行がクラスに準備される
+
+リスト 9-19 静的フィールドmoneyへのアクセス
+
+public class Main {
+  public static void main(String[] args) {
+    hero h1 = new Hero();
+    Hero h2 = new Hero();
+    System.out.println(h1.hp);
+    System.out.println(Hero.money);
+    }
+}
+
+// 2.全インスタンスに、箱の分身が準備される
+    静的フィールドへの別名によるアクセス
+    インスタンス変数名.静的フィールド名と書いても良いが、
+    「クラス名.静的フィールド名」と同じ意味。
+
+リスト 9-20 個々のインスタンスから静的フィールドmoneyへアクセスして内容を表示
+
+public class Main {
+  public static void main(STring[] args) {
+    Hero h1 = new Hero();
+    Hero h2 = new Hero();
+    Hero.money = 100;
+    System.out.println(Hero.money);
+    System.out.println(h1.money);
+    h1.money = 300;
+    System.out.println(h2.money);
+  }
+}
+
+// 3.インスタンスを１つも生み出さなくても箱が利用可能になる
+
+リスト 9-21 インスタンスが生成されていなくても静的フィールドにアクセスできる
+
+public class Main {
+  public static void main(String[] args) {
+    // 1人も勇者を生み出していない状況
+    Hero.money = 100;
+    System.out.println(Hero.money);
+  }
+}
+
+// クラス変数と言われる
+
+// public static final コンビネーション
+// staticはfinalやpublicと一緒に指定され、
+// 「変化しない定数を書くインスタンスで共有するため」に利用する
+
+■静的メソッド
+
+
+リスト 9-22 静的なメソッドの例
+public class Hero {
+  String name;
+  int hp;
+  static int money;
+  static void setRandomMoney() { // staticをつけたメソッド
+    Hero.money = (int) (Math.random() * 1000);
+  }
+}
+
+
+//  静的メソッドまたはクラスメソッドと呼ばれ静的メンバと総称される
+
+1.メソッド自体がクラスに属するようになる
+静的メソッドはその実態はインスタンスではなくクラス。
+「クラス名.メソッド();」で呼び出せるようになる。
+
+2.インスタンスにメソッドの分身が準備される
+静的メソッドは、「インスタンス変数名.メソッド();」
+でも呼び出せるようになる。
+
+3.インスタンスを１つも生み出すことなく呼び出せる
+静的メソッドは、1つもインスタンスを生み出していない状況であっても、
+呼び出すことができます。
+
+
+リスト 9-23 静的メソッドの呼び出し
+public class Main {
+  public static void main(String[] args) {
+  Hero.setRandomMoney();
+  System.out.println(Hero.money);
+  Hero h1 = new Hero();
+  System.out.println(h1.money);
+  }
+}
+
+// mainメソッドがなぜstaticでなければならないのか
+
+■静的メソッドの制約
+// staticが付いていないフィールドやメソッドを利用できません
+
+リスト 9-24 静的なメソッド内でアクセスできるのは静的メンバだけ
+public class Hero {
+  String name; 
+  int hp;
+  static int money;
+  
+  static void setRandomMoney() {
+    Hero.money = (int) (Math.random() * 1000);
+    System.out.println(this.name + "たちの所持金を初期化しました");
+  }
+}
+
+// this.nameでエラーが起きる
+// 静的メソッドsetRandomMoney() まだ１つも勇者インスタンスがない状況でも呼び出される可能性
+// なのでエラーとなる
+
+
+9章まとめ
+
+クラス型と参照
+・クラス型変数の中には「インスタンスの情報が格納されているメモリ番地がはいっている」
+・あるクラス型変数を別変数に代入すると、番地情報だけがコピーされる
+・クラス型は、フィールドやメソッドの引数・戻り値の型としても利用できる。
+
+コンストラクタ
+・「クラス名と同一名称で、戻り値の型が明記されていないメソッド」はコンストラクタとして扱われる。
+・コンストラクタは、newによるインスタンス化の直後に自動的に実行される。
+・引数を持つコンストラクタを定義すると、newする際に引数を指定してコンストラクタを実行させることができる。
+・コンストラクタはオーバーロードにより複数定義できる。
+・クラスにコンストラクタ定義が①つもない場合に限って、コンパイラが「引数なし・処理内容なし」の
+デフォルトコンストラクタを自動定義してくれる。
+this()を用いれば、同一クラスの別コンストラクタを呼び出すことができる。
+
+静的メンバ
+・staticキーワードが付いてくる静的メンバ（フィールド及びメソッド）じゃ。
+①各インスタンスではなくクラスに実態が準備される
+②「クラス名.メンバ名」、「インスタンス変数名.メンバ名」のどちらでも同じ実体にアクセスすることになる。
+③①つもインスタンスを生み出していなくても利用可能である。
+・静的メソッドは、その内部で性的でないメソッドやフィールドを利用する事はできない。
+
+■9.5 練習問題
+練習 9-1
+Clericクラスに関して②つの修正を行う
+
+
+static final int MAX_HP = 50;
+static final int MAX_MP = 10;
+
+public cleric(String name , int hp) {
+  this(name, hp, Cleric.MAX_HP);
+}
+public Cleric(String name) {
+  this(name, Cleric.MAX_HP);
+}
+
+
+■10章 カプセル化
+アクセス制御
+
+リスト 10-1
+アクセス制御されていないプログラムの例
+
+public class Hero {
+  int hp;
+  String name;
+  Sword sword;
+  static int money;
+  void bye() {
+    System.out.println("勇者は別れを告げた");
+  }
+
+  void die() {
+    System.out.println(this.name + "は死んでしまった");
+    System.out.println("GAME OVERです");
+  }
+  
+  void sleep() {
+    this.hp = 100;
+    System.out.println(this.name + "は眠って回復した");
+  }
+  
+  void attack(Matango m) {
+    System.out.println(this.name + "の攻撃");
+    System.out.println("おばけきのこ" + m.suffix + "から2ポイントの反撃を受けた");
+    this.hp -= 2; // 反撃を受けるとHPが2減る
+    if (this.hp <=0 ) {
+      this.die();
+    }
+  }
+
+
+リスト　10-2 「宿やクラス」の不具合
+  public class Inn {
+    void checkIn(Hero h) {
+      h.hp = -100; //原因
+    }
+  }
+
+リスト 10-3　「王様クラス」の問題点
+  pulic class King {
+    void talk(Hero h) {
+      System.out.println("王様：ようこそ我が国へ、勇者" + h.name + "よ”);
+      System.out.println("王様：長旅疲れたであろう");
+      System.out.println("王様：まずは城下町を見てくると良い。ではまた会おう");
+      h.die(); // 不具合の原因。勇者が死ぬ
+    }
+  }
+// Heroクラス以外からはhpフィールドに値を設定できない
+// die()メソッドを呼べるのはHeroクラスだけ
+// 人は必ずミスをする。ミスを未然に防ぐ仕組みが必要
+
+10.2 メンバに対するアクセス制御
+  
+4つのアクセス制御レベル
+制限が厳しい
+private private 自分自身のクラスのみ
+package private 自分と同じパッケージに属するクラス
+protected protected  自分と同じパッケージの属するか、自分を継承した子クラス
+public public 全てのクラス
+制限がゆるい
+
+フィールドアクセス制御
+アクセス装飾子　フィールド宣言;
+
+メソッドのアクセス制御
+アクセス装飾子　メソッド宣言{}
+
+privateを利用する
+
+
+  リスト 10-4 HPをprivateにしたサンプルコード
+  public class Hero {
+    private int hp;
+    String name;
+    Sword sword;
+    static int money;
+
+    void sleep() {
+      this.hp - 100;
+      System.out.println(this.name + "は眠って回復した");
+    }
+  }
+
+■private アクセス装飾
+  private出逢っても自分のクラスからthis.での読み書きは可能
+
+リスト 10-5 die()メソッドをprivateとして指定
+
+public class Hero {
+
+  private void die() {
+    System.out.println(this.name + "は死んでしまった");
+    System.out.println("GAMEOVERです");
+  }
+}
+
+■publicやpackage privateを利用する
+
+リスト 10-6 attack()メソッドはpublicとして指定する
+public class Hero {
+  void sleep() {
+  }
+  public void attack(Matango m) {
+  }
+}
+
+
+■アクセス装飾の定石
+// メンバに関するアクセス装飾の定石
+// フィールドはすべてprivate
+// メソッドは全てpublic
+
+// クラスに対するアクセス装飾の定石
+// publicが一般的
+
+// 10.3 getterとsetter
+// メソッドを経由したフィールド操作
+
+■単純にフィールド値を取り出すだけのメソッド
+
+リスト 10- 王様クラスで利用されるnameフィールド
+public class king {
+  void talk(Hero h) {
+    System.out.println("ようこそ我が国へ、勇者" + h.name + "よ。");
+  }
+}
+
+リスト 10-8 HeroクラスにgetNameメソッドを追加
+public class Hero {
+  private String name;
+  
+  public String getName() {
+    return this.name;
+  }
+}
+
+リスト 10-9 Kingクラスのtalk()メソッド内を以下のように修正
+public class King {
+  void talk(Hero h) {
+    System.out.println("王様：ようこそ我が国へ、勇者" + h.getName() + "よ。");
+  }
+}
+
+■ getterメソッドの書き方
+
+getterメソッドの定石
+public 値を取り出すフィールドの型　getフィールド名(フィールドの型　任意の変数名) {
+  this.フィールド = 任意の変数名;
+}
+
+リスト 10-10 setterメソッドの例
+public class Hero {
+
+  public void setName(String name) {
+    this.name = name;
+  }
+}
+
+getter/setterの存在価値
+
+リスト 10-11
+  カプセル化を行う前
+  public class Hero {
+    String name;
+  }
+
+リスト 10-12 カプセル化を行った後
+public class Hero {
+  private String name;
+  public String getName() {
+    return this.name;
+  }
+  public void setName(String name) {
+  }
+}
+
+メリット１：ReadOnly、WriteOnlyのフィールド実現
+メリット２:フィールドの名前、クラスの内部設計を自由に援交できる
+メリット３:フィールドへのアクセスを検査できる
+
+リスト 10-13 setterメソッドの中で値の妥当性を確認
+
+private String name;
+public void setName(String name) {
+  if(name == null) {
+    throw new IllegalArgumentException("名前がnullである。処理を中断");
+  }
+  if(name.length() <= 1) {
+    throw new IllegalArgumentException("名前が短すぎる。処理を中断");
+  }
+  if(name.length >= 8) {
+    throw new IllegalArgumentException("名前が長すぎる。処理を中断");
+  }
+  this.name = name;
+}
+
+※ throw new illegalArgumentException = エラーを出して強制終了する命令
+
+リスト 10-14 setNameが正しく機能するかを確認する
+public class Main {
+  public static void main(String[] args) {
+    Hero h = new Hero();
+    h.setName("");　// 長さ0文字の名前をセットしようとする
+  }
+}
+
+
+/*
+   実行結果
+   exception in thread "main" java.lang.IllegalArgumentException:名前が短すぎる。処理を中断。
+   at Hero.setName(Hero.java:7)
+   at Main.main(Main.java:4)
+*/
+
+■クラスに対するアクセス制御
+・２つのアクセス制御レベル
+
+package private (何も書かない) 自分と同じパッケージに属するクラス
+public public 全てのクラス
+
+
+・非publicクラスとソースファイル。
+
+非publicクラスの特徴
+①クラスの名前はソースファイル名と異なっても良い。
+②①つのソースファイルに変数宣言しても良い。
+
+原則
+・１つのファイルに１つのクラス
+・ファイル名=クラス名
+・ファイル名=publicクラス名
+
+■カプセル化を支えている考え方
+
+・メソッドでフィールドを保護する
+・カプセル化の本質
+・不具合とは　「バグとは現実世界と仮想世界が食い違うこと」
+
+■１０章のまとめ
+カプセル化の概要
+・カプセル化を用いるとメンバやクラスについてアクセス制御が可能になる。
+・特に、フィールドに「現実世界ではありえない値」が入らないように制御する
+
+メンバに対するアクセス装飾
+・private 指定されたメンバは、同一クラス内からアクセスできない。
+・package private 指定されたメンバは、同一パッケージ内のクラスからしかアクセスできない。なお、メンバ宣言に特定のアクセス装飾子をつけなければ package private になる。
+・public 指定されたメンバは、全てのクラスからアクセスできる。
+
+クラスに対するアクセス装飾
+・package private指定(装飾子なし）で宣言されたクラスは、同一パッケージ内のクラスからしかアクセスできない。
+・public 指定されたクラスは、全てのクラスからアクセスできる
+
+クラスに対するアクセス装飾
+・package private 指定（装飾子なし）で宣言されたクラスは、同一パッケージ内のクラスからしかアクセスできない。
+・public 指定されたクラスは、全てのクラスからアクセスできる。
+
+カプセル化の定石
+・クラスはpublic、メソッドはpublic、フィールドはprivateで装飾する。
+・フィールドにアクセスするためのメソッドとしてgetter や setter を準備する。
+・setter 内部では引用の妥当性検査を行う。
+
+10.1 練習問題
+WizardとWandの全てのフィールドとメソッドについて、カプセル化の定石に従ってアクセス装飾子を追加してください(Wizardクラスのコンパイルエラーは起きて良い)
+
+public class Wand {
+  String name;  // 杖の名前
+  double power; // 杖の魔力
+}
+
+public class Wizard {
+  int hp;
+  int mp;
+  String name;
+  Wand wand;
+  void heal(Hero h) {
+    int basePoint = 10; // 基本回復ポイント
+    int recovPoint = (int) (basePoint * this.wand.power);
+    // 杖による増幅
+    h.setHp(h.getHp() + recovPoint); // 勇者のHPを回復させる
+    System.out.println
+      (h.getName() + "のHPを" + recovPoint + "回復した!");
+
+10.2 練習問題
+  Wand クラスとWizard クラスの全てのフィールドについて、定石に従って
+  getter メソッドとsetter メソッドを作成してください。
+  また、Wizard クラスのheal メソッドで発生しているコンパイルエラーを解決してください。ただし、setter メソッドに関しては引数の妥当性検証を不要です。
+
+10.3 練習問題
+  問題 10-2で作成したWand クラスと Wizard クラスの各setter メソッドについて、以下4種類のルールに従って引数の妥当性検証を追加してください。不正な値がセットされそうになった場合には「throw new IllegalArgumentException("エラーメッセージ");」を記述してプログラムを中断させてください。
+
+  ①魔法使いや杖の名前は nullであってはならず、必ず3文字以上である。
+  ②杖の魔力による増幅率は、0.5秒100以下である。
+  ③魔法使いの杖は nullであってはならない。
+  ④魔法使いの HP と MP は 0以上である。ただし HPについては負の値が設定されそうになると代わりにHP0が設定される
+
+
+  問題 10-1
+  
+  public class Wand {
+    private String name; // 杖の名前
+    private double power; // 杖の魔力
+  }
+
+public class Wizard {
+  private int hp;
+  private int mp;
+  private String name;
+  private Wand wand;
+
+  public void heal(Hero h) {
+    int basePoint = 10; // 基本回復ポイント
+    int recovPoint = (int) (basePoint * this.wand.power);
+    // 杖による増幅
+    h.setHp(h.getHp() + recovPoint); // 勇者のHPを回復
+    System.out.println(h.getName() + "のHPを" + recovPoint + "回復した!");
+  }
+  
+  問題 10-2
+  public class Wand {
+    private String name; //杖の名前
+    private double power; //杖の魔力
+    public String getName() { return this.name; }
+    public double getPower() { return this.power; }
+    public void setPower(double power) { this.power = power; }
+  }
+  
+  public class Wizard{
+  private int hp;
+  private int mp;
+  private String name;
+  private Wand wand;
+  public void heal(Hero h) {
+    int basePoint = 10; // 基本回復ポイント
+    int recovPoint = (int) (basePoint * this.wand.power);
+    // 杖による増幅
+    h.setHp(h.getHp() + recovPoint); // 勇者のHPを回復
+    System.out.println(h.getName() + "のHPを" + recovPoint + "回復した!");
+  }
+  
+  public int getHp() { return this.hp; }
+  public void setHp(int hp) { this.hp = hp; }
+  public int getMp() { return this.mp; }
+  public void setMp(int mp) { this.mp = mp; }
+  public String getName() { return this.name; }
+  public void setName(String name) { this.name = name; }
+  public Wand getWand() { return this.wand; }
+  public void setWand(Wand wand) { this.wand = wand; }
+}
+
+  問題 10-3
+  public class Wand {
+    private String name; // 杖の名前
+    private double power; // 杖の魔力
+
+    public String getName() { return this.name; }
+    public void setName(String name) {
+      if(name == null || name.length() < 3 ) {
+        throw new IllegalArgumentException
+          ("杖に設定されようとしている魔力が異常です");
+      }
+      this.power = power;
+    }
+  }
+
+public Wizard {
+  private int hp;
+  private int mp;
+  
+  public void heal(Hero h) {
+    int basePoint = 10; // 基本回復ポイント
+    int recovPoint = (int) (basePoint * this.getWand().getPower());
+    // 杖による増幅
+  h.setHp(h.getHp() + recovPoint); // 勇者のHPを回復
+  System.out.println(h.getName() + "のHPを" + recovPoint + "回復した");
+  }
+  
+  public int getHp() { return this.hp; }
+  public void setHp(int hp) {
+    if(hp < 0) { this.hp = 0; } else { this.hp = hp; }
+  }
+  
+  public int getMp() { return this.mp; }
+  public void setMp(int mp) {
+    if(mp < 0) {
+      throw new IllegalArgumentException("設定されようとしているMPが異常です");
+    }
+    this.mp = mp;
+  }
+
+  public String getName() { return this.name; }
+  public void setName(String name) {
+    if(name == null || name.length() < 3) {
+      throw new IllegalArgumentException
+        ("魔法使いに設定されようとしている名前が異常です");
+    }
+    this.name = name;
+  }
+  
+  public Wand getWand() { return this.wand; }
+  public void setWand(Wand wand) {
+    if(wand = null) {
+      throw new IllegalArgumenException("設定されようとしている杖がnullです");
+    }
+    this.wand = wand;
+  }
+}
+
+
+第11章　継承
+
+11.1 継承の基礎
+// 似通ったクラスの開発
+
+
+リスト11-1 「戦う」と「逃げる」しかできないHeroクラス
+
+public class Hero {
+  private String name = "ミナト";
+  private int hp = 100;
+  // 戦う
+  public void attack(Matango m) {
+    System.out.println(this.name + "の攻撃!");
+    m.hp -= 5;
+    System.out.println("5ポイントのダメージを与えた!);
+  }
+  // 逃げる
+  public void run() {
+    System.out.println(this.name + "は逃げ出した!");
+  }
+}
+
+・スーパーヒーローはfly()で空を飛ぶことができ、land()で着地できる。
+・ヒーローができるすべての動作は、スーパーヒーローもできる。
+
+リスト11-2 朝香さんが作成したSuperHeroクラス
+
+public class SuperHero {
+  private String name = "ミナト";
+  private int hp = 100;
+  private boolean flying;
+  
+  // 戦う
+  public void attack(Matango m) {
+    System.out.println(this.name + "の攻撃!");
+    m.hp -= 5;
+    System.out.println("5ポイントのダメージを与えた!");
+  }
+  
+  // 逃げる
+  public void run() {
+    System.out.println(this.getName() + "は逃げ出した");
+  }
+
+  // 飛ぶ
+  public void fly() {
+    this.flying = true;
+    System.out.println("飛び上がった!");
+  }
+  // 着地する
+  public void land() {
+    this.flying = false;
+    System.out.println("着地した!");
+  }
+}
+
+11.1.2 コピペ解決法の問題点
+・追加修正に手間がかかる
+Heroクラスに新しいメソッドを加えたときや、SuperHeroクラスにも行う
+
+・把握や管理が難しくなる
+メンテナンスがしづらくなる。
+
+■  継承による解決
+
+リスト 11-3 Heroクラスを継承してSuperHeroを作成する
+  public class SuperHero extends Hero {
+    private boolean flying;
+    public void fly() {
+      this.flyig = true;
+      System.out.println("飛び上がった!");
+    }
+
+    public void land() {
+      this.flying = false;
+      System.out.println("着地した!");
+    }
+  }
+
+・継承を用いたクラスの定義
+class クラス名 extends 元となるクラス名 {
+  親クラスとの「差分」メンバ
+}
+
+・SuperHeroクラスのソースコードにはrun()メソッドがありません、インスタンス化されればrun()メソッドを呼び出します
+
+リスト 11-4
+  public class Main {
+    public static void main(String[] args) {
+      SuperHero sh = new SuperHero();
+      sh.run();
+    }
+  }
+
+・元となるクラスの「差分」だけを記述して新たなクラスを宣言する事ができる。
+
+
+・継承関係の表現方法
+継承関係
+
+継承のバリエーション
+・多重継承は禁止
+・複数の親クラスを持つことはできない
+
+■オーバーライド
+
+リスト 11-5
+
+public class SuperHero extends Hero {
+  private boolean flyng;
+  public void fly() {
+  }
+
+  public void land() {
+  }
+
+  public void run() {
+    System.out.println("徹底した");
+  }
+}
+
+リスト 11-6
+
+public class Main {
+  public static void main(String[] args) {
+  hero h = new Hero();
+  h.run();
+  SuperHero hs = new SuperHero();
+  sh.run();
+  }
+}
+
+・オーバーライド　名前が似ているが全く異なるもの
+
+・継承を用いて子クラスに宣言されたメンバ
+①親クラスに同じメンバがなければ、そのメンバは「追加」になる
+②親クラスに同じメンバがあれば、そのメンバは「上書き変更」される
+
+・継承やオーバーライドの禁止
+
+public class LimitString extends String {
+}
+
+public final class String extends Object
+
+・宣言時にfinalがつけられているクラスは継承できない
+
+public final class Main {
+  public static void main(String[] args) {
+    // メインメソッド
+  }
+}
+
+// 宣言にfinalが付けられたメソッドは、子クラスでオーバーライドができない
+
+リスト 11-7
+  public class Hero {
+    public final void slip() {
+      this.hp -= 5;
+      System.out.println(this.getName() + "は転んだ!");
+      System.out.println("5のダメージ");
+    }
+    public void run() {
+      System.out.println(this.getName() + "は逃げ出した!");
+    }
+  }
+
+■継承やオーバーライドの禁止
+・クラス宣言にfinalを付けると、継承禁止
+・メソッド宣言にfinalを付けると、オーバーライド禁止
+
+11.2 インスタンスの姿
+
+・インスタンスの多重構造
+
+■メソッドの呼び出し
+・極力、外側にある子インスタンス部分のメソッドで対応しようとする
+・SuperHeroとしての逃げ方とHeroとしての逃げ方を両方持っているSuperHeroとしての逃げ方
+・親クラスのru()には呼び出しが届かない
+・SuperHeroの追加仕様
+SuperHeroは、空を飛んでいる状態でattack()すると、Heroでは１回だった攻撃を２回連続で繰り出すことができる。
+
+リスト 11-8
+
+public class SuperHero extends Hero {
+  public void attack(Matango m) {
+    System.out.println(this.name + "の攻撃!");
+    m.hp -= 5;
+    System.out.println("5ポイントのダメージを与えた!");
+
+    if(this.flying) {
+      System.out.printl(this.name + "の攻撃!");
+      m.hp -= 5;
+      System.out.println("5ポイントのダメージを与えた!");
+    }
+  }
+}
+
+リスト 11-9
+public vlass SuperHero extends Hero {
+  public void attack(Matango m) {
+    super.attack(m); // 親インスタンス部のattackを呼び出し
+    if(this.flying) {
+      super.attack(m); // 親インスタンス部のメソッドを呼び出す
+    }
+  }
+}
+
+親インスタンス部のフィールドを利用
+super.フィールド名
+
+親インスタンス部のメソッドを呼び出す
+super.メソッド名(引数)
+
+11.3 継承とコンストラクタ
+
+■継承を利用したクラスの作られ方
+
+リスト 11-10
+  public class Hero {
+
+    public Hero() {
+      System.out.println("Heroのコンストラクタが動作");
+    }
+  }
+
+public class Super Hero extends Hero {
+  
+  public Super Hero() {
+    System.out.println("SuperHeroのコンスタンスが動作");
+  }
+}
+
+public class Main {
+  public static void main(string[] args) {
+    SuperHero sh = new SuperHero();
+  }
+}
+
+■親クラスのコンストラクタの呼び出し
+super(引数);
+
+
+public SuperHero() {
+  super();
+  System.out.println("SuperHeroが生成されました");
+}
+
+// 「super();」という行が自動的に挿入される
+
+
+リスト 11-11
+public class Item {
+  private String name;
+  private int price;
+
+  public Item(String name) { // 引数１つのコンストラクタ
+    this.name = name;
+    this.price = 0;
+  }
+
+  public Item(String name, int price) { // 引数2つのコンストラクタ
+    this.name = name;
+    this.price = price;
+  }
+}
+
+public class Weapon extends Item { // Itemを継承しWeaponを定義
+}
+
+public class Main{
+  public static void main(String[] args) {
+    Weapon w = new Weapon();
+ }
+}
+
+//　エラーが発生する。理由を１ステップずつ整理する
+
+
+・引数が0のコンストラクタは存在しない。引数がない呼び出しはできない。
+
+・内部インスタンスのコンストラクタ引数を指定する
+
+public class Weapon extends Item {
+  public Weapon() {
+    super("名無しの剣"); // 引数１つの親クラスインストラクタを呼び出す
+  }
+}
+
+
+11.4 正しい継承、間違った継承
+
+・is aの原則
+  
+is-aの関係
+    子クラスis-aの原則と言われるルールに則っている継承
+      子クラス is-aの原則とは、子クラスと親クラス（子クラスは、親クラスの一種である）
+    
+    
+・間違った継承の例
+  概念としてis-aの関係がないにもかかわらず、継承を使ってしまうのが「間違った継承」です。
+
+・継承の理由に関するルール
+is-aの原則が成立しないならば、楽ができるとしても継承を使ってはならない。
+
+・間違った継承をすべきでない理由
+将来、クラスを拡張していった場合に現実世界との矛盾が生じる
+オブジェクト指向の３大機能の最後の１つ「多様性」を利用できなくなるから
+
+public class Item {
+
+  public int getDamage() {
+    return 10;
+  }
+}
+
+// 家を投げることなどできるわけがない getDamage() メソッドがHouseクラスに対して呼べる。
+
+// Houseクラスはすでに現実世界の家と剥離しまっておりオブジェクト指向の原則から外れている
+
+
+// キャラクターであれば、どんなものでも必ず名前とHPは持っている。
+
+// ある２つのクラスに特化・汎化の関係があることを示すための道具
+
+・第１１章のまとめ
+
+■継承の基礎
+・extendsを使うことで、既存のクラスに基づき新たにクラスを定義できる。
+・親クラスのメンバは自動的に子クラスに引き継がれるため、子クラスでは差分だけを記述すれば良い。
+・親クラスに宣言が存在するメソッドを、子クラスで上書き宣言することをオーバーライドという。
+・final付きクラスは継承できず、final付きメソッドはオーバーライドできない。
+・正しい継承とは「子クラス is-a 親クラス」の文章に不自然がない継承である。
+・継承には、「抽象的・具体的」の関係にあることを定義する役割もある。
+
+■インスタンスの姿
+・インスタンス内部に親クラスのインスタンスを持つ多重構造を取る。
+・より外側のインスタンス部に属するメソッドが優先的に動作する。
+・外側のインスタンス部に属するメソッドは、superを用いて内側インスタンス部のメンバにアクセスできる。
+
+■コンストラクタの動作
+・多重構造のインスタンスが作成されると、JVMは自動的に一番外側のコンストラクタを呼ぶ。
+・全てのコンストラクタは、先頭で「親インスタンス部のコンストラクタ」を呼び出す必要がある。
+・コンストラクタの先頭にsuper()がなければ、暗黙的にsuper();が追加される。
+
+練習 11-1
+①スーパークラス:Person サブクラス:Student
+②スーパークラス:Car 　 サブクラス:Engine
+③スーパークラス:Father サブクラス:Child
+④スーパークラス:Food   サブクラス:Susi
+⑤スーパークラス:SuperMan サブクラス:Man
+
+練習11-2　親クラスと子クラスを①つずつ考案して自由に挙げる.
+１ Phone
+２ Car
+３ Dictionary
+
+練習11-3 クラスMatango
+public class Matango {
+  int hp = 50;
+  private char suffix;
+  public Matango(char suffix) {
+    this.suffix = suffix;
+  }
+
+  public void attack(Hero h) {
+    System.out.println("キノコ" + this.suffix + "の攻撃");
+    System.out.println("１０のダメージ");
+    h.setHp() - 10);
+  }
+}
+
+このクラスを利用し以下の仕様に則ったPoisonMatangoクラスを作成
+ア.おばけきのこ(PoisonMatango)はお化け機のk(Matango)の中でも特に毒攻撃ができるもの。
+
+イ.PoisonMatangoは以下のコードでインスタンス化できるクラスとする
+PoisonMatango pm = new PoisonMatango('A');
+
+ウ.PoisonMatangoは、毒を用いた攻撃が可能な残り回数をint型フィールドとして持っており、初期値は５である。
+
+エ.PoisonMatangoは、attack()メソッドが呼ばれると次の内容の攻撃をする。
+1.通常のおばけきのこ同様の攻撃
+2.毒攻撃の残り回数が0でなければ以下を追加で行う
+3画面「さらに毒の胞子をばらまいた!」と表示
+4.勇者のHPの1/5に担当するポイントを勇者のHPから引き、そのポイントを示すよう「〜ポイントのダメージ」と表示する。
+5.毒攻撃の残り回数を1減らす
+
+解答
+
+11-1
+②エンジンは車の「一部」であり、両者はhas-aの関係にあります。
+③継承では親クラスや子クラスという用語を用いますが、概念としての親や子とは関係ありません。
+⑤スーパーマンは人間の一種ですので、スーパーという用語が付いていても、サブクラス（子クラス）です。
+
+11-2
+Device -  iphone - MobilePhone
+Vehicle - Car - SportsCar
+Book - Dictionary - Encycropedia
+
+11-3
+public class PoisonMatango extends Matango {
+  private int poisonCount = 5;
+  public PoisonMatango(char suffix) {
+    super(suffix);
+  }
+  public void attack(Hero h) {
+    super.attack(h);
+    if(this.poisonCount > 0) {
+      System.out.println("更に毒の胞子をばらまいた");
+      int dmg = h.getHp() / 5;
+      h.setHp(h.getHp() - dmg);
+      System.out.println(dmg + "ポイントのダメージを与えた!");
+      this.poisonCount--;
+    }
+  }
+}
+
+12.1 未来に備えるための継承
+
+■高度な継承を学ぶにあたって
+・「曖昧なクラスたちの定義方法」についてを学ぶ
+
+ある意識を今までと切り替える必要がある。
+
+■新しい「立場」で考える
+・高度な継承を使うときの「立場」が、今までの「立場」とは全く違う
+・そのプログラムのためだけに必要なクラスを作って目的のプログラムを完成させる「立場」ではないでしょうか
+・継承を利用して子クラスを作る
+・クラスを事前に開発しておいてくれた開発者がいる
+・継承の材料となる既存クラス
+
+1.既存クラスを継承し子クラスを作る
+
+2.親クラスとなるクラスを作っておく
+
+■2つの立場
+・立場１　・立場2
+「立場1の人たちに安全便利に使ってもらえる親クラスを作る」ための道具
+
+■未来に備える開発者の立場の具体例
+・開発者A →Hero →name hp → attack() run()
+・開発者B →Wizard → name hp　→ attack() run() fireball()
+・開発者C →Thief → name hp → attack() run() pick()
+
+  
+・あなた → Character → name hp →attack() run()
+・開発者B → 継承 → mp → fireball()
+・開発者C → Thief → agility → pick()
+
+※未来に備えて、継承元となるクラスを作る
+
+立場１の開発者が効率よく安心して利用できる継承の材料を以下に作るか
+
+「未来に備える開発者」の役割
+他の開発者が効率よく安心して利用できる継承の材料を作ること
+他の技術者に楽をさせる。
+
+■高度な継承に関する２つの不具合
+
+Characterクラスを作る。不安が出てくる。
+
+不都合A → 第一の心配事 → 第二の心配事
+不都合B → 第三の心配事
+
+■最初の不都合
+
+・リスト12-1
+public class Character {
+  String name;
+  int hp;
+  // 逃げる
+  public void run() {
+    System.out.println(this.name + "は逃げ出した");
+  }
+  // 戦う
+  public void attack(Matango m) {
+    System.out.println(this.name + "の攻撃!");
+    m.hp = ??; // 記述しようとして手が止まる??
+    System.out.println("敵に??ポイントのダメージを与えた!");
+  }
+}
+
+・attack()メソッドの内容をcaracterクラスを作っている時点では確定できない。書きようがない。
+
+■不具合A
+・継承の材料となるクラスを作る時点では、詳細未定メソッドが存在する
+・不具合Aに対する間違った解決方法
+
+・現実世界とJavaコードの世界に矛盾が生じる余地があるから不具合が生じる。
+・Characterクラスは必ずattack()メソッドを持っているべき。
+
+■現実世界に対応したメソッド定義の必要性
+「現実世界の登場人物が持つ操作」なのであれば、クラスのメソッドは存在しているべきである（仮に、メソッドの処理内容は確定困難であったとしても）。
+
+・不具合Aに対する対応策と二つの心配
+attak()メソッドは内容を確認できないので空にする
+attack()メソッドを継承してオーバーライド
+
+リスト12-2 attack()メソッドの中身をカラにしておく
+
+public class Character {
+  String name;
+  int hp;
+
+  public void run() {
+    System.out.println(this.name ; "は逃げ出した");
+  }
+  public void attack(Matango m) {
+  }
+}
+
+リスト12-3 未来の開発者が開発するコート
+public class Hero extends Charactr {
+  public void attack(Matango m) {
+    System.out.println(this.name + "の攻撃!");
+    System.out.println("敵に10ポイントのダメージを与えた!");
+    m.hp -= 10;
+  }
+}
+
+// 未来の開発者たちがオーバーライドし忘れたり、何もしないとの区別できるか。
+
+第一の心配事：オーバーライドし忘れ
+
+リスト12-4
+public class Hero extends Character {
+} // attack()をオーバーライドすべきなのにしていない
+
+public class Main {
+  public static void main(String[] args) {
+    Hero h = new Hero();
+    Matango m = new Matango();
+    h.attack(m); //　よびだせるが......
+  }
+}
+
+// 内容が空白のattack()メソッドを継承してるため呼び出せるが何も起きない
+
+
+■コメントして残しておく。
+//必ずオーバーライドしてください
+public void attack(slime s) {
+}
+
+リスト 12-5
+public class Hero extends Character {
+  public void atack(Matango m) { // attack()の文字が足りない
+    System.out.println(this.name + "の攻撃");
+    System.out.println("敵に10ポイントのダメージを与えた!");
+  }
+}
+
+■第2の心配事:「本当に何もしない」と区別がつかない
+public void attack(Matango m) {
+}
+
+// attack() 何もしないのではなく、何をするか未定。記述不可能
+// 区別がつかない恐れがある
+
+■第3の心配事:意図せずnewして利用されてしまう
+・未来の開発者が誤ってCharacterクラスをnewして利用してしまうかもしれない
+
+リスト 12-6
+public class Main {
+  public sttaic void main(String[] args) {
+    Character c = new Character(); // Hero WizardではなくCharacterをnew
+    Matango m = new Matango('A');
+    c.attack(m); // オーバーライドされていない為動かない
+  }
+}
+
+
+// Characterクラスは継承の材料でnewしてつかうものではない
+// 異常事態が起きる。未完成部分が残っている設計図から実態は生み出してはならない。
+
+・そもそもnewされるべきではないクラス-詳細未定な部分が残っているクラス
+
+■第3の心配事の原因
+①newによる利用 インスタンスを生み出すためにそのクラスを利用する
+②extendsによる利用 別クラスの開発の際効率よくするためあるクラスを継承元として利用。
+
+・コメントを書いておくというアイデアがある
+
+
+■抽象クラス
+・安全な継承の材料を実現するたmに
+
+詳細未定メソッド専用の書き方
+
+第二の心配事
+空のメソッドを作っておくと、処理内容を確定できないメソッドと何もしないメソッドとの区別がつかない。
+
+詳細未定メソッドの宣言
+アクセス装飾子 abstract 戻り値　メソッド名(引数リスト);
+
+リスト 12-7
+public class Character {
+  public abstract void attack(Matango m);
+}
+
+// abstractは抽象的、あいまい。抽象メソッドはabstract装飾紙が付けられる。
+
+
+未完成のためにnewしてはいけないクラスの宣言
+
+抽象メソッドを含むクラス淵源
+アクセス装飾子 abstract class クラス名 {
+}
+
+リスト12-8
+public abstract class Character { // 抽象クラスとしてのCharacterを宣言
+  String name;
+  int hp;
+  
+public void run() {
+  System.out.println(this.name + "は逃げ出した");
+}
+
+public abstract void attack(Matango m);
+}
+
+//  abstract付きのクラスにしなければならない。抽象クラス
+
+// 抽象クラスの制約
+  // 抽象クラスは、newによるインスタンス化が禁止される
+
+  // characer c = new Character();
+
+  
+  // 第3の心配事も解決
+
+■オーバーライドの強制
+
+//  第一の心配事
+  未来の開発者が、詳細未定メソッドをオーバーライドし忘れる可能性がある。
+
+
+リスト 12-9
+  public class Dancer extends Character {
+
+    public void dance() {
+      System.out.println(this.name + "は情報的に踊った");
+    }
+  }
+
+// 未完成状態のクラスであるDancerは、abstractを付けて抽象クラスにしなければならない。
+
+// 隠れた「抽象メソッド」
+
+// Characterクラスが持つ全てのメンバを継承
+// Dancerクラス自体のソースコードに抽象メソッドはなくても、親クラスから抽象メソッドを継承して持っている
+
+/*
+   継承の基本を再確認
+   Caracterクラスが持つ全てのメンバを継承
+
+   Dancerクラス自体のソースコードに抽象メソッドはなくても、親クラスから抽象メソッドを継承して持っている。
+
+   ①Dancerクラスの宣言にabstractを付けて抽象クラスにする。
+   ②Dancerクラス内部の「未完成部分」すべてなくす。
+
+
+   リスト 12-10
+   
+   public class Dancer extends Character {
+     public void dance() {
+     System.out.println(this.name + "は情報的に踊った");
+     }
+     public void attack(Matango m) {
+     System.out.println(this.name + "の攻撃");
+     System.out.println("敵に3ポイントのダメージ");
+     m.hp -= 3; // 親から継承した「詳細未定の attack()を上書きする」
+     }
+   }
+
+   // 未定だったメソッドの内容を確認させることを実装と表現する。
+   
+   // newして使える通常のクラス
+
+   // 第一の心配事も解決!
+      詳細未定なメソッドを抽象メソッドとして宣言すれば未来の開発者にover rideを強制
+
+      
+  // 多階層の抽象継承構造
+  
+  // 全ての抽象メソッドの処理内容を確定しなければ abstractを外すことは許されず、newして利用することはできません。
+
+  // 継承関係によるアクセス制御
+  // protectedアクセス装飾子
+  // 自分のクラスの子孫、または、同じパッケージからのアクセスだけが許可される
+
+  
+  //  継承改装をたどる
+
+  /*
+  ①MonsterとCharacterの共通の親として戦闘に参加する動物(BattleCreature)を定義。
+  戦闘に参加する動物の中には、専守防衛的な動物もいるかも知れませんのでattack()は定義できません。
+
+  ②BattleCreatureの親として動物(Creature)を定義する。これは村人やお姫様のように戦闘に参加しない生き物も含んでいるため、HPフィールドはあるとは限りませんが、どのような動物であっても驚威から逃げるためのrun()は持っている。
+
+  //  もはや「逃げる run()メソッドぐらいは最低でも持ってる」ということしか決められない。
+
+  /*
+  ①抽象メソッドが増える
+  「内容は確定できないが、一応存在する」という抽象メソッドが現れ始めます。
+
+  ②抽象メソッドやフィールドが減っていく
+  クラスに定義してある抽象メソッドやフィールドが減っていきます。
+  */
+  
+  // 抽象クラスの特別扱い
+  // 継承クラスの上流クラスは全て抽象クラス。インターフェイスは抽象度が高い。
+
+  // インターフェースとして特別扱いできる2つの条件
+  //  全てのメソッドは抽象メソッドである。
+  //  基本的にフィールドを1つも持たない
+
+//  リスト 12-11
+public abstract class Creature {
+  public abstract void run();
+}
+
+// インターフェイスとして宣言したCreature
+
+// リスト 12-12
+public interface Crreature {
+  public abstract void run();
+}
+
+リスト 12-13
+public interface Creature {
+  void run();
+}
+
+// インターフェイスにおける定数宣言
+
+public interface Circle {
+  double PI = 3.141592;
+}
+
+// インターフェースの名前の由来
+
+// リスト 12-14
+public interface CleaningService {
+  Shirt washShirt(Shirt s);
+  Towl washTowl(Towl t);
+  Coat washCoat(Coat c);
+}
+
+// 「どのようにして洗うか」というクリーニング店の名イブで行われる作業については明かされていない。
+
+//　リスト 12-15
+public class KyokoCleningShop implements // インターフェースを承認しクラスを宣言した場合、implements
+CleaningService {
+  private String ownerName; // 店主の名前 
+  private String address; // 住所
+  private String phone; // 電話番号
+
+  /* シャツを洗う */
+  public Shirt washShirt(Shirt s) {
+    // 大型洗濯機15分
+    // 業務用乾燥機30分
+    // スチームアイロン5分
+    return s;
+  }
+  /* タオルを洗う */
+  public Towl washTowl(Towl t) {
+  }
+  /* コートを洗う */
+  public Coat washCoat(Coat c) {
+  }
+}
+
+/* インターフェイスを継承して子クラスを定義する場合はextendsではなくimplementsを使う。
+
+   // インターフェースの実装
+   // アクセス装飾子 class クラス名 implements インターフフェース名 {
+   }
+
+   // 親インターフェースで未定だった各メソッドの内容をオーバーライドして実装し確定させる
+
+   // インターフェースの効果
+   // ①同じインターフェースをimplementsする複数の子クラスたちに、共通のメソッド群を実装するように矯正できる。
+   // ②少なくともそのインターフェースが定めたメソッドは持っていることが保証される。
+
+   // 内部実装(メソッドの処理動作)を一切定めていません。
+   // インターフェースでは特別に多重継承が許されています。
+
+   // 多重継承を用いると、「両方の親から同じ名前でありながら異なる内容の2つのメソッドを継承してしまう」事が起こりえる。
+
+   // 「勇者として旅に出たお姫様の独自の逃げ方」でオーバーライドすることになる。
+
+   // 異なるメソッドを継承して衝突してしまう。
+
+   // どちらもメソッドの内容を一切定めていません。
+
+■ クラスにはないインターフェースの特権
+異なる実装が衝突する問題が発生しないため、複数の親インターフェースによる多重継承が認められている。
+
+// インターフェースによる多重継承
+アクセス装飾子 class クラス名
+  implements 親インターフェース名 1,
+親インターフェース名 2, {
+}
+
+public class PrincessHero
+    implements Hero, Princess, Character {
+} // これら3つは全てインターフェースとします
+
+リスト 12-16
+public interface Human extends Creature {
+  void talk();
+  void watch();
+  void hear();
+  // さらに、親インターフェースからrun()を継承
+}
+
+// 処理の内容を確定しているわけはありません
+
+// 表 12-1 implementsとextendsの使い分け
+
+継承元　          継承先　          使用するキーワード　継承元の数
+クラス            クラス            extends             1つ
+インターフェース  クラス            implements          1つ以上
+インターフェース  インターフェース  extends             1つ以上
+
+12.2  extendsとimplementsを一緒に使う
+クラス定義の際に extends と implements の療法を利用することもあります
+
+  extends と implements の療法を使ったクラス定義
+  アクセス装飾子 class名 extends 親クラス
+    implements 親インターフェース1, 親インターフェース2,
+               {
+  }
+
+リスト 12-17
+public class Fool extends Character implements Human {
+// CharacterからhpやgetName()などのメンバを継承している
+// Characterから推奨した抽象メソッドattack()を実装
+  public void attack(Matango m) {
+  System.out.println(this.getName() + "は、戦わず遊んでいる。");
+  }
+  
+  // 更にHUmanから継承した4つの抽象メソッドを実装
+public void talk() {
+}
+public void watch() {
+}
+public void hear() {
+}
+public void run() {
+}
+
+
+// インターフェースメソッドのデフォルト実装
+// インターフェースが持つことができるメソッドは処理内容を持たない抽象メソッド限られる。
+
+
+// デフォルト実装付き抽象メソッドの宣言
+default 戻り値 メソッド名( 引数 ) {
+  処理のデフォルト実装
+}
+
+
+// 第12章のまとめ
+
+継承の材料を作る立場と役割
+・「他の人が継承の材料として使うであろう親クラスを作る立場」の開発者も存在。
+・「未来の開発者が効率よく安心して利用できる継承の材料を作る事」がその使命。
+・その使命を達成売るために、Javaでは抽象クラスやインターフェースという道具を提供。
+
+抽象クラス
+・中身を決定できない「詳細未定メソッド」にはabstractを付けて抽象メソッド
+・抽象メソッド1つでも含むクラスは、abstractを付けた抽象クラスにしなければならない
+・抽象クラスと抽象メソッドを活用した「継承の材料」としての親クラスを開発
+・抽象クラウト抽象メソッドを活用した「継承の材料」としての親クラスを開発すれば、予期しないインスタンス化やオーバーライド忘れの心配がない。
+
+インターフェース
+・抽象クラスのうち、基本的に抽象メソッドしか持たないものを「インターフェース」として特別扱いできる。
+・インターフェースに宣言されたメソッドは自動的にpublic abstractとなり、フィールドはpublic static finalになる。
+・複数のインターフェースを親とする多重継承が許されている。
+・インターフェースを親に持つ子クラスの定義にはimplementsを用いる。
+
+問題 12-1 今後、コンピュータと本以外にも、様々な形ある資産を管理していきたい。
+「有用資産(TangibleAsset)」という名前の抽象クラス(継承の材料）を作成、Computer,Bookは親クラスを用いた形に修正。
+
+public class Book {
+  private String name;
+  private int price;
+  private String color;
+  private String isbn;
+  // コンストラクタ
+  public Book(String name, int price, String color, String isbn) {
+    this.name = name;
+    this.price = price;
+    this.color = color;
+    this.isbn = isbn;
+  }
+  // getterメソッド
+  public String getName() { return this.name; }
+  public int getPrince() { return this.price; }
+  public String getColor() { return this.color; }
+  public String getIsbn() { return this.isbn; }
+}
+
+public class Computer {
+  private String name;
+  private int price;
+  private String color;
+  private String makerName;
+  // コンストラクタ
+  public Computer(String name,int price, String makerName) {
+    this.name = name;
+    this.price = price;
+    this.color = color;
+    this.makerName = makerName;
+  }
+  // getterメソッド
+  public String getName { return this.name; }
+  public int getPrice() { return this.price; }
+  public String getColor() { return this.color; }
+  public STring getMakerName() { return this.makerName; }
+}
+
+// 問題 12-2 形のない無形資産(IntangibleAsset)も管理。特許権(Patent)など。
+無形資産も有形資産も資産(Asset)の一種。この前提に従う。継承図の（ア）~（ウ）のクラス名を考える。
+
+Computer -> TangbleAsset -> （ア）
+Book     ->      〃      ->   〃
+（ウ）   ->   （イ）     ->   〃
+
+問題 12-3
+資産がどうかは関わりなく、癩があるもの(Thing)であれば、「重さ」を得ることができる。そこで、double型で重さを取得するgetterメソッドgetWeight()とsetterメソッド。setWeight()とsetterメソッドsetWeight()を持つインターフェースthingを定義してください
+
+問題 12-4
+有形資産(TangibleAsset)は、資産(Asset)の一種でもありますし、形あるもの(Thing)の一種でもあります。この定義に沿うように TangibleAssetのソースコードを修正してください。この際、TangibleAssetにフィールドやメソッドの追加が必要であれば、適宜追加してください。
+
+12-1
+public abstract class TangibleAsset {
+  private String name;
+  private int price;
+  private String color;
+  public TangibleAsset(String name, int price, String color) {
+    this.name  = name;
+    this.price = price;
+    this.color = color;
+  }
+  public String getName() { return this.name; }
+  public int getPrice() { return this.price; }
+  public String getColor() { return this.color; }
+}
+
+public class Book extends TangibleAsset {
+  private String isbn;
+  public Book(STring name, int price, String color, String isbn) {
+    super(name, price, color);
+    this.isbn = isbn;
+  }
+  public String getIsbn() { return this.isbn; }
+}
+public class Computer extends TangibleAsset {
+  private String makerName;
+  public Computer(String name,int price,String color, String makerName ) {
+    super(name, price, color);
+    this.makerName = makerName;
+  }
+  public String getMakerName() { return this.makerName; }
+}
+
+12-2
+(ア)Asset (イ）IntangibleAsset (ウ)Patent
+    
+
+public abstract class Asset {
+  private String name;
+  private int price;
+  public Asset(String name,int price) {
+    this.name = name;
+    this.price = price;
+  }
+  public String getName() { return this.name; }
+  public int getPrice() { return this.price; }
+}
+
+public abstract class TangibleAsset extends Asset {
+  private String color;
+  public TangibleAsset(String name,int price,String color) {
+    super(name,price);
+    this.color = color;
+  }
+  public String getColor() { return this.color; }
+}
+
+12-3
+public interface Thing {
+  double getWeight();
+  void setWeight(double weight);
+}
+
+12-4
+public abstract class TangibleAsset extends Asset
+    implements Thing {
+    private String color;
+    private double weight;
+    public TangibleAsset(String name, int price, String color) {
+      super(name, price);
+      this.color = color;
+    }
+    public String getColor() { return this.color; }
+    public double getWeight() { return this.weight; }
+    public void setWeight(double weight) { this.weight = weight; }
+}
+
+// 第13章 多態性
+
+開発を楽にする多態性(polymorphism)
+
+・多態性を上手に活用すると、とても効率よく楽しく開発できる
+
+// 多態性のイメージ
+「あるもの」を、あえてざっくり捉える」ことで、様々なメリットを享受しようとする。
+
+/*
+    厳密に言えばSuperHeroなんだけどざっくり言えばHeroだ
+    厳密に言えばGreatWizardなんだけどざっくり言えばWizardだ
+    厳密に言えばSlimeなんだけどざっくり言えばMonsterだ
+*/
+
+// ザックリと捉えるメリット
+//    ・厳密に言えば、初めて乗る車であるにも関わらず、多くの人は問題なく運転できる。
+
+//「ハンドルは同じだし、右ペダルがアクセル、左がブレーキ。細かいところはあれこれ違うけど、まぁザックリ見れば、どの車も同じだよ。」
+
+
+// 車の厳密な車種についてはあまり考えていない=ザックリと「車」としか捉えていない。
+
+
+// 車に対する人間の捉え方  それぞれ形は違うが同じだ。どれも同じように扱える
+// 車に対するロボットの捉え方  それぞれを全く違うものと捉える。全てを違う。
+
+// ザックリ捉える方法
+
+// なにか専用の文法が会って、それを書けば利用できると思いこんでしまう。多態性には専用の文法はありません。
+
+// superHero h = new SuperHero();
+
+// Character c = new SuperHero();
+
+// 本当はSuperHeroインスタンスなのですが、あくまでCharacterとして捉えて利用する。
+
+// あるインスタンスをどのように捉えるかは、どの型の変数に代入するか(箱の型)で決まる。
+
+// Character c = new SuperHero();
+// 箱の型。インスタンスを「何をみなす」か。SuperHeroインスタンスでも。Character型やHero型など、さまざまなはこにいれかえることで、捉え方を変える。
+
+// 中身の型。そのインスタンスが、いったい「何」かは、一度newされたら何が会っても変わることはない。
+
+// できる代入、できない代入
+
+■次のコード 2~4行目はエラーになる。
+Character c = new SuperHero(); // OK!
+Sword s = new Hero(); // エラー
+Flower f = new Fish(); // エラー
+Phone p = new Coffee(); // エラー
+
+// 絵の内容は（厳密ではありませんが）嘘ではありません。絵に書いてみて嘘にならないインスタンスの代入は許されます。
+
+float f = new Hero();
+Item i = new Hero();
+SuperHero sh = new Hero();
+
+// 継承のもう一つの役割
+・extendsやimplementsはプログラマが「is-aの関係」をJavaに伝える手段でもある。
+
+//  SuperHero -> Hero -> Character
+//  Man -> Human
+//  Woman -> Human
+
+■箱の型に抽象クラスを使う
+
+// リスト13-1
+public interface Life{
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Life If = new Wizard();
+  }
+}
+
+■抽象クラスやインターフェースの型
+抽象クラスやインターフェースからインスタンスを生み出すことはできないが、型を利用することは可能
+
+// 13-3 ザックリ捉えたものに命令を送る
+// 捉え方の違いは使い方の違い
+
+//「 全く同一である１つの存在に対して、複数の異なる捉え方ができる」
+//「何かを利用する人は、それを何と捉えているかによって、利用方法が変わる」
+
+■呼び出せるメソッドの変化
+
+リスト 13-2
+public abstract class Character {
+  String name;
+  int hp
+    public abstract void attack(Matango m);
+    public void run() {
+    }
+}
+
+public class Wizard extends Character {
+  int mp
+  public void attack(Matango m) {
+    System.out.println(this.name + "の攻撃!");
+    System.out.println("敵に3ポイントのダメージ");
+    m.hp -= 3;
+  }
+  public void fireball(Matango m) {
+    Sytem.out.println(this.name + "は火の玉を放った!");
+    System.out.println("敵に20ポイントのダメージ");
+    m.hp -= 20;
+    this.mp -=5;
+  }
+}
+
+リスト 13-3
+public class Main {
+  public static void main(String[] args) {
+    Wizard w = new Wizard();
+    Matango m = new Matango();
+    w.name = "アサカ";
+    w.attack(m);
+    w.fireball(m);
+  }
+}
+
+// Wizard は Character。Character型。Character型、fireballを呼び出そうとする。
+
+リスト 13-4
+public class Main {
+  publicstatic void main(String[] args) {
+    Wizard w = new Wizard();
+    Character c = w; // Character型の箱に代入
+    Matango m = new Matango();
+    c.name = "アサカ";
+    c.attack(m);
+    c.fireball(m); // error
+  }
+}
+
+
+// 箱の中身がWizardであることを忘れてしまいます。
+
+// 曖昧な型の箱へのインスタンスの代入
+// インスタンスを曖昧に捉えることとなり、「厳密には何型のインスタンスだったか」がわからなくなってしまう。
+
+// 確実に言える事は、「この箱に入っているのは、キャラクターの一種であること」だけ
+
+// attack()が呼び出せた理由
+// 箱の中身がHeroでもWizardでも、Characterの一種である限り、attack()メソッドは継承して持っているはずだから（どんなキャラクターでも最低限、攻撃はできるはず）
+
+// fireball()が呼び出せなかった理由
+// 箱の中身がHeroの場合など、fireball()メソッドを持っている職業とは限らないから（キャラクターであれば必ず火の玉を花てるとは限らない)
+
+
+// 魔法使いと認識しないとお願いできない
+
+// Caracterとして持つメソッドだけしか外部からは呼び出すことができない
+
+// ■メソッドを呼び出せた場合に動く処理
+// 「どの箱が入れるかによって、呼べるメソッドが変わる」
+// 「もしメソッドが呼べたとしたら、その動きはどうなるか」
+// モンスター関連クラスを題材にする
+
+リスト 13-5
+public abstract class Monster {
+  public void run() {
+    System.out.println("モンスターは逃げ出した");
+  }
+}
+
+public class slime extends Monster {
+  public void run() {
+    System.out.println("スライムはサササっと逃げ出した。");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    slime s = new Slime(); Monster m = new Slime();
+    s.run(); m.run();
+  }
+}
+// スライムはサササッと逃げ出した s.run()の結果
+// スライムはサササッと逃げ出した m.run()の結果
+
+// <<Slimeです>> s  <<Monsterです>> m 
+// 逃げ出すは実態。当然、スライムが逃げます。
+
+// どんな型の箱に入っているかは関係ない。
+
+// 「箱の型」と「中身の型」
+//  [箱の型] どのメソッドを「呼べるか」を決定する
+//  [中身の型] メソッドが呼ばれたら「どう動くか」を決定する
+
+// 捉え方を変更する方法
+// Character c = new Wizard();
+
+// 変数cの中身をWizardであると捉え直す
+
+// Character c = new Wizard();
+// Wizzard w = c; エラーになる
+
+// プログラムを1行ずつ解釈、翻訳しようとします
+
+// コンパイラは失敗する可能性のある代入について「中に入っているものが常にWizardとは限らないから代入できない」
+
+// Character c ->代入 -> WIzard w
+
+// Cの中身がWizardとは限らない。代入したら大変なことになる
+
+// 以下のように記入
+
+// Character c = new Wizard();
+// Wizard w = (Wizard) c;
+
+// ダウンキャストと言われ、失敗の危険が伴います。
+
+//  あいまいな型に入っている中身を厳密な型に代入するキャストはダウンキャスト。
+
+// キャストの失敗
+
+// Character c = new Wizard();
+// Hero h = (Hero) c;
+
+// ClassCastExceptionというエラーが発生する。
+
+
+■インスタンスを代入可能かチェック
+ダウンキャストによるClassCastExceptionを確実に回避する。
+キャストする前に「キャストしても大丈夫かどうか」
+Javaにはそのためのinstanceof 演算子が用意されている。
+
+・安全にキャストできるかを判定する
+変数 instanceof 型名
+
+if(c instanceof SuperHero) { // cの中身SuperHeroとみなして大丈夫なら
+
+  SuperHero h =(SuperHero) c; // SuperHeroとみなす!
+  h.fly();
+}
+
+■多態性のメリット
+
+// 同一視して配列を利用する
+
+リスト 13-6
+public class Main{
+  public static void main(String[] args) {
+    Hero h1 = new Hero();
+    Hero h2 = new Hero();
+    Thief t1 = new Thief();
+    Wizard w1 = new Wizard();
+    Wizard w2 = new Wizard();
+    // 冒険開始!
+    // まず宿屋に泊まる
+    h1.setHp(h1.getHp() + 50);
+    h2.setHp(h2.getHp() + 50);
+    t1.setHp(w1.getHp() + 50);
+    w1.setHp(w1.getHp() + 50);
+    w2.setHp(w2.getHp() + 50);
+  }
+}
+
+// ※ コードの前提
+// ・HeroやWizard、Thiefは、抽象クラスCharacterを継承・
+// ・Characterはnameとhpフィールド及びその getter/ setter、attack()とrun()メソッドを持つ。
+
+■問題点
+[コードに重複が多い]
+「~setHp(~.getHp() + 50)」という同じ処理が何度も登場する。記述が面倒。
+
+[将来的に多くの修正が必要]
+PTの人数が増えた場合、宿泊処理に行を追加しなければなりません。また、インスタンス変数名が変更になった場合も、コードに修正が必要です。
+
+[多態性と配列を組み合わせれば解決する]
+
+リスト 13-7
+public class Main {
+  public static void main(String[] args) {
+    Character[] c = new Character[5];
+    c[0] = new Hero();
+    c[1] = new Hero();
+    c[2] = new Thief();
+    c[3] = new Wizard();
+    c[4] = new Wizard();
+    // 宿屋に泊まる
+    for(Character ch:c) { // 一名ずつ順に取り出し
+      ch.setHp(ch.getHp() + 50);
+    }
+  }
+}
+
+// ポイントは三行目でCharacter配列を使っている。従来のインスタンスを厳密にHeroやThiefとして扱おうとする限り、一括しては扱えない。
+
+■同一視してザックリとした引数を受け取る
+
+public void attack(Matango m) {
+}
+
+リスト 13-8
+public class Hero extends Character {
+  public void attack(Matango m) { // おばけきのこ攻撃用
+    System.out.println(this.name + "の攻撃!");
+    System.out.println("敵に10ポイントのダメージを与えた!");
+    m.hp =-= 10;
+  }
+  public void attack(Goblin g) { // ゴブリン攻撃用
+    System.out.println(this.name + "の攻撃!");
+    System.out.println("敵に10ポイントのダメージを与えた!");
+    g.hp -= 10;
+  }
+  // 以下スライム用など続く
+}
+
+リスト 13-9
+public class Hero extends Character {
+  pulic void attack(Monster m) { // モンスター攻撃用
+    System.out.println(this.name + "の攻撃!");
+    System.out.println("敵に10ポイントのダメージを与えた!");
+    m.hp -= 10;
+  }
+}
+
+//  attack()メソッドの引数に注目してください
+//  「ザックリ見れば何らかのモンスターであれば何でも良い」
+
+/* Mainクラス
+
+   Hero h = new Hero();
+   Slime s = new Slime();
+   Goblin g = new Goblin();
+   DeathBat d = new DeathBat();
+
+   h.attack(s);　//  slimeインスタンスを渡す
+
+   h.attack(g); //  Goblinインスタンスを渡す
+
+   h.attack(d); //  DeathBatインスタンスを渡す
+
+// ザックリ利用しても、ちゃんと動く
+
+// 1.ザックリ捉えてまとめて扱う
+13.5.2項(配列でまとめて扱う）や13.5.3項(引数でまとめて扱う)で紹介したように、厳密には異なるインスタンスをまとめて扱うことができます。
+
+// 2,メソッドの動作は中身の型に従う
+13.3節の最後に学んだように「インスタンスは何型の箱にはいっていようと、自身の型のメソッドが動作する」という原則があります。
+
+リスト 13-10
+public class Main {
+    public static void main(String[] args) {
+      Monster[] monsters = new Monster[3];
+      monsters[0] = new Slime();
+      monsters[1] = new Goblin();
+      monsters[2] = new DeathBat();
+      for (Monster m : monsters) {
+      m.run(); // 同じ指示を繰り返す
+      }
+    }
+}
+
+/*
+実行結果
+スライムは、体をうねらせて逃げ出した。
+ゴブリンは腕振って逃げ出した
+地獄コウモリは、羽ばたいて逃げ出した。
+*/
+
+// 呼び出す側と呼び出される側
+
+// 独自の方法で逃げます。「どう逃げるか」について理解していてその方法に定義されたrun()メソッドの内容を使って逃げる。
+
+// 呼び出し側は相手を同一視、同じように呼び出すのに、呼び出される側は、キチンと自分に決められた動きをする(同じ呼び出し方なのに、多数の異なる状態を生み出すことがある)。多態性という名前がつけられている。
+
+ 第13章のまとめ
+■インスタンスを曖昧に捉える
+・継承によりis-aの関係が成立しているなら、インスタンスを親クラス型の変数に代入することができる。
+・親クラス型の変数に代入することは、曖昧に捉えること
+
+■「箱の型」と「中身の型」の役割
+・どのメンバが利用できるかは、箱の型（対象をどう捉えているか）できまる。
+・メンバがどう動くかは、中身の型（対象が何であるか)で決まる。
+
+■捉え方の変更
+・キャスト演算子を用いれば、厳密な方への強制代入ができる。
+・不正な代入が行われた場合、ClassCastExcptionが発生する。
+
+■多態性
+・げみつには異なる複数のインスタンスを同一視して、親クラス型の配列にまとめて格納できる。
+・同様に、親クラス型の引数や戻り値を利用して、厳密には異なる対象をまとめて処理できる
+・同一視して取り扱っても、個々インスタンスは各クラスにおける定義に従い、異なる動作を行う。
+
+
+練習 13-1 図中のシカクに入るクラス名を考えてください
+(1)
+コード：item i = new Sword();
+イメージ:Swordインスタンス <<Swordです>>
+解説:Swordを作成したがザックリとitemとみなす。
+
+(2)コード:Monster a = new Slime();
+イメージSlimeインスタンス
+解説:Slimeを生成したが、ザックリとMonsterとみなす。
+
+練習 13-2
+public final class A extends Y {
+  public void a() { System.out.println("Aa"); }
+  public void b() { System.out.println("Ab"); }
+  public void c() { System.out.println("Ac"); }
+}
+
+public class B extends Y {
+  public void a() { System.out.println("Ba"); }
+  public void b() { System.out.println("Bb"); }
+  public void c() { System.out.println("Bc"); }
+}
+
+public interface X { void a(); }
+
+public abstract class Y implements X {
+  public abstract void a();
+  public abstract void b();
+}
+
+問1「x obj = new A();」としてAインスタンスを生成した後、変数 objに対して呼ぶことができるメソッドを、a()、b()、c()の中からすべてを挙げてください。
+
+a()メソッド
+
+問2「Y y1 = new A(); Y y2 = new B();」としてAとBのインスタンスを作成した後、
+「y1.a(); y2.a();」を実行した場合に表示される内容を答えてください。
+
+AaBa
+
+練習13-3
+13-2で用いたAクラスBクラスのインスタンスをひとつずつ生み出し要素数２からなる単一の配列に格納する。格納後配列の中身を順にループで取り出し、インスタンスのb()メソッドをそれぞれ帯びだす。
+①配列変数の型として何を用いるべきか 
+Y[]型
+②問題文に記述された内容のプログラムを作成せよ
+public class Main {
+  public static void main(String[] args) {
+    Y[] array = new Y[2]
+    array[0] = new A();
+    array[1] = new B();
+    for (Y y : array) {
+      y.b();
+    }
+  }
+}
+
+■日付を扱う
+//  日付情報を扱う２つの基本形式
+//  ここからは特に大事なAPIのクラスたちを紹介していくよ。まずは日付の情報を扱うためのDataクラスから紹介しよう。
+
+形式1:long型の数値
+// 1970 1/1 0:0:0 エポック
+
+リスト 14-1
+public class Main {
+  public static void main(String[] args) {
+    long start = System.currentTimeMillis();
+    // ここで何らかの時間がかかる処理
+    long end = System.currentTimeMillis();
+    System.out.println("処理にかかった時間は..." + (end - start) + "ミリ秒でした")
+  }
+}
+
+形式2:Data型のインスタンス
+long型の課題を克服するために広く用いられているのがjava.util.ateクラス。
+Date型の変数であれば中身は日付情報である。Javaで日時の情報を扱う場合に最も利用される形式
+
+// 現在日時を持つDateインスタンスの生成
+Date d = new Date(); // 現在日時を持つインスタンス生成
+
+// 指定時点の日時を持つDateインスタンスの生成
+Date d = new Date(long値); //  long値の日時を持つインスタンス生成
+
+リスト 14-2
+import java.util.Date; // importしておくと便利
+public class Main {
+  public static void main(String[] args) {
+    Date now = new Date();
+    System.out.println(now);
+    System.out.println(now.getTime());
+    Date past = new Date(1316622225935L);
+    System.out.println(past);
+  }
+}
+
+// 実行結果
+// Fri Aug 12 16:05:55 GMT+09:00 2011
+// 1313132755277
+// Thu Sep 22 01:23:45 GMT+09:00 2011
+
+// java.sql．Dateと混同しない
+
+// 人間が扱いやすい2つの形式
+
+形式3:人間が読みやすいString型のインスタンス
+2011年9月22日 1時23分45秒のような文字列としての形式
+2011/9/22 1:23:45 11-09-22 01:23:45 AM
+
+形式4:人間が指定しやすい「6つのint」形式
+SYstem.currentTime Miilis()メソッドを使うか、Dateクラスをnewすれば「現在の時刻」は簡単に得られる。しかし、ある特定の日時情報(たとえば2011年9月22日1時23分45秒)を人間がキーボードやマウスなどで入力する場合には、「年・月・日・時・分・秒」を整数(int)として指定するのが一般的。
+
+
+// long値とDate型の関係
+
+// (1)Date型と6つのint値の相互変換 (2)Date型と文字列の相互変換
+
+// Calenderクラスの利用
+「課題(1) Date型と6つのint値の相互変換」の解説のためには、java.util.Calendarクラスが準備されており、構文は次のとおりです。また、サンプルをリスト14-3に示します。
+
+// 6つのint値からDateインスタンスを生成する
+Calender c = Calender.getInstance();
+c.set(年、月、日、時、分、秒); または c.set(Calendar.〜,値);
+Date d = c.getTime();
+
+// Dateインスタンスから「６つのint値」を作成する
+Calender c = Calendar.getIstance();
+c.setTime(d); // dはDate型変数
+int year = c.get(Calendar.YEAR);
+int month = c.get(Calendar.MONTH);
+int day = c.get(Calendar.DAY_OF_MONTH);
+int hour = c.get(Calendar.HOUR);
+int minute = c.get(Calendar.MINUTE);
+int second = c.get(Calendar.SECOND);
+
+リスト 14-3
+import java.util.Calendar;
+import java.util.Date;
+public class Main {
+  public static void main(String[] args) {
+    // 現在の年を表示する
+    Date now = new Date();
+    Calendar c = Calendar.getInstance();
+    c.setTime(now);
+    int y = c.get(Calendar.YEAR);
+    System.out.println("今年は" + y + "年です");
+    // 指定した日のDate型の値を得る
+    c.set(2010,8,2,1,23,45);
+    c.set(Calendar.YEAR, 2011);
+    Date past = c.getTime();
+  }
+}
+
+//  「月」の値にご用心
+//  Calendarを用いて「月」の情報を取得・設定する場合には、1~12ではなく0~11で指定することにもなっているため注意が必要です。例えば、2月を設定したい場合には、「c.set(Calendar.MONTH,1)」とします。
+
+//  SimpleDateFormatクラスの利用
+//  「課題(2)Date型と文字列型の相互変換」の解決には簡単な方法と高度な方法がある。
+//  「Sun Aug 07 16:38:59 JST 2011」のような文字列(多少、読みづらいですが)でよければ、DateインスタンスのtoString()メソッドを呼び出すだけで取得できます。
+
+//  「2011年8月7日16時」  java.text.SimpleDateFormat
+
+// DateからStringを生成する
+SimpleDateFormat f = new SimpleDateFormat(書式文字列);
+String s = format(d); // dはDate型変数
+
+// StringからDateを生成する
+SimpleDateFormat f = new SimpleDateFormat(書式文字列);
+Date d = f.parse(文字列);
+
+// 表 14-1 書式文字列として利用可能な文字（一部）
+y 年
+M 月
+d 日
+E 曜日
+a/p 午前/午後
+H 時(0~23)
+K 時(0~11)
+m 分
+s 秒
+
+リスト 14-4
+import java.text.SimpleDateFormat;
+import java.util.Date;
+public class Main {
+  public static void main(String[] args) throws Exception {
+    // 本日の日時を表示する
+    Date now = new Date();
+      SimpleDateFormat f =　new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    String s = f.format(now);
+    System.out.println(s);
+    // 指定日時の文字列を解析しDate型として得る
+    Date d = f.parse("2011/09/22 01:23:45");
+  }
+}
+
+■全てのクラスの祖先
+
+・暗黙の継承 toStringは全てのクラスで利用できる
+
+リスト 14-5
+
+public class Empty {}
+
+public class Main {
+  public static void main(String[] args) {
+    Empty e = new Empty();
+    String s = e.toString();
+    System.out.println(s);
+  }
+}
+
+// メソッドもフィールドも一切定義していないクラスのtoString()を呼び出せるのはJavaに約束が備わっているから
+
+// 暗黙の継承
+// あるクラスを定義するとき、extendsで親クラスを指定しなければ、java.lang.Objectを親クラスとして継承したとみなされる
+
+public class Empty extends Object {}
+
+
+// equals() あるインスタンスと自分自身を同じか調べる
+// toString() 自分自身の内容の文字列表現を返す
+
+// EmptyクラスtoString()利用できたのは、「暗黙の親クラスであるObjectクラスから継承していたから」だったのです
+
+// Objectクラスの存在価値
+・Javaでは「全てのクラスは絶対にjav.lang.Objectの子孫」なんですね。
+・Javaは「全ての先祖Objectクラスを作ったのか」
+・Objectクラスが必要な理由や、その存在価値を紹介
+
+// 多態性を理解できるようになる
+
+リスト 14-6
+public class Main {
+  public static void main(String[] args) {
+    Object o1 = new Empty();
+    Object o2 = new Hero();
+    Object o3 = "こんにちは";
+  }
+}
+
+リスト 14-7
+public class Main {
+  public void printAnything(Object o) {
+    // 何型でもいいから、引数を1つ受け取り画面に表示
+    System.out.println(o.toString());
+  }
+}
+
+// System.out.println()の中身
+// System.out.println()とprintAnything()のメソッドの中身はほぼ同じ。APIリファレンスで調べると、引数としてオブジェクト型を受け取るようになって着る。
+// System.out.println()は渡されたインスタンスの内容を画面に表示する役割を持っている。
+// 実現のために、渡されたオブジェクトのtoString()メソッドを呼んで文字表現を得て画面出力する。
+
+// 全てのクラスが最低限備えるべきメソッドを定義できる
+// Javaのクラスであれば最低限備えておいたほうが良い機能
+// Objectクラスでequals()やtoString()などが定められているおかげで、クラスの種類を気にすることなく常に同じ方法で内容を比較したり表示したりできる。
+
+■デフォルトの文字列表現
+
+リスト 14-8
+public class Hero {
+  String name;
+  int hp;
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Hero h = new Hero();
+    h.name = "ミナト";
+    h.hp = 100;
+    System.out.println(h.toString()); // 引数は単にhでもよい
+  }
+}
+
+
+■文字列表現を定義する
+// print(h.toString())だけで表示させる
+// toString()メソッドをオーバーライドする必要がある
+
+リスト 14-9
+public class Hero {
+  String name;
+  int hp;
+
+  public String toString() {
+    return "名前:" + this.name + "/HP:" + this.hp;
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Hero h = new Hero();
+    h.name = "ミナト";
+    h.hp = 100;
+    System.out.println(h);
+  }
+}
+
+// toString()メソッドをオーバーライドしておくことでインスタンスの内容を画面に出力できる。toString()をオーバーライドする
+
+//等値と等価のち外
+// Objectクラスで定義されているメソッドの中でも、toString()と並んで有名なのがequals()メソッド。equals()メソッドは2つのインスタンスが「同じ内容であるか」を判定する。
+
+リスト　14-10
+public class Main {
+  public static void main(String[] args) {
+    Hero h1 = new Hero();
+    h1.name = "ミナト";
+    h1.hp = 100;
+  　Hero h2 = new Hero();
+    h2.name = "ミナト";
+    h2.hp = 100;
+    if(h1.equals(h2) == true) {
+      System.out.println("同じ内容です");
+    } else {
+      SYstem.out.println("違う内容です");
+    }
+  }
+}
+
+// ==を使った判定とequalsを使った判定では、微妙に意味が異なる。同値ではあるか、等価であるか。を判定するもの
+
+// 等値と等価の判定
+
+// 等値(==)の判定
+// 指しているものが「完全に同一の存在」であること（つまり同じアドレスを指していること）
+// Hero h1 = new Hero("みなと");
+// Hero h2 = h1;
+
+// インスタンスA name:"みなと"
+
+// 等価(equals)の判定
+// 指している２つのものが「同じ内容」であること（同じアドレスを指していなくても良い）
+
+
+// 等価判定方法の指定
+// equals() 
+
+public boolean equals(Object o) {
+  if(this == o) { return true; }
+  else { return false; }
+}
+
+// 「何を持って意味的に同じものとみなすか」はクラスによって異なる、一律には決められない」
+
+// リスト 14-11
+public class Hero {
+  String name;
+  int hp;
+
+  public boolean equals(Object o) {
+    if(this == o) { return true; } // 等値なら間違いなく等価
+    if(o instanceof Hero) {
+      Hero h = (Hero) o;
+      if(this.name.equals(h.name)) { // 名前が等しければ等価
+        return true;
+      }
+    }
+    return false
+  }
+}
+
+// toString()とequals()のオーバーライド
+
+// 基本データ型をオブジェクトとして扱う
+
+// ラッパークラスとは
+
+// 表14-2 基本データ型とラッパークラスの対応
+byte   java.lang.Byte
+short  java.lang.short
+int    java.lang.integer
+long   java.lang.Long
+float  java.lang.Float
+double java.lang.Double
+char   java.lang.Character
+boolean java.lang.Boolean
+
+// 第一の役割:便利なメソッドの提供
+// 「ある基本データ型に関する、便利なメソッドを提供すること」
+
+// 表 14-3 integerクラスが持つ便利なメソッド(一部)
+// parseInt()     数字の文字列をint型に変換する
+// toHexString()  整数を16進数表現に変換する
+
+// 第二の役割:インスタンスとして扱えるようにする
+
+int i1 = 15;
+integer i2 = Integer.valueOf(i1);
+System.out.println(i2);
+
+// 基本データ型int型の変数i1の内容を、ラッパークラス型Integerの変数i2に変換しています
+
+// int型の「15」　Integer型の「15」
+// インスタンス内のフィールド value:15
+
+// 「基本データ型を利用できないAPI」がいくつか存在します
+
+// 基本データ型とラッパークラスの相互変換
+
+// リスト 14-12
+public class Main {
+  public static void main(String[] args) {
+    int i1 = l5;
+    Integer i2 = Integer.valueOf(il);
+    int i3 = i2.intValue();
+  }
+}
+
+// AutoBoxing AutoUnboxing
+
+
+// AutoBoxingとAutoUnboxing
+// ラッパークラス型と基本データ型との間で代入を行う式を記述すると、自動的にvalueOf()やvalue()による型変換が行われる
+
+リスト 14-13
+public class Main {
+  public static void main(String[] args) {
+    int i1 = 15;
+    Integer i2 = i1; // int -> integer
+    int i3 = i2;     // Integer -> int 自動変換
+  }
+}
+
+
+// 第14章のまとめ
+
+日付の扱い
+・Javaに置ける日付情報は基本的にjava.util.Date型で扱う。
+・その他、必要に応じてlong値、6つのint、String型に変換して用いる。
+・「年月日時分秒」の６つのint値からDateインスタンスを得るためにはCalendarクラスを使う。
+・Dateインスタンスの内容を任意の書式で文字列に整形したい場合は、SimpleDateFormatクラスを使う。
+
+Objectクラス
+・Javaにおいて、全てのクラスはObjectクラスの子孫である。
+・全てのインスタンスはObject型変数に格納可能である。
+・全てのクラスはObjectからtoString()やequals()を継承している。
+・自分で作成したクラスにおいては、文字列表現や等価判定方法を指定するため、
+toString()やequals()をオーバーライドする。
+
+ラッパークラス
+・基本データ型に対応したラッパークラスがjava.langパッケージに存在する
+・基本データ型とラッパークラスのデータは、valueOf()や〜value()メソッドで明示的に変換できる。
+・両者はAutoBoxing / Autounboxing機構により暗黙的にも変換される。
+
+// 練習問題
+
+// 14-1
+main()メソッドのみを持つクラスMainを定義し、以下の手順を参考にして「現在の100日後の日付」を「西暦2011年09月24日」という形式で表示するプログラムを作成してください。
+
+①現在の日時をDate型で取得します。
+②取得した日時情報をCalendarにセットします。
+③Calendarから「日」の数値を取得します。
+④取得した値に100を足した値をCalendarの「日」にセットします。
+⑤Calendarの日時情報をDate型に変換します。
+⑥SimpleDateFormatを用いて、Dateインスタンスの内容を表示します。
+
+// 14-2
+口座番号を表すString型フィールドaccountNumberと、残高を表すint型フィールドbalanceを持つ銀行口座クラスを作ってください。さらに、このクラスにメソッド宣言を追加し、次の①と②の条件を満たすように修正してください。
+
+①口座番号4649、残高1592円のAccountインスタンスを変数aに生成し、
+「System.out.println(a);」と実行すると、画面に「¥1592（口座番号=4649）」と表示されること。
+
+②口座番号が等しければ等価と判断されること。ただし、「4649」など、口座番号の先頭に半角スペースが付けられたものは、それを無視して比較すること（「 4649」口座と「4649」口座は同じものと考える。
+（java.lang.Stringクラスのtrim()メソッドを利用)
+
+14-1
+
+  import java.text.SimpleDateFormat;
+  import java.util.Calendar;
+  import java.util.Date;
+
+  public class Main {
+    public static void main(String[] args) {
+      // ①現在の日時をDate型で取得
+      Date now = new Date();
+      Calendar c = Calendar.getInstance();
+      // ②取得した日付情報をCalendarにセット
+      c.setTime(now);
+      // ③Calendarから「日」の情報を取得
+      int day = c.get(Calendar.DAY_OF_MONTH);
+      // ④取得した値に100を足してCalendarの「日」にセット
+      day += 100;
+      c.set(Calendar.DAY_OF_MONTH, day);
+      // ⑤Calendarの日付情報をDate型に変換
+      Date future = c.getTime();
+      // ⑥指定された形式で表示
+      SimpleDateFormat f =
+        new SimpleDateFormat("西暦yyyy年MM月dd日");
+      System.out.println(f.format(future));
+    }
+  }
+
+14-2
+
+public class Account {
+  String accountNumber; // 口座番号
+  int balance; // 残額
+  /* ①文字列表現のメソッド */
+  
+  public String toString() {
+    return "¥¥" + this.balance + "(口座番号:" + this.accountNumber + ")";
+  }
+
+  /* ②等価判定のメソッド */
+  public boolean equals(Object o) {
+    if(this == o) {
+      return true;
+    }
+    if(o instanceof Account) {
+      Account a =(Acount) o;
+      String an1 = this.acountNumber.trim();
+      String an2 = a.accountNumber.trim();
+      if(an1.equals(an2)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+■例外
+
+//　エラーの種類と対応策
+・不具合のないプログラムを目指す
+動くコードは書けて当たり前。不具合対策こそが腕の見せ所
+
+■3種の不具合と対処法
+①文法エラー(syntax error)>javac SyntaxError.java
+  
+  SyntaxError.java:4 ';'がありません。
+}
+
+エラー１個
+
+②実行時エラー(runtime error)
+>javac RuntimeError.java
+>java RuntimeError
+プログラムを開始します。処理を3つ実行します。
+処理1を完了。
+処理2を完了。
+
+exception in thread "main" java.lang.ArrayIndexOutOfBoundsException:17
+at RuntimeError.main(RuntimeError.java:11)
+
+③論理エラー(logic error)
+  Javaの文法に問題はなく、強制終了もしません。しかし、プログラムの実行結果が想定した内容と違っています。
+  代表例は、電卓ソフトを作ったが計算結果がおかしい、などです（図 15-3)
+  >javac LogicalError.java
+  >java LogicalError
+  プログラムを開始します。
+  3+5を計算します。
+  計算完了： 答えは35
+  プログラムを正常終了します。
+
+  開発者はこれら三種類の不具合に対して、それぞれ異なる対策を行う必要がある。
+
+  エラーと原因　文法エラー、実行時エラー、論理エラー
+
+■例外的状況
+開発者が開発時にテストをしっかり行い、コードを修正することで、本番での発生を予防できるものです。
+
+例外的状況または単に例外と言います。
+
+■パソコンのメモリが足りなくなった
+■存在スべきファイルが見つからない
+■NULLが入っている変数を利用し嘔吐した
+
+// プログラマがソースコードを作成する時点では例外的状況の発生を予防できない
+
+// 例外処理と呼ぶ
+
+■例外処理の流れ
+// 従来型例外処理の問題点
+
+/* ファイルを開く（失敗したら戻り値は定数NULL） */
+
+FILE fp = fopen("c:¥¥test.txt");
+if(fp == NULL) {
+  printf("エラーです。終了します。");
+  exit(1);　//例外処理
+}
+
+/* ファイルに文字列を書き込む */
+fputs("hello!" , fp);
+
+/* ファイルを閉じる(失敗したら戻り値は定数EOF) */
+int c = fclose(fp);
+if(fp == EOF) {
+  printf("エラーです。終了します");
+  exit(1);　// 例外処理
+}
+
+// C言語での例外処理の例
+・本来の処理　がどの行なのか分かりづらい。
+・命令を呼び出す度に１つひとつチェックしなければならない。
+・めんどうなので例外処理をサボって書かない恐れがある。
+
+
+// 例外的状況発生の検知と対応に関する全責任をプログラマに求めている
+
+・CPUは支持されたとおりにしか動かない!
+・プログラマは常に「例外的状況になっていないか」気にしながらコードを書く必要がある
+・いつ例外的状況になるかわからない
+・ファイルを開いて（もし開けなかったら...)
+・ファイルに書いて（もしディスクが満杯だったら...)
+・ファイルを閉じて（もし閉じられなかったら...)
+
+// 新しい例外処理の方法
+try{
+  FileWriter fw = new FileWriter("c:¥¥data.txt");
+  fw.write("hello!");
+  fw.close();
+} catch(IOException e) {
+  System.out.println("エラーです。終了します");
+  System.exit(1); // 例外処理
+}
+
+// Javaでは例外処理にTryとcatchの②つのブロックを使う。
+// （合わせて try-catch文と呼ぶ）
+
+//　通常実行されるのはtryブロックだけ
+
+// tryブロック内を実行中に例外的状況が発生したことをJVMが検知すると、処理は直ちにcatchブロックに移行
+
+■Javaに置ける例外処理の基本パターン
+
+try{
+  通常実行される文
+} catch()  {
+  例外発生時に実行される文
+}
+
+■JVMが例外を検知したら処理を切り替えてくれる
+・CPUは指示されたとおりにしか動かない!
+・ディスクはいつ例外的状況になるのかわからない。
+
+・例外処理を判断するのはJVMの仕事
+
+
+■例外クラスとその種類
+・例外を表すクラス
+
+// それぞれの例外的状況を表すクラス
+
+// API　アプリケーションプログラミングインターフェース
+
+// 例外の種類
+Throwable // 何らかの例外的状況
+Error // 回復見込みがない致命的な状況
+Error系例外
+・OutOfMemoryError
+・ClassFormatError
+
+Exception // 回復見込みがある状況
+Exception系例外
+・IOException
+・ConnectException
+
+RuntimeException // 回復が必須ではない状況
+・NullPointerException
+・ArrayIndexOutOfBoundsException
+
+①Error系例外
+java.lang.Errorの子孫で回復の見込みがない致命的な状況を表すクラスです。
+OutOfMemoryError(メモリ不足）やClassFormatError(クラスファイルが壊れている）
+
+②Exception系例外
+java.lang.Exceptionの子孫(RuntimeExceptionの子孫を除く）で、その発生を十分に想定して対処を考える必要がある例外的状況を表すクラスです。
+
+③RuntimeException系例外
+java.lang.RuntimeExceptionクラスの子孫で、必ずしも常に発生を想定すべきとまでは言えない例外的状況。
+
+■チェック例外
+// いざ例外が発生したときに何も対処されないということはあってはならない
+
+// Exception系の例外が発生しそうな命令を呼び出す場合を呼び出す場合、try-catch文を用いて「例外が発生したときの代替処理」を用意しておかないとコンパイルエラーになる
+
+リスト 15-1 例外処理を用意していないと...
+import java.io.*;
+public class Main {
+  public static void main(String[] args) {
+    // FileWriterのコンストラクタは、IOExceptionを発生させる
+    // 可能性があります。しかしtry-catchでは囲みません
+    // (失敗にどうするか、考えていない)
+    FileWriter fw = new FileWriter("data.txt");
+  }
+}
+
+リスト 15-2 try-catch文でException系例外の発生に備える
+import java.io.*;
+public class Main {
+  public static void main(String[] args) {
+    try {
+      FileWriter fw = new FileWriter("data.txt");  // FileWriterのコンストラクタは、IOExceptionを発生させる可能性がある
+        } catch(IOException e) {
+          System.out.println("エラーが発生しました。");　//
+        }
+  }
+}
+
+// チェック例外と呼ばれる。Exception系例外
+
+// 必ずtry-catc文を書かないと実行できないなんで、めんどうですよぉ...
+// 誰かさんみたいに例外処理を書かない人がいるから「サボれないしくみ」になっている。
+
+// 3つの例外クラスのグループとキャッチの強制
+・Error系例外 try-catch文でキャッチする必要はない
+・Exception系例外 try-catch文でキャッチしないとコンパイルエラー
+・RuntimeException系例外 try-catch文でキャッチするかは任意
+
+// 発生する例外の調べ方
+・「どのメソッドを呼び出したら、どのような例外が発生する可能性があるか」を予め知っておく必要があります。
+
+FileWriter
+  public FileWriter(String fileName)
+    throws IOException
+    ファイル名を指定してFileWriterオブジェクトを構築します。
+
+図15-10 FileWriterクラスのコンストラクタ
+
+// 引数リストの後に「throws 例外クラス名」と表記されます。
+
+■例外の発生と例外インスタンス
+// 例外インスタンスの受け渡し
+・IOExceptionが何かはわかりましたが「catch(IOException e)」のeとは？
+
+try {
+    } catch(IOException e) {
+      System.out.println("エラーです。終了します。");
+      System.exit(1);
+    }
+
+// 例外的状況の詳細情報が詰め込まれたIOExceptionインスタンスをcatch文で指定された変数 eに代入します
+
+try {
+FileWriter fw = new FileWriter("data.txt");
+fw.write("hello!");
+fw.close();
+} catch(IOException e) {
+  System.out.println("エラー:" + e.getMessage());
+  System.exit(1);
+}
+
+図 15-11 例外インスタンスの受け渡し
+
+■例外インスタンスの利用
+
+表 15-2
+String getMessage() // 例外的状況の説明文（いわゆるエラーメッセージ）を取得する
+void printStackTrace() // スタックトレースの内容を画面に出力する
+
+// スタックトレース 「JVMがプログラムのメソッドを、どのような順序で呼び出しどこで例外が発生したか」
+// 「e.printStackTrace();」
+
+java.io.IOException: data.txt(アクセスが拒否されました)
+  at java.io.FileInputStream.open(Native Method)
+  at java.io.FileInputStream.<init>(FileInputStream.java:120)
+  at java.io.FileInputStream.<init>(FileInputStream.java:79)
+  at java.io.FileReader.<init>(FileReader.<init>(FileReader.java:41)
+  at Main.main(Main.java:6)
+
+■さまざまなcatch構文
+
+// try-catch構文の基本形
+
+■ try-catchの基本構文
+try {
+  本来の処理
+} catch(例外クラス 変数名) {
+  例外が発生した場合の処理
+}
+
+■2種類以上の例外をキャッチする
+try{
+  FileWriter fw = new FileWriter("data.txt");
+  fw.write("hello!");
+  fw.close();
+} catch(IOException e) {
+  System.out.println("書き込みが失敗したよ");
+  System.exit(1);
+} catch(NullPointerException e) {
+  System.out.println("nullだよ");
+  System.exit(2);
+}
+
+■ザックリと例外をキャッチする方法
+
+リスト 15-3 ザックリと例外を補足する
+import java.io.*;
+public class Main {
+  public static void main(String[] args) {
+    try {
+      FileWriter fw = new FileWriter("data.txt");
+      fw.write("hello!");
+      fw.close();
+    } catch(Exception e) {
+      System.out.println("何らかの例外が発生しました");
+    }
+  }
+}
+
+■後片付け処理への対応
+
+リスt０ 15-4 朝香さんが作成したプログラム
+import java.io.*;
+public class Main {
+  public static void main(String[] args) {
+    FileWriter fw = null;
+    try {
+      fw = new FileWriter("data.txt");
+      fw.write("hello!");
+    } catch(IOException e) {
+      System.out.println("エラーです");
+    }
+    fw.close();　// try-catchのあとでcloseする
+  }
+}
+
+
+FileWriter fw = null;
+try {
+  fw = new FileWriter("data.txt");
+  fw.write("hello!");
+} catch(IOException e) {
+System.out.println("エラーです");
+}
+fw.close();
+
+
+■例外発生を問わず処理を実行する
+try {
+  本来の処理
+} catch(例外クラス　変数名){
+  例外が発生した場合の処理
+}finally{
+  例外が会ってもなくても必ず実行する処理
+}
+
+FileWriter fw = null;
+try{
+  fw = new FileWriter("data.txt");
+  fw.write("hello!");
+} catch(IOException e) {
+  System.out.println("エラー");
+} finally {
+  fw.close();
+}
+
+// 「後片付け処理」には必ずfinallyを使います
+
+■必ずFinallyを使うべき状況
+後片付け処理は、必ずFinallyブロックに記述する（ファイル・データベース接続・ネットワーク接続）
+
+■自動的にclose()が呼ばれるtry-catch文
+
+try (FileWriter fw = new FileWriter("data.txt");
+) { // try-catchが抜ける際に、自動的にclose()が呼び出される。finallyブロックの記述は不要
+  fw.write("hello!");
+} catch(IOException e) {
+}
+
+//　例外の伝播
+
+// mainメソッドで例外をキャッチしないと...
+・mainメソッドの中ではsub()メソッドを呼んでいる
+・sub()メソッドの中ではsubsub()メソッドを呼んでいる
+・subsub()メソッドでは、処理中に何らかの例外が発生することがある
+
+①subsub()メソッドで例外をキャッチしていなければ(try-catch文がなければ）、「subsubメソッドとしては、この例外的状況に対してお手上げ」となり、呼び出し元のsubメソッドに対応が委ねられます。
+
+②sub()メソッドでもキャッチしなければ、例外の対応はmainメソッドに委ねられます。
+
+③mainメソッドで例外をキャッチしなければ強制終了します。
+// 例外をキャッチされない限り、メソッドの呼び出し元まで処理をたらい回しにされる。例外の伝播
+
+// チェック例外の伝播とスロー宣言
+// スロー宣言を行うことで、発生するチェック例外を呼び出し元へとでんぱさせることが許可される
+
+■スロー宣言による例外伝播の許可
+アクセス就職　戻り値　メソッド名(引数リスト)
+  throws 例外クラス1,例外クラス 2 {
+  メソッドの処理内容
+}
+
+public static void subsub() throws IOException {
+  // IOExceptionが発生する可能性があるが、try-catch文がなくてもOK
+  FileWriter fw = new FileWriter("data.txt");
+}
+
+// スロー宣言を行っていればtry-cach文がなくてもコンパイルエラーになりません
+
+■スロー宣言によるチェック例外の伝播
+メソッドを定義する際、自らをキャッチしないチェック例外をthrowsで宣言することができる。
+このときメソッド内でtry-catch文によるキャッチをしなくてもコンパイルエラーにならない。
+
+// メソッド内でチェック例外が発生しても処理しませんが、私の呼び出し元が処理します
+
+// このメソッドを呼び出すと、呼び出し先で発生した例外が処理されずに自分に伝播してくる可能性がある。
+
+■スロー宣言が及ぼす影響
+影響①　呼び出される側のメソッドb()は、メソッド内部での〜 Exceptionのキャッチが義務でなくなる。
+影響②  呼び出す側のメソッドa()は、「〜Exceptionを「伝播してくる可能性があるb()」の呼び出しをtry-catch文で囲む義務が生まれる。
+
+※throws ~ Exceptionというスロー宣言を伴うメソッドb()を、メソッドa()から呼び出す場合
+
+// 例外処理方針① チェック例外を自分で処理
+【この方針の意味】
+「私は自分で例外的状況を解決します。例外が発生してもお手上げはせず。呼び出し元に迷惑をかけません」
+【この方針を採用することで課せられる義務】
+発生する可能性がある、全てのチェック例外をtry-catch文で処理する事。
+
+// 例外処理方針② チェック例外を処理せず、呼び出し元に委ねる
+【この方針の意味】
+「私は自分で例外的状況を解決できません。例外が発生したら、呼び出し元に処理を任せます」
+【この方針を採用することで課せられる義務】
+メソッド定義にスロー宣言を加え、例外の種類を表明すること
+
+// 例外をもみ消さない
+try {
+  catch(Exception e) {
+  }
+
+  // 例外を発生させる
+  ・例外的状況をJVMに報告する
+  ・例外的状況の報告（例外を投げる）
+  throw 例外インスタンス;
+  ※一般的には「throw new 例外クラス名("エラーメッセージ");」となる
+
+    「例外を投げる」または「例外を送出する」
+
+  リスト 15-5 例外インスタンスを自分で投げる
+  public class Person {
+    int age;
+    public void setAge(int age) {
+      if(age < 0) { // ここで引数をチェック
+        throw new IllegalArgumentException("年齢は正の数を指定すべきです。既定値=" + age);
+      }
+      this.age = age; // 問題ないなら、フィールドに値をセット
+    }
+  }
+
+  public class Main {
+    public static void main(String[] args) {
+      Person p = new Person();
+      p.setAge(-128);
+    }
+  }
+  
+  // 実行結果
+  Exception in thread "main" java.lang.IllegalArgumentException:年齢は正の数を指定。既定値=-128
+  at Person.setAge(Person.java:5)
+  at Main.main(Main.java:4)
+
+■オリジナル例外クラスの定義
+// 既存の例外クラスを継承してオリジナルの例外クラスを作る
+
+リスト 15-6 オリジナル例外を定義する
+public class UnsupportedMusicFileException extends Exception {
+  // エラーメッセージを受け取るコンストラクタ
+  public UnsupportedMusicFileException(String msg) {
+    super(msg);
+  }
+}
+
+// リスト 15-7 オリジナル例外を利用する
+public class Main {
+  public static void main(String[] args) {
+    try {
+      // 試験的に例外を発生させる
+      throw new UnsupportedMusicFileException
+        ("未対応のファイルです");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
+
+// 第15章のまとめ
+
+// エラー
+・「文法エラー」、「実行時エラー」、「論理エラー」の種
+・例外処理を行うことで、実行時エラーに対処できる
+
+// 例外の種類
+・APIには、様々な例外的状況を表す例外クラスが用意されている
+・例外クラスは「Error系」、「Exception系」、「RuntimeException系」に大別できる
+・例外クラスを継承してオリジナルの礼儀クラスを定義できる
+
+// 例外処理
+・try-catch文の使用すると、tryブロック内で例外が発生したときにcatchブロックに処理が移る
+・後片付けの処理は、必ず実行されるfinallyブロックに記述する
+・Exception系例外が起こる可能性がある場合は、try-catch文が必須である
+・スロー宣言を行うことで、例外の処理を呼び出し元に委ねることができる
+・throw文を使うことで、開発者自ら例外を発生させることができる
+
+// 練習問題
+問題 15-1 作成、実行、実行時エラーを発生させる
+①String型変数sを宣言し、nullを代入する
+②s.length()の内容を表示しようとする
+
+問題 15-2
+ 練習 15-1で作成したコードを修正し、try-catch文を用いて例外処理してください。その際に例外処理では次の処理を行ってください。
+①「NullPointerException例外をcatchしました」と表示する
+②「ーースタックトレース（ここから）ーー」と表示する。
+③スタックトレースを表示する。
+④「ーースタックトレース（ここまで）ーー」と表示する。
+
+練習 15-3
+Integer.parseInt()メソッドを実行し、文字列"三"の変換結果をint型変数iに代入するコードを記述してください。その際に、parseInt()メソッドがどのような例外を発生させる可能性があるかをAPIリファレンスで調べ、正しく例外処理を記述してください。
+
+練習 15-4
+起動直後にIOExceptionを送出して異常終了するようなプログラムを作成してください（ヒント：main()メソッドが「お手上げ」すれば、例外発生時にプログラムが異常終了します）
+
+
+■15.10
+練習 15-1の解答
+public class Main {
+  public static void main(STring[] args) {
+    String s = null;
+    System.out.println(s.length());
+  }
+}
+
+練習 15-2の解答
+public class Main {
+  public static void main(String[] args) {
+    try {
+      String s = null;
+      System.out.println(s.length());
+    } catch(NullPointerException e) {
+      System.out.println("NullPointerException例外をcatchしました");
+      System.out.println("ーースタックトレース（ここから）ーー");
+      e.printStackTrace();
+      System.out.println("ーースタックトレース（ここまで）ーー");
+    }
+  }
+}
+
+練習 15-3の解答
+public class Main {
+  public static void main(String[] args) {
+    try {
+      // APIリファレンスから送出例外を調べる
+      int i = Integer.parseInt("三");
+    } catch(NumberFormatException e) {
+      System.out.println("例外NumberFormatExceptionをcatchしました");
+    }
+  }
+}
+
+練習 15-4
+import java.io.IOException;
+public class Main {
+  public static void main(String[] args) throws IOException {
+    System.out.println("プログラム起動しました");
+    throw new IOException();
+  }
+}
+
+■まだまだ広がるJavaの世界
+// ファイルを読み書きする
+
+// ストリーム streamという考え方
+
+
+
+■ASTERIA WARP
+・ASTERIA Warp（アステリアワープ）
+アステリア 株式会社が開発し販売している、データ連携（EAI・ESB）用の、「ノン・プログラミング」と称するグラフィカルなプログラミングなどを特徴とするソフトウェアパッケージ。データ連携ミドルウェア。
+
+・データを連携する基盤
+アイコンのドラッグ&ドロップとプロパティの設定で作成するフローにより、データベース、ファイルシステム、各種業務システム、各種クラウドサービスと簡単に接続、連携することができるデータ連携ミドルウェア。
+
+・高速開発で構築期間を短縮できる
+
+・業務の自動化で業務効率を向上
+日々の業務を自動化し、作業コストの削減や人為的なミスの低減
+
+・再利用可能な「サブフロー」と豊富な「アダプター」で拡張性も抜群
+作成した処理フローはサブフローとして再利用できる。標準で豊富に用意されているアダプタは連携先について多くの場合、対応できます。
+
+・複雑な連携をノンプラグラミングで実現できる
+
+・容易なドキュメント管理
+
+・保守メンテナンス費用の削減
+
+・ノンプログラミングのGUI開発
+
+
+16.1 ファイルを読み書きする
+
+16.1.1 ストリーム
+ストリームという考え方。ファイルを少しずつ読んだり書いたりするための機能。
+
+// ストリームとは情報が流れてくる小川のようなもの。小川の上流にあるファイルから一文字ずつ流れてくるイメージ
+
+■ ファイルから文字を読み込む
+java.io.FileReader
+
+リスト 16-1
+import java.io.*;
+public class Main {
+  public static void main(String[] args) throws Exception {
+    String filename = "c:¥¥test.txt"; // ファイル名をセットする
+    FileReader fr = new FileReader(filename); // ファイルを開く
+    char c1 = (char) fr.read(); // 最初の一文字を読む
+    char c2 = (char) fr.read(); // 次の一文字を読む
+    fr.close(); // ファイルを閉じる
+  }
+}
+
+// 「指定されたファイルが源流にある小川
+// read()メソッドを呼ぶ度に位置一文字ずつ文字を取り出せます。read()の結果が-1の場合、ファイルを最後まで読み終わったことを意味します。読み終わったら必ずclose()してファイルを閉じておきます
+
+// FileReaderのコンストラクタやread()、close()はIOExceptionを送出する可能性があります。
+// read()、close()はIOExceptionを創出する可能性がある。リスト 16-1はサンプル。例外処理を記述していませんが、開発の現場では必ず例外処理を行ってください。
+
+// close()は必ずfinallyの中に書くように。その理由がわからない人は第15賞を読み返してほしい
+
+■ファイルへ文字を書き込む
+// 下流にあるファイルにつながっている小川
+
+■ リスト 16-2
+import java.io.*;
+public class Main {
+  public static void main(String[] args) throws Exception {
+    String filename = "c:¥¥test";
+    FileWriter fw = new FileWriter(filename);
+    fw.write('そ');
+    fw.write('れ');
+    fw.close();
+  }
+}
+
+■インターネットにアクセスする
+
+// リスト 16-3
+import java.io.InputStream
+import java.net.URL;
+public class Main {
+  public static void main(String[] args) throws Exception {
+    URL u = new URL("http://www.impressjapan.jp/");
+    InputSream is = u.openSteam();
+    int i = is.read();
+    white(i ! = -1) {
+      char c = (char) i;
+      System.out.print(c);
+      i = is.read();
+    }
+  }
+}
+
+
+■データベースを操作する
+// データベースとSQL
+
+// SQL データベース専用の言語
+
+// Javaプログラム
+
+// SELECT NAME FROM EMPLOYEES;
+// （業員表からすべての名前を返しなさい）
+
+↓
+
+// tanaka,suzuki,aiba 
+
+↓
+
+// Javaプログラム
+
+↓
+
+// INSERT INTO EMPLOYEES(NAME) VALUES('iida');
+// （従業員表に「iiba」という名前のものを追加しなさい）
+
+// Name   AGE
+// tanaka 29
+// suzuki 45
+// aiba   39
+
+// リスト 16-4
+import java.sql.*;
+public class Main {
+  public static void main(String[] args) throws Exception {
+    Class.forName("org.h2.Driver");
+    String dburl = "jdbc:h2:~/test"; // 接続先DBを指定
+
+    String sql = "INSERT INTO EMPLOYEES(name) VALUES('iida')";
+    Connection conn = DriverManager.getConnection(dburl); // DBに接続
+
+    conn.createStatement().executeUpdate(sql);
+    
+    conn.close();
+  }
+}
+
+// ウインドウアプリケーションを作る
+
+// CUIとGUI
+
+// ユーザーインターフェース
+
+// 文字ベースのユーザーインターフェイスはCUI(Character User Interface)と呼ばれる。
+
+// 「窓枠があってグラフィカルな表示とマウスを使って操作できるソフトウェア」はGUIと呼ばれる。
+
+// CUIプログラム
+
+// メインメニュー
+// 1:会員登録
+// 2:会員検索
+// 3:終了
+// 選んでください > 2
+// キーワードを入力
+
+// GUIプログラム
+// 会員ツール
+
+
+リスト 16-5
+import java.awt.FlowLayout;
+import javax.swing.*
+public class Main {
+  public static void main(String[] args) {
+    JFrame frame = new JFrame("はじめてのGUI");
+    JLabel label = new JLabel("Hello World!");
+    JButton button = new JButton("押してね");
+    frame.getContentPane().setLayout(new FlowLayout());
+    frame.getContentPane().add(label);
+    frame.getContentPane().add(button);
+    frame.setDefaultCloseOPeration(JFlame.EXIT_ON_CLOSE);
+    frame.setSize(300,100);
+    frame.setVisible(true);
+  }
+}
+
+
+// 16.5  スマートフォンのアプリを作る
+
+//Android端末用の HelloWorld
+
+リスト 16-6
+package my.packages;
+import android.app.Acctivity;
+import android.os.Bundle;
+import andoid.widget.TextView;
+public class HelloAndroid extends Activity {
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    TextView tv = new TextView(this);
+    tv.setText("Hello Android");
+    setContentView(tv);
+  }
+}
+
+// Webサーバーで動くJava
+
+// Webアプリケーションとは
+// Webアプリケーションといいます。
+
+// Javaで作るWebアプリケーション
+// サーブレット(Servlet)というクラスを開発します
+
+// リスト 16-7
+import java.io.*
+import java.util.Date;
+import javax.servlet.http.*;
+@WebServlet("/HelloServlet");
+
+public class HelloServlet extends HttpServlet {
+  protected void doGet(HttpServletRequest req,HttpServletResponse res) throws IOException {
+    Date d = new Date();
+    Writer w = res.getWriter();
+    w.write("<html><body>");
+    w.write("Today is " + d.toString());
+    w.write("</body></html>");
+  }
+}
+
+// ①http://dokojava.jp/HelloServletにwebブラウザでアクセスする
+// dokojava.jp Webサーバ
+// ②WebサーバはHelloServletを実行する
+// ③HelloServletは現在日時を取得し画面表示データ（HTML）を作る
+// ④画面表示データが返送される
+// ⑤画面に現在の日時が表示される
+
+
+
+// エラーとの上手な付き合い方
+
+// エラーを解決できるようになる3つのコツ
+
+// コツ1:エラーメッセージを逃げずに読む
+// エラーが出ると、エラーメッセージをキチンと読まずに「何が悪かったのだろう、どこが悪いのだろう？」と思いつきでソースコードを書き始める人がいます。
+
+// 何が悪いのかどこが悪いのかという情報はエラーメッセージに書いてあります。
+
+// コツ2:原因を理解した上で修正する
+
+// エラーが起きないように注意する
+
+// コツ3:エラーと試行錯誤をチャンスと考える
+// 似たようなエラーで悩んだ経験があるから。新しいエラーに直面して試行錯誤している時間こそ、自分が最も成長しているときなのです。自分は今、成長している。
+
+// コンパイルエラーの読み方
+
+>java c Main.java
+Main.java:5: 変数fは初期化されていない可能性があります。
+}
+
+エラー 1個
+
+// スタックトレースの読み方
+java Main
+Exception in java.lang.NumberFormatException:null
+at java.lang.Integer.ParseInt(Unknown Source)
+at java.lang.Integer.parseInt(Unknown Source)
+at Sub.process(Sub.java:3)
+at Main.caller(Main.java:28)
+at Main.main(Main.java:6)
+
+
+  // 呼び出し方が悪かったではないか仮定する
+java Main
+Exception in ...... java.langNumberFormatException:null
+at java.lang.Integer.ParseInt(Unknown Source) // 直接問題
+at java.lang.Integer.parseInt(Unknown Source)
+at Sub.process(Sub.java:3)
+at Main.caller(Main.java:28)
+at Main.main(Main.java:6)
