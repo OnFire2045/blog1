@@ -49,3 +49,339 @@ v_ename         VARCHAR(25);
 DB表からデータを取り出して変数に格納。%TYPE属性を利用すると便利。指定方法は
 「表名.列名%TYPE」となります。
   表名と列名さえわかれば、列と同じデータ表及び制度で変数の宣言ができる。
+  %TYPE属性を使用していれば列のデータ型や制度が変更されてもPGの修正が必要な
+  い。
+
+v_ename         employees.last_name%TYPE;
+
+%TYPEでは、変数を元にした宣言もできる。その場合、変数名%TYPEと指定する。
+
+v_sales_east    NUMBER(7);
+v_sales_west    v_sakes_east%TYPE;
+
+・初期値を代入
+初期値を代入するには、:=(代入演算子) またはDEFAULTキーワードを使用します。
+
+v_location      VARCHAR2(25) := '東京';
+または
+v_location      VARCHAR2(25) DEFAULT '東京';
+
+・NOT_NULL制約を指定
+NOT NULL制約。NULL値を入れることができなくなる。
+
+v_dept_idNNUMBER(3) NOT NULL DEFAULT 10;
+
+・定数宣言
+定数宣言では、データ型指定の前にCONSTANTキーワードを指定。
+定数は宣言のときに初期化する必要がある。初期化していないとコンパイルエラー。
+
+c_tax CONSTANT NUMBER(5,3) := 0.05
+
+
+
+// ネストされたブロックと識別子の有効範囲
+
+・ネストされたブロック
+  PL/SQLブロックまたはサブプログラムに別のブロックを記述できます。
+この入れ子になったブロックを、ネストされたブロックといいます。
+ネストできるのは実行部と例外処理部で、宣言部ではネストできません。
+  
+  ネストされたブロックは上位レベルのブロックでは1つの文と同等に扱う。
+上位レベルのブロック(外側のブロック)を親ブロックまたはメインブロック、
+下位レベルのブロック(内側のブロック)を子ブロックまたはサブブロックといいます。
+
+
+図  ネストされたブロック
+
+DECLARE
+
+
+BEGIN
+    DECLARE
+
+
+    BEGIN
+
+
+    END;
+    /
+
+
+・識別子の有効範囲
+  有効範囲とは、識別子の参照が可能なプログラムユニット(ブロック、サブプログラム
+またはパッケージ）の領域。
+  あるPL/SQLブロックで宣言された識別子は、そのブロックに対してローカル。サブブ
+  ロックに対してはグローバル。
+
+・ ローカル変数･･･関数内で定義され、その関数内のみ参照可
+・ グローバル変数･･･関数外で定義され、どの関数からでも参照可
+
+グローバル識別子がサブブロックの中で再宣言されると、両方の識別子が有効範囲内に
+あることになる。ただしサブブロックの中でグローバル識別子を参照する場合は装飾名
+が必要。可視であるのはローカル識別子のみ。従って同じ識別子名が表す2つの項目は
+区別される。一方を変更しても他方に影響がない。
+  なお、あるブロックから、同じレベルの他のブロックで宣言されている識別子への参
+照はできない。そのような識別子はブロックに対してローカルでもグローバルでもな
+い。
+
+
+実行例
+①  親ブロックでは子ブロックの識別子を参照できない。
+②  同じブロックで同じ名前の識別子は宣言できないが、異なるブロックであれば宣言
+可能
+③  グローバル識別子はサブブロックで再宣言でき、ローカルな宣言が優先される。
+④  親ブロックの識別子は子ブロックで参照できる。
+⑤  サブブロックで宣言された識別子は、別のサブブロックでは参照できない
+
+
+DECLARE
+    a CHAR;
+    b CHAR;
+BEGIN        --ここで利用可能な識別子 : a(CHAR), b    -- ①
+    DECLARE                                           -- ②
+    a NUMBER;
+    c CHAR;
+    BEGIN
+             --ここで利用可能なローカル識別子: a(NUMBER),c  --③
+             --ここで利用可能なグローバル識別子: b          --④
+             --ここで利用できない識別子: d                  --⑤
+    END;
+             --ここで利用可能な識別子: a(CHAR),b            --①
+END;
+/
+
+//  グローバル識別子はサブブロックで再宣言でき、その場合はローカル宣言が優先さ
+れ、サブブロックでは、装飾名を使用しないとグローバル識別子を参照できません。
+この場合、外側のブロックにラベル付け、装飾子として使用。
+    ラベルを付けるにはデリミタ「<<」「>>」を使用する
+
+<<outer>>
+DECLARE
+        v_sales NUMBER(10);
+BEGIN
+        DECLARE
+        v_sales NUMBER(10);
+        BEGIN
+        V_SALES := 1000000;        -- 子ブロックのv_sales
+        outer.v_sales := 2000000;  -- 親ブロックのv_sales
+        END;
+END;
+/
+
+
+■ プログラミングのガイドライン
+  PL/SQLのプログラミングをするときには、次のプログラミングのガイドラインに従っ
+  て、明確なコードを記述する。ガイドラインに従わなくてもプログラムの実行には何
+  ら問題ない。ガイドラインに従うとコードが見やすくなり、理解が用意になる。メン
+  テナンス負荷削減。
+
+  
+  ・コメント
+  適切なコメントはコードの理解に役立つ
+
+  ・コード規則
+  PL/SQLキーワードでは大文字/小文字は区別されない。表記規則を決めて使い分け
+  る。コードが見やすくなる。ガイドライン
+
+  SQL文                    大文字    SELECT、INSERT、UPDATE
+  PL/SQLキーワード         大文字    DECLARE、BEGIN、END、IF
+  データ型                 大文字    VARCHAR2、NUMBER、DATE
+  識別子とパラメータ       小文字    v_name、emp_cursor、p_emp
+  データベースの表名と列名 小文字    employees、last_name
+  
+  ・コードのインデント
+  コードを見やすくするため、コードの各レベルをインデントする。論理的な処理位置
+  を明確に
+
+  ・命名規則
+  識別子          命名規則
+  変数            v_name           v_ename
+  定数            c_name           c_tax
+  カーソル        name_cursor      emp_cursor
+  例外            e_name           e_too_many
+　テーブル表      name_table_type  dept_table_type
+  索引月表        name_table       dept_table
+  レコード型      name_record_type emp_record_type
+  SQL*Plus置換変数p_name           p_empno
+  SQL*Plusホスト変数
+  またはバインド変数  g_name       g_empno
+
+  実行例
+・ガイドラインに従ったプログラム
+
+DECLARE
+    v_empno NUMBER(4);    --従業員番号
+    v_ename VARCHAR(15);  --従業員名
+
+BEGIN
+    /* 従業員表からデータを検索し結果を表示 */
+    SELECT    employee_id_last_name
+    INTO      v_empno,v_ename
+    FROM      employees
+    WHERE     employee_id = 7839;
+
+
+    DBMS_OUTPUT.LINE(v_empno || ':' || v_ename);
+END;
+/
+
+
+■ PL/SQLコマンドリファレンス
+データ型、制御構造、カーソル、例外処理、ストアドプログラム。
+
+// 数値型：整数
+// PLS_INTEGER
+// BINARY_INTEGER
+
+変数名  PLS_INTEGER
+変数名  BINARY_INTEGER
+
+
+■ 解説
+・PLS_INTEGER
+符号付き整数を格納するために使用。符号付き整数範囲 -2~2
+
+
+・BINARY_INTEGER
+符号付き整数を格納するために使用。符号付き整数派に -2~2
+BINARY_INTEGERデータ型をベースとしたサブタイプが用意。
+次のデータ型を使用すると、データ型の定義内容がBINARY_INTEGERデータ型の使用と同
+じになる。
+・NATURAL
+・NATURALN
+・POSITIVE
+・POSITIVEN
+・SIGNTYPE
+NATURAL、POSITIVEは、符号付きではなく、生の値だけが格納できる。
+
+// PLS_INTEGERはNUMBER型よりも記憶領域が少なく。
+   BINARY_INTEGERよりお高速な演算が可能。
+   整数はPLS_INTEGER
+
+
+// PLS_INTEGER、BINARY_INTEGERの使用。
+PLS_INTEGER型の変数をカウンタとして100000回ループ。実行結果表示。
+BINARY_INTEGER型の変数でも同じ処理。実行時間を比較。PLS_INTEGERが高速。
+
+SQL> DECLARE
+  v_no  PLS_INTEGER := 0;
+  v_no2 BINARY_INTEGER := 0;
+  time1 TIMESTAMP;
+  time2 TIMESTAMP;
+BEGIN
+    -- PLS_INTEGERデータ型
+    time1 := SYSTIMESTAMP;
+    WHILE v_no <100000 LOOP
+      v_no := v_no + 1;
+    END LOOP;
+    time2 := SYSTIMESTAMP;
+    DBMS_OUTPUT.PUT_LINE('時間:'||(time2 - time1)); --①
+
+    -- BINARY_INTEGERデータ型の場合
+    time1 := SYSTIMESTAMP;
+    WHILE v_no2 < 10000 LOOP
+      v_no2 := v_no2 +1;
+    END LOOP;
+    time2 := SYSTIMESTAMP;
+    DBMS_OUTPUT.PUT_LINE('時間:'||(time2 - time1)); --②
+END;/
+
+時間: +0000000000 00:00:00.032000000                 --③
+時間: +0000000000 00:00:00.093000000
+
+Pl/SQLプロシージャが正常に完了
+
+
+■ 数値型：整数
+   NUMBER
+
+変数名 NUMBER(precision)
+parameter  説明                範囲
+precision  精度、全体の桁数。　最大38桁
+
+// 解説
+NUMBERデータ型を整数として使用するには、「NUMBER(precision)」とする。
+精度(precision)は、全体の桁数。精度の最大数は38桁。
+整数としてのNUMBERデータ型をベースとしたサブタイプが用意されている。
+次のデータ型を使用すると、「NUMBER(38)」を使用するのと同じ。
+
+・INTEGER
+・INT
+・SMALLINT
+
+実行例
+・NUMBERの使用
+精度を指定した場合、指定した桁数までの整数を代入できる(①)、
+精度を省略した場合、最大38桁の整数を代入できる(②)。
+SQL > DECLARE
+2    v_no    NUMBER(4) := 1234;    --①
+3    v_no2   NUMBER    := 1000000; --②
+4 BEGIN
+5    DBMS_OUTPUT.PUT_LINE(v_no * v_no2);
+6 END;
+7 /
+1234000000
+
+PL/SQLプロシージャが正常に完了しました。
+
+
+■ 数値型:小数点数 NUMBER
+
+変数名 NUMBER(precision,scale)
+
+parameter  説明                         範囲    
+precision  精度 全体の桁数を表す        最大38桁
+scale      位取 小数点以下の桁数を表す  -84 ~ 127
+
+解説
+  NUMBERデータ型を固定小数点数として使用するには、「NUMBER(precision,scale)」
+  とします。精度(precision)は、全体の桁数です。位取り(scale)は小数点以下の桁
+  数です。精度の最大数は38桁。位取りの範囲は-84から127です。
+  位取りに正の値を指定すると、小数点の右側で四捨五入されます。「NUMBER(7,2)」
+  と指定すると、「12345.678」は「12345.68」になります。
+  
+  位取りに負の値を指定すると、小数点の左側で四捨五入さえ、整数となります。
+ 「NUMBER(7,2)」と指定すると、「12345.678」は「12300」になります。
+
+  NUMBERデータ型を不動小点数と使用するには「NUMBER」とする。領域22バイト。
+  次のデータ型を使用すると「NUMBER」を使用するのと同じ。
+
+  ・DEC
+  ・DECIMAL
+  ・NUMERIC
+  ・DOUBLE PRECISION
+  ・FLOAT
+  ・REAL
+
+  DEC、DECIMAL、NUMERICは固定小数点数。DOUBLE PRECISION、FLOAT、REALは浮動小数
+  点数。REALは18桁。
+
+
+  実行例
+・NUMBER使用
+
+
+DECLARE
+  v_no  NUMBER(7,2)  := 1234.567; --①
+  v_no2 NUMBER(7,-2) := 123;      --②
+BEGIN
+  DBMS_OUTPUT.PUT_LINE(v_no);
+  DBMS_OUTPUT.PUT_LINE(v_no2);
+END;
+/
+1234.57                           --③
+1200                              --④
+
+PL/SQLプロシージャが正常に完了しました
+
+・DOUBLE PRECISION使用
+DECLARE
+  v_no1 DOUBLE PRECISION := 0.123;
+  v_no2 DOUBLE PRECISION := 0.5678;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE(v_no1 + v_no2);
+END;
+/
+.6908
+
+// PL/SQLプロシージャが正常に完了しました。
