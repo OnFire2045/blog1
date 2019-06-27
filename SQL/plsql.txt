@@ -1,0 +1,51 @@
+PL/SQL
+
+PL/SQLの変数宣言
+
+identifier:[CONSTANT]datatype[NOT NULL]
+            [{:= | DEFAULT} expression};
+            
+identifier table.column%TYPE;
+
+Parameter     説明
+datatype      変数のデータ型(スカラー、複合またはLOBデータ型)
+expression    任意のPL/SQL式
+identifier    変数の名前
+table.column  データベースの表名.列名
+
+
+Option    説明
+CONSTANT  定数として宣言
+NOT NULL 値を含む必要があるという変数の制約
+DEFAULT  初期値を指定(:=と同じ)
+
+%TYPE 変数またはデータベースの列のデータ型を与える
+
+
+・変数
+任意のデータ型の変数を定義
+
+・%TYPE属性
+%TYPE属性を使って、変数または任意の表の列と同じデータ型の変数を宣言できる。
+
+・DEFAULT
+DEFAULTキーアードを使って、初期値を指定。DEFAULTキーワードを指定しない場合、変
+数はNULL値で初期化。
+
+・定数
+CONSTANTキーワードを指定すると、その値は定数として扱われる。定数の値は変更不
+可。
+
+
+実行例
+
+・変数宣言
+:~またはDEFAULTを使わない場合変数はデフォルトでNULL
+
+v_ename         VARCHAR(25);
+
+/
+・%TYPE属性の利用
+DB表からデータを取り出して変数に格納。%TYPE属性を利用すると便利。指定方法は
+「表名.列名%TYPE」となります。
+  表名と列名さえわかれば、列と同じデータ表及び制度で変数の宣言ができる。
